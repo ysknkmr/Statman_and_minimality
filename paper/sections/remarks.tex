@@ -5,10 +5,10 @@ This section collects supplementary results. They are not needed for
 the main line of the paper.
 
 \subsection{How far can the base logic be weakened?}\label{sec:weak}
-Theorem~\ref{thm:main} needs only $\gamma\to\gamma\in L$, consistency, and
-$\St(\alpha)\in L$. In the implicational case, the last condition is
-guaranteed by $\mathbf{BCI}$ (Lemma~\ref{lem:sound}). Neither $B$ nor $C$
-can be dropped. We write $\mathbf{XY}\dots$ for the implicational logic
+Theorem~\ref{thm:main} needs only $I\in L$ and $\St(\alpha)\in L$. In the
+implicational case, the last condition is guaranteed by $\mathbf{BCI}$
+(Lemma~\ref{lem:sound}). We show that none of $I$, $B$, $C$ can be
+dropped. We write $\mathbf{XY}\dots$ for the implicational logic
 axiomatized by the axiom schemes $X,Y,\dots$ among
 \[
 B=(b\to c)\to(a\to b)\to a\to c,\quad
@@ -16,6 +16,70 @@ B'=(a\to b)\to(b\to c)\to a\to c,\quad
 C=(a\to b\to c)\to b\to a\to c,
 \]
 $K=a\to b\to a$ and $I=a\to a$, with modus ponens and substitution.
+
+\paragraph{The axiom $I$ cannot be dropped.}
+The proof uses $I$ only to discharge the premises $\gamma\to\gamma$ produced
+by the decoding (Lemma~\ref{lem:key}). The next proposition shows that this
+use is essential, already over $\mathbf{BC}$.
+
+\begin{proposition}\label{prop:needI}
+Let $M=(\{0,1,2\},\to,\{0\})$ with
+\[
+\begin{array}{c|ccc}
+\to&0&1&2\\\hline
+0&0&1&1\\
+1&0&0&0\\
+2&0&1&1
+\end{array}
+\]
+and let $L_M$ be the set of formulas that take the value $0$ under every
+valuation in $M$. Then $L_M$ is a logic containing $\mathbf{BC}$ but not $I$.
+Let $\alpha=(p\to q)\to(p\to q)$. Then:
+\begin{enumerate}
+\item[(a)] $\alpha$ is minimal in $L_M$;
+\item[(b)] $\St(\alpha)=(x_1\to(p\to q))\to((p\to q)\to x_2)\to((x_1\to x_2)\to
+  x_0)\to x_0\in L_M$;
+\item[(c)] $\St(\alpha)$ is not minimal in $L_M$: its one-step
+  generalization
+  \[
+  \alpha'=(x_1\to z)\to(z\to x_2)\to((x_1\to x_2)\to x_0)\to x_0 ,
+  \]
+  obtained by replacing both bodies $p\to q$ by $z$, belongs to $L_M$.
+\end{enumerate}
+So Theorem~\ref{thm:main} fails for logics not containing $I$, even when
+$\St(\alpha)\in L$.
+\end{proposition}
+\begin{proof}
+$L_M$ is closed under substitution. It is closed under modus ponens because
+$0\to y=0$ forces $y=0$. A finite check shows that $B$ and $C$ take only the
+value $0$, while $2\to2=1$, so $I\notin L_M$.
+
+(a) We have $\alpha\in L_M$: the values of implications lie in $\{0,1\}$,
+and $0\to0=1\to1=0$. The one-step generalizations of $\alpha$ are
+\[
+(z\to q)\to(p\to q),\quad (p\to z)\to(p\to q),\quad (p\to q)\to(z\to q),\quad
+(p\to q)\to(p\to z),
+\]
+\[
+z\to(p\to q),\quad (p\to q)\to z,\quad z\to z,\quad z .
+\]
+Each of them takes a value $\ne0$ under some valuation in $M$. For $z\to z$
+take $z=2$, and for $z$ take $z=1$. For each of the remaining six, a
+refuting valuation is found by a finite check.
+
+(b) and (c) are finite checks as well. In fact $\alpha'$ is the type of the
+linear term $\lambda fgh.\,h(\lambda y.\,g(fy))$, and $\St(\alpha)$ is its
+instance under $z\mapsto p\to q$. Both are theorems of $\mathbf{BC}$.
+\end{proof}
+
+Decoding $\alpha'$ as in Lemma~\ref{lem:key} gives $\beta=z\to z$. The
+premise that would have to be discharged is exactly $z\to z$, which is not
+available in $L_M$. Validity of $\alpha$ provides $X\to X$ only for formulas
+$X$ whose value is that of an implication.
+\plot{Checks: \texttt{tools/bc\_alpha\_matrix.py} (matrix $M$, found with z3
+and verified by exhaustive evaluation) and \texttt{tools/bc\_check.py}
+(condensed detachment: $\St(\alpha),\alpha'\in\mathbf{BC}$).}
+
 
 \begin{proposition}\label{prop:weak}
 \begin{enumerate}
@@ -76,8 +140,8 @@ of links fails already for $\St(I)$, which has a single link.}
 
 \subsection{Additive connectives over $\mathbf{FL_e}$}\label{sec:additive}
 \begin{remark}[Additive connectives over $\mathbf{FL_e}$]\label{rem:wrapper}
-The proof of Theorem~\ref{thm:main} uses only (C1), (C2),
-$\gamma\to\gamma\in L$ and consistency. Polarity is used only in
+The proof of Theorem~\ref{thm:main} uses only (C1)--(C3), with
+$I\in L$. Polarity is used only in
 Lemma~\ref{lem:sound}, which is where $\mathbf{FL_e}$ with $\wedge,\vee$
 fails. Two facts, both checked with a cut-free prover for $\mathbf{FL_e}$
 (\texttt{tools/fle\_check.py}), show that the problem cannot be removed by

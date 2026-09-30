@@ -2,8 +2,8 @@
 # The polarized Statman translation preserves CL-minimality
 
 Main results:
-* `statman_minimalIn`: for every logic `Th` (`Logic Th`: closed under
-  substitution and modus ponens, proves `γ → γ`, consistent), if `A` is
+* `statman_minimalIn`: for every `Th` with `PreLogic Th` (closed under
+  substitution and modus ponens, proves `γ → γ`), if `A` is
   minimal in `Th` and `statman A N ∈ Th`, then `statman A N` is minimal in
   `Th`;
 * `statman_minimal`: the classical case (`Th = Valid`);
@@ -309,7 +309,7 @@ theorem repl_update (σ : Nat → Form) (q z : Nat) :
 
 /-- To prove `α` minimal it suffices to refute every proper partial
 abstraction by a fresh variable `z ≥ bound`. -/
-theorem reduction {Th : Form → Prop} (hTh : Logic Th) {α : Form} (bound : Nat)
+theorem reduction {Th : Form → Prop} (hTh : PreLogic Th) {α : Form} (bound : Nat)
     (hα : Th α)
     (h : ∀ D z α', bound ≤ z → ¬ Occ z α → Repl D z α α' → Occ z α' →
       (∀ p, D = var p → Occ p α') → ¬ Th α') :
@@ -1013,11 +1013,11 @@ theorem Pw.refl {D : Form} {z : Nat} : ∀ l : List Form, Pw (Repl D z) l l
   | _ :: l => .cons (.refl _) (Pw.refl l)
 
 /-- **Main theorem.** For every logic `Th` (closed under substitution and
-modus ponens, proving `γ → γ`, consistent), the polarized Statman
+modus ponens, proving `γ → γ`; consistency is not needed), the polarized Statman
 translation preserves minimality in `Th`, provided `statman A N ∈ Th`.
 Here `N` bounds the variables of `A`, and the fresh variables are
 `N, N+1, …`. -/
-theorem statman_minimalIn {Th : Form → Prop} (hTh : Logic Th) {A : Form} {N : Nat}
+theorem statman_minimalIn {Th : Form → Prop} (hTh : PreLogic Th) {A : Form} {N : Nat}
     (hN : ∀ q, Occ q A → q < N) (hA : MinimalIn Th A) (hS : Th (statman A N)) :
     MinimalIn Th (statman A N) := by
   apply reduction hTh (N + A.arrows) hS
@@ -1029,7 +1029,7 @@ theorem statman_minimalIn {Th : Form → Prop} (hTh : Logic Th) {A : Form} {N : 
     have hζL : IsLink D → Th ζ := fun h => by simp only [ζ, h, ite_true]; exact hTh.refl _
     have hζ : ¬ IsLink D → ζ = var z := fun h => by simp [ζ, h]
     have hloc : ∀ {q}, Occ q (chain Ls' r') → OccL q Ls' r' := fun h => occ_chain.1 h
-    obtain ⟨B, θ, G⟩ := decode hTh.toPreLogic hζL hζ A true N Ls' r' hN (Nat.le_refl _) hzb hL hr
+    obtain ⟨B, θ, G⟩ := decode hTh hζL hζ A true N Ls' r' hN (Nat.le_refl _) hzb hL hr
       (fun x hx _ _ => hloc (hp x hx))
     have hB : Th B := by
       have := hTh.subst hV θ
@@ -1049,7 +1049,7 @@ theorem statman_minimalIn {Th : Form → Prop} (hTh : Logic Th) {A : Form} {N : 
     have hLs : Ls₁' = Ls₁ := h1.eq_self fun L hL L' hR =>
       hR.eq_of_leaves (by rw [hleaf L (by rw [e]; simp [hL])]; exact hDl)
     subst hLs
-    obtain ⟨B, θ, G⟩ := decode (D := var z) (N := N) (ζ := var z) hTh.toPreLogic
+    obtain ⟨B, θ, G⟩ := decode (D := var z) (N := N) (ζ := var z) hTh
       (fun h => absurd h (not_isLink_var z)) (fun _ => rfl) A true N _ _ hN (Nat.le_refl _) hzb
       (Pw.refl _) (.refl _) (fun x hx _ _ => by cases hx; omega)
     let θ' : Nat → Form := fun q => if q = z then var z else θ q
@@ -1067,7 +1067,9 @@ theorem statman_minimalIn {Th : Form → Prop} (hTh : Logic Th) {A : Form} {N : 
       let ⟨L0, hL0, e'⟩ := List.mem_map.1 hL
       e' ▸ hθ' L0 (by rw [e]; simp [hL0])
     simp only [subst, θ', ite_true] at hz
-    exact hTh.cons z hz
+    -- `z` is a one-step generalization of the compound formula `A`
+    exact strict hA (Repl.hit : Repl A z A (var z)) hzA rfl
+      (fun p hp => absurd e (by subst hp; simp [tr])) hz
 
 /-- Classical validity is a logic in the above sense. -/
 theorem logic_valid : Logic Valid where
@@ -1080,7 +1082,7 @@ theorem logic_valid : Logic Valid where
 preserves minimality in classical logic. -/
 theorem statman_minimal {A : Form} {N : Nat} (hN : ∀ q, Occ q A → q < N)
     (hA : Minimal A) : Minimal (statman A N) :=
-  statman_minimalIn logic_valid hN hA (statman_valid hA.1 N)
+  statman_minimalIn logic_valid.toPreLogic hN hA (statman_valid hA.1 N)
 
 end Main
 
@@ -1237,12 +1239,12 @@ theorem BCIExt.statman_iff {A : Form} {N : Nat} (hN : ∀ q, Occ q A → q < N) 
     Th A ↔ Th (statman A N) :=
   ⟨fun h => hTh.mp (hTh.statman_imp A N) h, hTh.toPreLogic.of_statman hN⟩
 
-/-- **Main theorem over `BCI`.** For every consistent implicational logic
+/-- **Main theorem over `BCI`.** For every implicational logic
 `Th ⊇ BCI` (e.g. `BCI`, `BCK`, `IL`, `LC`, `CL`), the translation preserves
 minimality in `Th`. -/
-theorem BCIExt.statman_minimal (hc : ∀ p, ¬ Th (var p)) {A : Form} {N : Nat}
+theorem BCIExt.statman_minimal {A : Form} {N : Nat}
     (hN : ∀ q, Occ q A → q < N) (hA : MinimalIn Th A) : MinimalIn Th (statman A N) :=
-  statman_minimalIn { hTh.toPreLogic with cons := hc } hN hA
+  statman_minimalIn hTh.toPreLogic hN hA
     ((hTh.statman_iff hN).1 hA.1)
 
 end BCI

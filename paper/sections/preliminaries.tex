@@ -33,11 +33,13 @@ $\beta\sub\alpha$ but not $\alpha\sub\beta$. A formula $\alpha$ is
 $\beta\ssub\alpha$. The \emph{order} of an implicational formula is given
 by $\Ord(p)=1$ and $\Ord(\alpha\to\beta)=\max\{\Ord(\alpha)+1,\Ord(\beta)\}$.
 
-Every logic $L$ satisfies:
+Every logic $L$ satisfies (C1) and (C2), and (C3) holds whenever $L$ contains $I$:
 \begin{enumerate}
 \item[(C1)] if $\gamma\in L$, then $\sigma\gamma\in L$ for every substitution $\sigma$;
 \item[(C2)] if $\gamma_1\to\dots\to\gamma_k\to\beta\in L$ and
   $\gamma_1,\dots,\gamma_k\in L$, then $\beta\in L$.
+\item[(C3)] if $L$ contains the identity axiom $I=p\to p$, then
+  $\gamma\to\gamma\in L$ for every formula $\gamma$, by (C1).
 \end{enumerate}
 
 \paragraph{Occurrences.}

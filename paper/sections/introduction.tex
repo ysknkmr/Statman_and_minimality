@@ -29,14 +29,16 @@ $\alpha$, $\St(\alpha)$ has order at most $4$ and is computed in linear
 time.
 
 \begin{theorem}[Main Theorem]\label{thm:main}
-Let $L$ be a consistent logic that proves $\gamma\to\gamma$ for every
-formula $\gamma$. If $\alpha$ is minimal in $L$ and $\St(\alpha)\in L$, then
+Let $L$ be a logic containing the identity axiom
+$I=p\to p$. If $\alpha$ is minimal in $L$ and $\St(\alpha)\in L$, then
 $\St(\alpha)$ is minimal in $L$.
 \end{theorem}
 
 The hypothesis $\St(\alpha)\in L$ holds for every $\alpha\in L$ as soon as
 $L$ contains linear implicational logic $\mathbf{BCI}$
-(Corollary~\ref{cor:many-logics} below).
+(Corollary~\ref{cor:many-logics} below). The axiom $I$ cannot be dropped: there
+is a logic containing $\mathbf{BC}$, but not $I$, in which the conclusion fails
+(Proposition~\ref{prop:needI}).
 
 %----------------------------------------------------------------------
 \subsection{Why the theorem holds}
@@ -52,7 +54,7 @@ back to $\alpha$. The proof has two steps.
 \item \emph{Every one-step generalization of $\St(\alpha)$ decodes to one of
   $\alpha$} (Lemma~\ref{lem:key}). Let $\alpha'$ be such a generalization.
   We give a substitution $\theta$ that maps each (possibly damaged)
-  definition in $\alpha'$ to a formula of the form $\gamma\to\gamma$, and
+  definition in $\alpha'$ to an instance $\gamma\to\gamma$ of $I$, and
   maps the conclusion to a one-step generalization $\beta$ of $\alpha$:
   \[
   \theta\alpha'=(\gamma_1\to\gamma_1)\to\dots\to(\gamma_k\to\gamma_k)\to\beta .
@@ -60,8 +62,8 @@ back to $\alpha$. The proof has two steps.
   If $\alpha'\in L$, then $\beta\in L$ by modus ponens. This is impossible,
   because $\alpha$ is minimal.
 \end{enumerate}
-Only closure under substitution and modus ponens, the formulas
-$\gamma\to\gamma$ and consistency are used. So the argument works for any
+Only closure under substitution and modus ponens and the axiom $I$ are
+used. So the argument works for any
 logic. Polarity is needed only to guarantee $\St(\alpha)\in L$. For Peirce's
 law, a generalization of $\St$ that separates the two occurrences of $w$ is
 decoded in Example~\ref{ex:decode}.
@@ -80,8 +82,8 @@ Suppose that one of the following holds:
   weakening), in a language with $\to$ and some of
   $\cdot,\wedge,\vee,0,1,\bot,\top$ (e.g.\ $\IL$ in the full language).
 \end{enumerate}
-Then $L+\alpha=L+\St(\alpha)$ for every $\alpha$. If moreover $L$ is
-consistent and $\alpha$ is minimal in $L$, then $\St(\alpha)$ is minimal in
+Then $L+\alpha=L+\St(\alpha)$ for every $\alpha$. If moreover $\alpha$ is
+minimal in $L$, then $\St(\alpha)$ is minimal in
 $L$.
 \end{corollary}
 
@@ -113,8 +115,8 @@ consequences.
   attention to order $4$.
 \end{itemize}
 
-The base logic $\mathbf{BCI}$ cannot be weakened by dropping $B$ or $C$
-(Proposition~\ref{prop:weak}). The implicational case of the main theorem
+The base logic $\mathbf{BCI}$ cannot be weakened by dropping $B$, $C$ or $I$
+(Propositions~\ref{prop:needI} and~\ref{prop:weak}). The implicational case of the main theorem
 and Corollary~\ref{cor:many-logics}(i) are formalized in Lean~4
 (Section~\ref{sec:lean}).
 
