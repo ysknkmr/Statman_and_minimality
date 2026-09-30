@@ -1,0 +1,5 @@
+name = "statman_minimality"
+defaultTargets = ["StatmanMinimality"]
+
+[[lean_lib]]
+name = "StatmanMinimality"

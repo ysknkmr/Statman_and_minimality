@@ -1,0 +1,260 @@
+%======================================================================
+\section{Proof of the Main Theorem}\label{sec:proof}
+
+We follow the two steps described in the introduction.
+Section~\ref{sec:criterion} proves the criterion (step 1).
+Section~\ref{sec:decoding} proves the decoding lemma (step 2) and
+Theorem~\ref{thm:main}.
+
+\subsection{A criterion for minimality}\label{sec:criterion}
+
+\begin{definition}\label{def:onestep}
+Let $\delta$ be a formula, let $Q$ be a nonempty set of occurrences of
+$\delta$ in $\alpha$ (that is, $\alpha_u=\delta$ for $u\in Q$), and let $z$
+be a variable not occurring in $\alpha$. If $\delta$ is a variable, assume
+moreover that some occurrence of $\delta$ in $\alpha$ is not in $Q$. Then
+$\alpha[Q:=z]$ is called a \emph{one-step generalization} of $\alpha$.
+\end{definition}
+
+\begin{example}
+For $\alpha=(a\to b)\to(a\to b)$, both $z\to(a\to b)$ (with $\delta=a\to b$)
+and $(z\to b)\to(a\to b)$ (with $\delta=a$) are one-step generalizations of
+$\alpha$. $(z\to b)\to(z\to b)$ is not one, because all occurrences of $a$
+are replaced.
+\end{example}
+
+\begin{lemma}\label{lem:strict}
+Every one-step generalization $\beta=\alpha[Q:=z]$ of $\alpha$ satisfies
+$\beta\ssub\alpha$.
+\end{lemma}
+\begin{proof}
+$\beta\sub\alpha$, because substituting $\delta$ for $z$ in $\beta$ gives
+$\alpha$ ($z$ does not occur in $\alpha$). Suppose, for a contradiction, that
+$\tau\alpha=\beta$ for some $\tau$. Call connectives and constants
+\emph{symbols}. A substitution never decreases the number of occurrences of
+symbols.
+
+If $\delta$ is not a variable, it contains a symbol, so $\beta$ has fewer
+symbols than $\alpha$. This is a contradiction.
+
+If $\delta$ is a variable $p$, then $\alpha$ and $\beta$ have the same number
+of symbols, so $\tau$ maps each variable of $\alpha$ to a variable. Then
+$\tau\alpha$ has the same syntax tree as $\alpha$, with the variable
+$\tau(p)$ at every leaf where $\alpha$ has $p$. But at these leaves $\beta$
+has $z$ (at $u\in Q$) and $p$ (at the occurrence outside $Q$). Hence
+$\tau(p)=z$ and $\tau(p)=p$, a contradiction.
+\end{proof}
+
+\begin{lemma}\label{lem:criterion}
+Let $L$ be a logic and $\alpha\in L$. If no one-step generalization of
+$\alpha$ is in $L$, then $\alpha$ is minimal in $L$.
+\end{lemma}
+\begin{proof}
+Let $\gamma\in L$ and $\sigma\gamma=\alpha$. We show $\alpha\sub\gamma$.
+
+Suppose first that $\sigma$ maps the variables of $\gamma$ injectively to
+variables. Then there is a substitution $\tau$ with $\tau(\sigma(q))=q$ for
+every variable $q$ of $\gamma$, and $\tau\alpha=\tau\sigma\gamma=\gamma$.
+
+Otherwise, there is a variable $q$ of $\gamma$ such that either (i)
+$\sigma(q)$ is not a variable, or (ii) $\sigma(q)=\sigma(q')$ is a variable
+for some variable $q'\ne q$ of $\gamma$. Let $z$ be a variable not occurring
+in $\alpha$, and let $\sigma'$ agree with $\sigma$ except that
+$\sigma'(q)=z$. Every occurrence of $q$ in $\gamma$ yields an occurrence of
+$\delta:=\sigma(q)$ in $\alpha=\sigma\gamma$. Let $Q$ be the set of these
+occurrences; $Q\ne\emptyset$. Then $\sigma'\gamma=\alpha[Q:=z]$. In case (ii),
+the occurrences of $q'$ in $\gamma$ yield occurrences of the variable
+$\delta$ that are not in $Q$. So $\sigma'\gamma$ is a one-step generalization
+of $\alpha$, and $\sigma'\gamma\in L$ by (C1). This contradicts the
+hypothesis.
+\end{proof}
+
+\begin{corollary}\label{cor:criterion}
+Let $L$ be a logic. A formula $\alpha\in L$ is minimal in $L$ if and only if
+no one-step generalization of $\alpha$ is in $L$.
+\end{corollary}
+\begin{proof}
+``If'' is Lemma~\ref{lem:criterion}. ``Only if'' follows from
+Lemma~\ref{lem:strict}.
+\end{proof}
+
+
+\subsection{Decoding one-step generalizations}\label{sec:decoding}
+
+The next lemma lists the facts about the shape of $\St(\alpha)$ used in the
+proof. All of them are immediate from the definition.
+
+\begin{lemma}\label{lem:shape}
+\begin{enumerate}
+\item[(a)] For each compound occurrence $u$, $x_u$ occurs in $\St(\alpha)$
+  exactly twice: once in $E_u$ (its \emph{lower} occurrence), and once as
+  $r_u$ (its \emph{upper} occurrence). The upper occurrence lies inside
+  $b_v\subseteq E_v$ for the parent $v$ of $u$, or is the last formula
+  $r_\varepsilon$ when $u=\varepsilon$.
+\item[(b)] For each atom $c$ occurring in $\alpha$, the occurrences of $c$ in
+  $\St(\alpha)$ correspond bijectively to the leaves $u$ of $\alpha$ with
+  $\alpha_u=c$: the leaf $u$ corresponds to the occurrence of $r_u=c$ in
+  $b_v$ for the parent $v$ of $u$ (or to the last formula when $\alpha=c$).
+\item[(c)] Every compound subformula occurrence in $\St(\alpha)$ is of
+  exactly one of the following kinds: a body $b_u$ inside $E_u$ (both
+  immediate subformulas are atoms); a link $E_u$ (exactly one immediate
+  subformula is an atom, the other is a body); a \emph{tail}
+  $T_i=E_{u_i}\to\dots\to E_{u_m}\to r_\varepsilon$ with $1\le i\le m$ (its
+  left immediate subformula is a link). In particular, a tail is not a
+  subformula of a link.
+\item[(d)] If $b_u=b_v$ as formulas, then $\alpha_u=\alpha_v$. If $E_u=E_v$
+  as formulas, then $u=v$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+(a)--(c) follow by inspecting Definition~\ref{def:S}. For the last claim of
+(c): the proper subformulas of a link are its body and atoms, and none of
+them is a tail. For (d), note that $r_w$ determines $\alpha_w$: if $r_w$ is
+an atom of $\alpha$, then $\alpha_w=r_w$; if $r_w=x_{w'}$, then $w=w'$. So
+$b_u=b_v$ gives the same main connective, $\alpha_{u0}=\alpha_{v0}$ and
+$\alpha_{u1}=\alpha_{v1}$, hence $\alpha_u=\alpha_v$. A positive link has the
+form (body)$\to$(variable), and a negative one (variable)$\to$(body). So
+$E_u=E_v$ forces equal polarity and $x_u=x_v$, hence $u=v$.
+\end{proof}
+
+\paragraph{Idea of the proof.}
+By Corollary~\ref{cor:criterion}, we must show that no one-step
+generalization $\alpha'$ of $\St(\alpha)$ is in $L$. For each $\alpha'$ we
+find a substitution $\theta$ that turns every premise of $\alpha'$ into a
+formula of the form $\gamma\to\gamma$, and the conclusion into a one-step
+generalization $\beta$ of $\alpha$. By (C1) and (C2), $\alpha'\in L$ would
+give $\beta\in L$, which contradicts the minimality of $\alpha$ by
+Corollary~\ref{cor:criterion}. Lemma~\ref{lem:decode} is the special case
+where nothing is replaced. The next lemma provides the substitution in
+general.
+
+\begin{lemma}[Key lemma]\label{lem:key}
+Let $Q$ be a nonempty set of compound occurrences of $\alpha$ with
+$\alpha_v=\delta_0$ for all $v\in Q$, and let $z$ be a variable occurring
+neither in $\alpha$ nor among the extension variables. Put
+$\beta=\alpha[Q:=z]$; it is a one-step generalization of $\alpha$. Call an
+occurrence $u$ \emph{hidden} if it is strictly below some $v\in Q$. For each
+occurrence $u$ that is not hidden, $\beta$ has an occurrence at $u$; write
+$\beta_u$ for its subformula ($\beta_u=z$ if $u\in Q$). Define $\theta$ by
+\[
+\theta(x_u)=\begin{cases}\alpha_u,& u\text{ hidden},\\ \beta_u,& u \text{ not hidden},\end{cases}
+\]
+and let $\theta$ fix the variables of $\alpha$. Then:
+\begin{enumerate}
+\item[(a)] $\theta(r_u)=\alpha_u$ if $u$ is hidden, and $\theta(r_u)=\beta_u$
+  otherwise;
+\item[(b)] for every compound occurrence $u\notin Q$, $\theta(E_u)$ has
+  the form $\gamma\to\gamma$ (namely $\gamma=\theta(x_u)$);
+\item[(c)] for every $u\in Q$, $\theta(b_u)=\delta_0$ and $\theta(x_u)=z$;
+\item[(d)] $\theta(r_\varepsilon)=\beta$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+(a) For compound occurrences, this is the definition. A leaf $u$ is not in
+$Q$, so $\beta_u=\alpha_u$ when $u$ is not hidden, and
+$\theta(r_u)=\alpha_u$.
+
+(b) Let $\circ$ be the main connective of $\alpha_u$. If $u$ is hidden, so
+are $u0$ and $u1$. By (a),
+$\theta(b_u)=\alpha_{u0}\circ\alpha_{u1}=\alpha_u=\theta(x_u)$. If $u$ is
+not hidden and $u\notin Q$, then $u0$ and $u1$ are not hidden. Since $\beta$
+is not modified at $u$,
+$\theta(b_u)=\beta_{u0}\circ\beta_{u1}=\beta_u=\theta(x_u)$. In both cases
+$\theta(E_u)$ is $\gamma\to\gamma$ with $\gamma=\theta(x_u)$, whatever the
+polarity of $u$.
+
+(c) If $u\in Q$, then $u0$ and $u1$ are hidden, so
+$\theta(b_u)=\alpha_{u0}\circ\alpha_{u1}=\alpha_u=\delta_0$. Also
+$\theta(x_u)=\beta_u=z$.
+
+(d) $\varepsilon$ is not hidden and $\beta_\varepsilon=\beta$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+Let $\alpha'=\St(\alpha)[P:=z]$ be a one-step generalization of
+$\St(\alpha)$, where $P$ is a set of occurrences of a formula $\delta$.
+Assume $\alpha'\in L$; we derive a contradiction. By
+Lemma~\ref{lem:shape}(c), $\delta$ falls under one of the following six
+cases.
+
+\smallskip\noindent\emph{Case 1: $\delta$ is a tail $T_i$.}
+If $i=1$, then $\alpha'=z$ is in $L$, contradicting consistency. Let
+$i\ge2$. By Lemma~\ref{lem:shape}(c), $T_i$ does not occur inside
+$E_{u_1},\dots,E_{u_{i-1}}$. Thus
+$\alpha'=E_{u_1}\to\dots\to E_{u_{i-1}}\to z$. By
+Lemma~\ref{lem:decode}, $\theta_\alpha\alpha'$ consists of premises of the
+form $\gamma\to\gamma$ followed by $z$. By (C1) and (C2), $z\in L$, a
+contradiction.
+
+\smallskip\noindent\emph{Case 2: $\delta$ is a link $E_u$.}
+By Lemma~\ref{lem:shape}(c),(d), every occurrence of the formula $E_u$ is
+the link occurrence $E_u$ itself. So $\alpha'$ is $\St(\alpha)$ with the
+premise $E_u$ replaced by $z$. Take $Q=\{u\}$ and $\theta$ as in
+Lemma~\ref{lem:key}, and set $\theta(z)=z\to z$. Then $\theta\alpha'$ has
+premises $\theta(E_v)$ ($v\ne u$) of the form $\gamma\to\gamma$ by (b),
+the premise $z\to z$, and conclusion $\beta$ by (d). By (C1) and (C2),
+$\beta\in L$.
+
+\smallskip\noindent\emph{Case 3: $\delta$ is a body $b_u$.}
+By Lemma~\ref{lem:shape}(c), each occurrence of $\delta$ is the body of some
+link. Hence $P$ consists of the bodies of $E_v$ for $v$ in some nonempty set
+$Q$ with $b_v=\delta$. By Lemma~\ref{lem:shape}(d), all $\alpha_v$
+($v\in Q$) are the same formula $\delta_0$. Take $\theta$ as in
+Lemma~\ref{lem:key}, and set $\theta(z)=z$. For $v\in Q$, the premise $E_v$
+has become $z\to x_v$ or $x_v\to z$, and $\theta$ maps it to $z\to z$ by (c).
+The other premises and the conclusion are handled by (b) and (d). Hence
+$\beta\in L$.
+
+\smallskip\noindent\emph{Case 4: $\delta$ is an extension variable $x_u$.}
+By Lemma~\ref{lem:shape}(a), $x_u$ has two occurrences. Since $P$ is
+nonempty and does not contain both, $P$ consists of exactly one of them.
+Take $Q=\{u\}$, $\delta_0=\alpha_u$, and $\theta$ as in Lemma~\ref{lem:key}.
+\begin{itemize}
+\item[(4a)] $P$ is the lower occurrence. Then $E_u$ has become $b_u\to z$
+  or $z\to b_u$. Set $\theta(z)=\alpha_u$. By (c), this premise is mapped
+  to $\alpha_u\to\alpha_u$. The rest is as before, so $\beta\in L$.
+\item[(4b)] $P$ is the upper occurrence. Now $E_u$ is unchanged, and $x_u$
+  occurs in $\alpha'$ only in $E_u$. Modify $\theta$ by setting
+  $\theta(x_u)=\alpha_u$ and $\theta(z)=z$. The formula $z$ now sits
+  exactly where $x_u$ was read in $\St(\alpha)$, and it is mapped to
+  $z=\beta_u$ as before. So (b) and (d) still hold for all links other than
+  $E_u$. Moreover $\theta(E_u)$ is $\alpha_u\to\alpha_u$ by (c). Hence
+  $\beta\in L$.
+\end{itemize}
+
+\smallskip\noindent\emph{Case 5: $\delta$ is a variable $p$ of $\alpha$.}
+By Lemma~\ref{lem:shape}(b), $P$ corresponds to a set $Q$ of leaves of
+$\alpha$ labelled $p$. $Q$ is nonempty and does not contain all of them, so
+$\beta=\alpha[Q:=z]$ is a one-step generalization of $\alpha$. Since
+$\St(\cdot)$ is computed leaf by leaf on the same syntax tree,
+$\alpha'=\St(\beta)$ (with the same extension variables). By
+Lemma~\ref{lem:decode}, $\St(\beta)\in L$ implies $\beta\in L$.
+
+\smallskip\noindent\emph{Case 6: $\delta$ is a constant $c$.}
+Exactly as in Case~5: $\alpha'=\St(\beta)$ with $\beta=\alpha[Q:=z]$ for a
+nonempty set $Q$ of leaves labelled $c$. $\beta$ is a one-step
+generalization, because $c$ is not a variable. Hence $\beta\in L$.
+
+\smallskip
+In Cases 2--6 we obtained $\beta\in L$ for a one-step generalization $\beta$
+of $\alpha$. This contradicts the minimality of $\alpha$ by
+Corollary~\ref{cor:criterion}. Hence no one-step generalization of
+$\St(\alpha)$ is in $L$. Since $\St(\alpha)\in L$ by assumption,
+$\St(\alpha)$ is minimal by Corollary~\ref{cor:criterion}.
+\end{proof}
+
+
+\begin{example}\label{ex:decode}
+We illustrate Case~(4b) with Example~\ref{ex:peirce}. Replace the upper
+occurrence of $w=x_{00}$ by $z$:
+\[
+\alpha'=((a\to b)\to w)\to(y\to(z\to a))\to((y\to a)\to x)\to x .
+\]
+Here $\beta=\alpha[\{00\}:=z]=(z\to a)\to a$. The substitution is
+$w\mapsto a\to b$, $y\mapsto z\to a$, $x\mapsto(z\to a)\to a$, $z\mapsto z$:
+\[
+\theta\alpha'=((a\to b)\to(a\to b))\to((z\to a)\to(z\to a))\to
+(\beta\to\beta)\to\beta .
+\]
+Since $\beta\notin\CL$ ($z=0$, $a=0$), neither is $\alpha'$.
+\end{example}

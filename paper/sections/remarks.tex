@@ -1,0 +1,204 @@
+%======================================================================
+\section{Further Remarks}\label{sec:remarks}
+
+This section collects supplementary results. They are not needed for
+the main line of the paper.
+
+\subsection{How far can the base logic be weakened?}\label{sec:weak}
+Theorem~\ref{thm:main} needs only $\gamma\to\gamma\in L$, consistency, and
+$\St(\alpha)\in L$. In the implicational case, the last condition is
+guaranteed by $\mathbf{BCI}$ (Lemma~\ref{lem:sound}). Neither $B$ nor $C$
+can be dropped. We write $\mathbf{XY}\dots$ for the implicational logic
+axiomatized by the axiom schemes $X,Y,\dots$ among
+\[
+B=(b\to c)\to(a\to b)\to a\to c,\quad
+B'=(a\to b)\to(b\to c)\to a\to c,\quad
+C=(a\to b\to c)\to b\to a\to c,
+\]
+$K=a\to b\to a$ and $I=a\to a$, with modus ponens and substitution.
+
+\begin{proposition}\label{prop:weak}
+\begin{enumerate}
+\item[(a)] \emph{(Without $B$.)} $K$ is minimal in $\mathbf{CK}$, but
+  $\St(K)=((b\to a)\to x_1)\to((a\to x_1)\to x_0)\to x_0\notin\mathbf{CK}$.
+\item[(b)] \emph{(Without $C$.)} $I$ is minimal in $\mathbf{BB'KI}$, but
+  $\St(I)=((a\to a)\to x)\to x\notin\mathbf{BB'KI}$. Likewise $K$ is minimal
+  in $\mathbf{BK}$ and in $\mathbf{BB'KI}$, but
+  $\St(K)\notin\mathbf{BB'KI}\supseteq\mathbf{BK}$.
+\end{enumerate}
+Hence, over $\mathbf{CK}$, $\mathbf{BK}$ and $\mathbf{BB'KI}$ (and every
+logic between $\mathbf{BK}$ and $\mathbf{BB'KI}$), $\St$ does not preserve
+minimality, and $L+\alpha\ne L+\St(\alpha)$ for $\alpha=K$ (resp.\ $I$).
+\end{proposition}
+\begin{proof}
+\emph{Minimality.} The one-step generalizations of $K$ are $z\to b\to a$,
+$a\to b\to z$, $a\to z$ and $z$; those of $I$ are $z\to a$, $a\to z$ and
+$z$. None of them is classically valid, so none lies in any of the logics
+considered, all of which are contained in $\CL$.
+
+(a) Let $M_4=(\{0,1,2,3\},\to,\{0\})$ with the table
+\[
+\begin{array}{c|cccc}
+\to&0&1&2&3\\\hline
+0&0&1&2&3\\
+1&0&0&1&0\\
+2&0&0&0&3\\
+3&0&1&2&0
+\end{array}
+\]
+A finite check shows that $M_4$ validates $C$ and $K$ (hence also $I$, which
+is derivable in $\mathbf{CK}$), but not $B$. The set $\{0\}$ is closed under
+modus ponens, since $0\to y=0$ forces $y=0$. So every $\mathbf{CK}$-theorem
+takes the value $0$. With $a=b=1$, $x_1=2$ and $x_0=3$, however,
+$b\to a=0$, $(b\to a)\to x_1=2$, $a\to x_1=1$ and $(a\to x_1)\to x_0=0$.
+Hence $\St(K)$ takes the value $2\to(0\to3)=2\to3=3\ne0$. Intuitively,
+$\St(K)$ needs the composition $\lambda y.\,e_1(\lambda z.\,y)$ inside an
+argument, which the combinators $\mathsf C,\mathsf K$ cannot form. By
+contrast, $\St(I)=((a\to a)\to x)\to x$ is a $\mathbf{CK}$-theorem (it is the
+type of $\mathsf C\mathsf I\mathsf I$).
+
+(b) Let $M_3=(\{0,1,2\},\to,\{0\})$ with $x\to y=0$ if $y\le x$ and
+$x\to y=1$ otherwise. $M_3$ validates $B,B',K,I$: this is a finite check.
+The set $\{0\}$ is closed under modus ponens, since $0\to y=0$ forces $y=0$.
+So every theorem of $\mathbf{BB'KI}$ takes the value $0$ in $M_3$. With
+$a=0$ and $x=x_0=2$, however, $\St(I)$ takes the value $(0\to2)\to2=1\to2=1$.
+$\St(K)$ is refuted similarly. ($M_3$ refutes $C$ and $W$.)
+\end{proof}
+\plot{Checks: \texttt{tools/ck\_z3.py} (matrix $M_4$, found with z3 and
+verified by exhaustive evaluation), \texttt{tools/bki\_matrix.py} (matrix $M_3$),
+\texttt{tools/ck\_cd.py} and \texttt{tools/bk\_cd.py} (condensed-detachment
+search, consistent with (a) and (b)). Open: ticket entailment
+$\mathbf{T}_\to=\mathbf{BB'IW}$, where $M_3$ does not apply because it
+refutes $W$; and whether reordering the links helps. For (b), every order
+of links fails already for $\St(I)$, which has a single link.}
+
+
+
+\subsection{Additive connectives over $\mathbf{FL_e}$}\label{sec:additive}
+\begin{remark}[Additive connectives over $\mathbf{FL_e}$]\label{rem:wrapper}
+The proof of Theorem~\ref{thm:main} uses only (C1), (C2),
+$\gamma\to\gamma\in L$ and consistency. Polarity is used only in
+Lemma~\ref{lem:sound}, which is where $\mathbf{FL_e}$ with $\wedge,\vee$
+fails. Two facts, both checked with a cut-free prover for $\mathbf{FL_e}$
+(\texttt{tools/fle\_check.py}), show that the problem cannot be removed by
+simply adding Jeřábek's ``$\wedge1$'':
+\begin{enumerate}
+\item[(a)] \emph{Without wrappers, $\St$ need not be sound.}
+  $\alpha=(q\to q)\wedge(r\to r)$ is minimal in $\mathbf{FL_e}$, but
+  $\St(\alpha)=((q\to q)\to x_0)\to((r\to r)\to x_1)\to((x_0\wedge x_1)\to
+  x)\to x$ is not provable in $\mathbf{FL_e}$: each branch of the
+  $\wedge$-right rule would have to discard the other branch's link.
+\item[(b)] \emph{With wrappers, minimality is always lost.} Jeřábek's
+  $\varphi^+$ puts $(E_u\wedge 1)$ in place of $E_u$. The link of the root is
+  never discarded, so replacing its $1$ by $z$ gives a one-step
+  generalization that is still provable (by $\wedge$-left). Hence
+  $\varphi^+$ is not minimal in any $L\supseteq\mathbf{FL_e}$ (including
+  $\mathbf{FL_{ew}}$, $\IL$, $\CL$) whenever $\varphi$ is compound. For
+  example, $(((p\to p)\to x)\wedge z)\to x$ is provable.
+\end{enumerate}
+Exhaustive tests over all formulas with at most four binary connectives in
+$\to,\wedge,\vee$ and three variables give the following. There are $413$
+formulas minimal in $\mathbf{FL_e}$, up to renaming. For $164$ of them
+$\St(\alpha)$ is provable, and in all $164$ cases it is minimal, as
+Theorem~\ref{thm:main} predicts. $\varphi^+$ is provable in all $413$ cases
+and minimal in none. Wrapping only the links strictly below an additive
+occurrence gives a provable formula in all $413$ cases, but a minimal one in
+only $255$. For $\alpha=p\vee(q\to q)$, for instance, the wrapper can be
+removed because the $\vee$-right rule selects one branch. So a
+minimality-preserving translation over $\mathbf{FL_e}$, if one exists, must
+adapt the wrappers to the actual proof. Whether such a translation exists,
+and the non-commutative case $\mathbf{FL}$, are left open.
+\end{remark}
+
+
+\subsection{Remarks on the proofs}
+
+\begin{remark}
+Corollary~\ref{cor:criterion} replaces \cite[Props.~3.1--3.2]{NM21}, whose
+proofs there are sketched, and it does not need simple formulas.
+\end{remark}
+
+\begin{remark}
+In Lemma~\ref{lem:sound}(i), linear $\lambda$-terms can be given instead of
+sequent derivations. Without exchange the premises of $\St(\alpha)$ cannot be
+reordered; see Section~\ref{sec:weak}.
+\end{remark}
+
+\subsection{Top-level premises of order 3}\label{sec:order3}
+
+For $F=A_1\to\dots\to A_n\to r$ with $r$ a variable, we call
+$A_1,\dots,A_n$ the \emph{top-level premises} of $F$. The next proposition
+shows that an order-$4$ counter-example needs at least two top-level
+premises of order~$3$. This explains, in part, why $\St(G')$ is long.
+
+\begin{proposition}\label{prop:one-premise}
+Let $F=A_1\to\dots\to A_n\to r\in\CL$ with $r$ a variable and
+$\Ord(F)\le4$. If at most one $A_i$ has order $3$, then $F\in\IL$ or
+$\IL+F=\CL$. Minimality of $F$ is not assumed.
+\end{proposition}
+\begin{proof}
+A formula of order $\le2$ has the form $p_1\to\dots\to p_k\to q$ with
+variables $p_i,q$ ($k\ge0$). We call it a \emph{Horn clause} and read it as
+the rule ``from $p_1,\dots,p_k$ infer $q$''. Since $\Ord(F)\le4$, every
+$A_i$ has order $\le3$. Recall that premises can be permuted in $\IL$.
+
+Let $\Gamma$ be the set of top-level premises of order $\le 2$. For a set
+$X$ of variables, let $C(X)$ be the closure of $X$ under the rules in
+$\Gamma$. We identify a set of variables with the valuation making exactly
+those variables true. Then:
+\begin{enumerate}
+\item[(H1)] $C(X)$ satisfies $\Gamma$;
+\item[(H2)] if $q\in C(X)$, then $\Gamma,X\vdash_{\IL}q$ (modus ponens along
+  the closure). In particular, $q\in C(\{p_1,\dots,p_k\})$ implies
+  $\Gamma\vdash_\IL p_1\to\dots\to p_k\to q$.
+\end{enumerate}
+
+\emph{No premise has order $3$.} Then $F$ is $\Gamma\to r$. By (H1) and
+$F\in\CL$, we get $r\in C(\emptyset)$, so $F\in\IL$ by (H2).
+
+\emph{Exactly one premise, $A=B_1\to\dots\to B_m\to s$, has order $3$.}
+Then each $B_j$ has order $\le2$. Assume $F\notin\IL$. Put
+$C_0=C(\emptyset)$.
+\begin{itemize}
+\item $r\notin C_0$, since otherwise $\Gamma\vdash_\IL r$ by (H2).
+\item Some $B_j$ is not derivable from $\Gamma$ in $\IL$. Otherwise
+  $\Gamma,A\vdash_\IL s$. Moreover, the valuation $C(\{s\})$ satisfies
+  $\Gamma$ and $A$, so $r\in C(\{s\})$ because $F\in\CL$. Then
+  $\Gamma,s\vdash_\IL r$ by (H2), and $F\in\IL$.
+\end{itemize}
+Fix such a $B_j=p_1\to\dots\to p_k\to q$, and put
+$C_1=C(\{p_1,\dots,p_k\})$. Then $C_0\subseteq C_1$, and $q\notin C_1$ by
+(H2). The valuation $C_1$ falsifies $B_j$, hence satisfies $A$. It also
+satisfies $\Gamma$ by (H1). Since $F\in\CL$, we get $r\in C_1$.
+
+Let $H_3=\{0,\tfrac12,1\}$ be the three-element Gödel algebra, with
+$x\Rightarrow y=1$ if $x\le y$ and $x\Rightarrow y=y$ otherwise. Define
+$v(t)=1$ if $t\in C_0$, $v(t)=\tfrac12$ if $t\in C_1\setminus C_0$, and
+$v(t)=0$ otherwise. A Horn clause $p_1\to\dots\to p_k\to q$ has value $1$
+under $v$ iff $\min_i v(p_i)\le v(q)$ (the minimum of an empty set is $1$).
+\begin{itemize}
+\item Every clause in $\Gamma$ has value $1$, since $C_0$ and $C_1$ are
+  closed under the rules in $\Gamma$.
+\item $B_j$ has value $0$, since $v(p_i)\ge\tfrac12$ for all $i$ and
+  $v(q)=0$. Hence $A$ has value $1$.
+\item $v(r)=\tfrac12$, since $r\in C_1\setminus C_0$.
+\end{itemize}
+So $F$ has value $\tfrac12$, and $H_3\not\models F$. By Jankov's criterion
+\cite[Theorem~1]{Jan68} (see \cite[Sect.~3.2]{NM21}), an implicational
+$F\in\CL\setminus\IL$ with $H_3\not\models F$ satisfies $\IL+F=\CL$.
+\end{proof}
+
+\begin{remark}\label{rem:many}
+In $\St(\alpha)$, a positive link $b_u\to x_u$ has order $3$ and a negative
+link $x_u\to b_u$ has order $2$. So the top-level premises of order $3$ in
+$\St(\alpha)$ are exactly the links of the positive implication occurrences
+of $\alpha$. Hence, by Proposition~\ref{prop:one-premise}, if $\alpha\in\CL$
+has at most one positive implication occurrence, then
+$\IL+\alpha=\IL+\St(\alpha)$ is $\IL$ or $\CL$.
+
+$\St(G')$ has $11$ positive links:
+$E_1,E_3,E_5,E_7,E_9,E_{11},E_{12},E_{14},E_{15},E_{17},E_{20}$. By
+Proposition~\ref{prop:one-premise}, a $\CL$-minimal axiom of order $4$ for a
+proper intermediate logic has at least two top-level premises of order $3$.
+The least possible number is open.
+\end{remark}

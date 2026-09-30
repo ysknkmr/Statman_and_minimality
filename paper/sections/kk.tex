@@ -1,0 +1,66 @@
+%======================================================================
+\section{Consequences for the Komori--Kashima Problem}\label{sec:kk}
+
+In this section we derive the consequences stated in the introduction,
+assuming Theorem~\ref{thm:main}, which is proved in Section~\ref{sec:proof}.
+We work in the implicational language.
+
+\begin{proof}[Proof of Corollary~\ref{cor:many-logics}]
+By Lemma~\ref{lem:sound}, $L\vdash\alpha\to\St(\alpha)$, so
+$\St(\alpha)\in L$ whenever $\alpha\in L$. Apply Theorem~\ref{thm:main}.
+The equation $L+\alpha=L+\St(\alpha)$ is Corollary~\ref{cor:equiv}.
+\end{proof}
+
+\begin{proof}[Proof of Corollary~\ref{cor:normal-form}]
+By Corollary~\ref{cor:many-logics}(i) for $L_0$,
+$L_0+\alpha=L_0+\St(\alpha)$ for each $\alpha\in\Gamma$. By
+Theorem~\ref{thm:main} with $L=\CL$ (where $\St(\alpha)\in\CL$ by
+Lemma~\ref{lem:sound}), each $\St(\alpha)$ is minimal in $\CL$. It has order
+at most $4$ by Lemma~\ref{lem:order}.
+\end{proof}
+
+\begin{proposition}[Four is optimal]\label{prop:order3}
+Every implicational formula in $\CL$ of order at most $3$ is in $\IL$.
+\end{proposition}
+\begin{proof}
+A formula of order $\le2$ has the form $p_1\to\dots\to p_k\to q$ with
+variables $p_i,q$; read it as the rule ``from $p_1,\dots,p_k$ infer $q$''.
+A formula of order $\le3$ is $F=H_1\to\dots\to H_n\to r$ with such $H_i$ and
+a variable $r$. Let $C$ be the closure of $\emptyset$ under the rules
+$H_1,\dots,H_n$. The valuation making exactly $C$ true satisfies every $H_i$,
+so $r\in C$ because $F\in\CL$. Following the closure step by step, modus
+ponens derives $r$ from $H_1,\dots,H_n$ in $\IL$. Hence $F\in\IL$.
+\end{proof}
+
+\begin{corollary}[Answer to {\cite[Open Problem 2]{NM21}}]\label{cor:LC}
+Let $G'$ be the formula of \cite[Sect.~4]{NM21}:
+\begin{align*}
+G'={}&(a\to a')\to(b'\to b)\to(c''\to c')\to(c'''\to c')\to
+((a\to b)\to c'')\to((b'\to a')\to c''')\\
+&\to(((a'\to b')\to c'')\to((b\to a)\to c''')\to c'\to c)\to c .
+\end{align*}
+Then $\St(G')$ is the formula
+\begin{align*}
+\St(G')={}&(x_{2}\to a\to a')\to(x_{4}\to b'\to b)\to(x_{6}\to c''\to c')\to(x_{8}\to c'''\to c')\\
+&\to((a\to b)\to x_{11})\to(x_{10}\to x_{11}\to c'')\to((b'\to a')\to x_{14})\to(x_{13}\to x_{14}\to c''')\\
+&\to(x_{18}\to a'\to b')\to((x_{18}\to c'')\to x_{17})\to(x_{21}\to b\to a)\to((x_{21}\to c''')\to x_{20})\\
+&\to(x_{22}\to c'\to c)\to(x_{19}\to x_{20}\to x_{22})\to(x_{16}\to x_{17}\to x_{19})\to((x_{16}\to c)\to x_{15})\\
+&\to((x_{13}\to x_{15})\to x_{12})\to((x_{10}\to x_{12})\to x_{9})\to((x_{8}\to x_{9})\to x_{7})\\
+&\to((x_{6}\to x_{7})\to x_{5})\to((x_{4}\to x_{5})\to x_{3})\to((x_{2}\to x_{3})\to x_{1})\to x_{1}.
+\end{align*}
+It has $22$ premises, $30$ variables and $67$ variable occurrences. It
+satisfies $\IL+\St(G')=\LC$, it is minimal in $\CL$, and
+$\Ord(\St(G'))=4$. Hence there exists a proper intermediate logic
+axiomatizable by a formula minimal in $\CL$ of order at most $4$. That is,
+\cite[Open Problem~2]{NM21} has an affirmative answer, and the Komori--Kashima
+conjecture already fails for formulas of order at most $4$.
+\end{corollary}
+\begin{proof}
+By \cite[Lemma~4.2]{NM21}, $\IL+G'=\LC$ and $G'$ is minimal in $\CL$. Now apply
+Theorem~\ref{thm:main}, Corollary~\ref{cor:equiv} and
+Lemma~\ref{lem:order}. The displayed formula is Definition~\ref{def:S}, with
+the implication occurrences numbered as in Appendix~\ref{app:SG}.
+\end{proof}
+\plot{Table~\ref{tab:SG} lists the subformula of $G'$ that each $x_i$
+stands for. The Lean file checks that the displayed formula equals
+\texttt{statman Gprime 8} and has order $4$.}

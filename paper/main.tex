@@ -1,0 +1,60 @@
+% A Minimality-Preserving Statman Translation
+% Studia Logica house style: for submission, move the content into the
+% Springer template used by Studia Logica (sections numbered, results
+% numbered within sections as in Nakamura--Matsuda 2021, "Presented by"
+% line added by the editor, author addresses at the end).
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=30mm]{geometry}
+\usepackage{xcolor}
+\usepackage{longtable}
+\input{macros}
+
+\title{A Minimality-Preserving Statman Translation}
+\author{Yoshiki Nakamura \and Naosuke Matsuda}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+A formula is minimal in a logic $L$ if it belongs to $L$ and no strictly
+more general formula, in the sense of the substitution preorder, belongs to
+$L$. We show that the polarized extension-variable translation $\St$ of
+Tseitin and Statman preserves minimality: for every consistent logic $L$
+that proves $\gamma\to\gamma$ and $\St(\alpha)$, if $\alpha$ is minimal in
+$L$ then so is $\St(\alpha)$. This applies to all consistent implicational
+logics containing $\mathbf{BCI}$, to extensions of $\mathbf{FL_e}$ in the
+multiplicative language, and to extensions of $\mathbf{FL_{ew}}$
+(in particular of intuitionistic logic) in the full language, and in these
+cases $L+\alpha=L+\St(\alpha)$. For implicational $\alpha$, $\St(\alpha)$ has
+order at most four. Consequently, every implicational logic over
+$\mathbf{BCI}$ axiomatizable by formulas minimal in classical logic is
+axiomatizable by such formulas of order at most four, and four is optimal.
+Applied to the counter-example of Nakamura and Matsuda to the
+Komori--Kashima problem, this yields an explicit order-four axiom of
+Gödel--Dummett logic minimal in classical logic, answering their Open
+Problem~2. We also show that the base logic $\mathbf{BCI}$ cannot be
+weakened to $\mathbf{CK}$ or $\mathbf{BK}$. The implicational results are
+formalized in Lean~4.
+\end{abstract}
+
+\noindent\textit{Keywords}: Intermediate logic, Substructural logic, Minimal
+formulas, Substitution preorder, Axiomatization, Extension variables,
+Statman translation.
+
+\input{sections/introduction}
+\input{sections/preliminaries}
+\input{sections/translation}
+\input{sections/kk}
+\input{sections/proof}
+\input{sections/remarks}
+\input{sections/formalization}
+\input{sections/conclusion}
+
+\appendix
+\input{sections/appendix}
+
+\input{references}
+
+\end{document}

@@ -1,0 +1,29 @@
+%======================================================================
+\section{Formalization}\label{sec:lean}
+
+\plot{Half a page.}
+File \texttt{lean/StatmanMinimality.lean} (about 1300
+lines, implicational language): Lean~4 core only, no Mathlib, no
+\texttt{sorry}, no \texttt{native\_decide}. \texttt{\#print axioms} reports
+only \texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}.
+Theorem~\ref{thm:main} is formalized in exactly the generality stated: a
+logic is a predicate \texttt{Th} with \texttt{Logic Th} (closed under
+substitution and modus ponens, proving $\gamma\to\gamma$, consistent), and
+\texttt{statman\_minimalIn : Logic Th $\to$ ($\forall$ q, Occ q A $\to$ q <
+N) $\to$ MinimalIn Th A $\to$ Th (statman A N) $\to$ MinimalIn Th (statman A
+N)}. The classical instance \texttt{statman\_minimal} uses
+\texttt{logic\_valid} and \texttt{statman\_valid}. Lemma~\ref{lem:sound}(i)
+and Corollary~\ref{cor:equiv} are formalized for every implicational logic
+containing $\mathbf{BCI}$ (\texttt{BCIExt Th}: closed under substitution and
+modus ponens, proving all instances of $B$, $C$, $I$):
+\texttt{BCIExt.statman\_imp : Th (A $\to$ statman A N)},
+\texttt{BCIExt.statman\_iff : Th A $\leftrightarrow$ Th (statman A N)}, and
+\texttt{BCIExt.statman\_minimal} (Corollary~\ref{cor:many-logics} in the
+implicational language, without extra hypotheses). Also formalized:
+\texttt{statman\_ord} (order $\le4$) and \texttt{statman\_Gprime}
+(Corollary~\ref{cor:LC}: the displayed $\St(G')$ equals
+\texttt{statman Gprime 8}). Not formalized: the full language
+(Lemma~\ref{lem:sound}(ii),(iii)). Correspondence: \texttt{reduction} and
+\texttt{strict} = Corollary~\ref{cor:criterion};
+\texttt{decode}/\texttt{decode\_node} = Lemma~\ref{lem:key} and Cases 2--5;
+the tail branch of \texttt{statman\_minimalIn} = Case~1.

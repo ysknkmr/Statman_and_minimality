@@ -1,0 +1,56 @@
+%======================================================================
+\section{Preliminaries}\label{sec:prelim}
+
+\paragraph{Formulas and logics.}
+We work in a propositional language $\mathcal L$ that contains $\to$ and
+possibly some of the binary connectives $\cdot$ (fusion), $\wedge$,
+$\vee$ and some constants (among $\bot,\top,0,1$). An \emph{atom} is a
+variable or a constant. $\alpha\to\beta\to\gamma$ stands for
+$\alpha\to(\beta\to\gamma)$. As in \cite[Sect.~2]{NM21}, a \emph{logic} is a set
+$L$ of $\mathcal L$-formulas closed under modus ponens and substitution;
+$L+F$ is the smallest logic containing $L\cup F$. $L$ is \emph{consistent}
+if it is not the set of all formulas. Since $L$ is closed under
+substitution, $L$ is consistent iff no variable belongs to $L$.
+
+We use the following logics (as sets of theorems of their usual Hilbert
+calculi, see \cite{GJKO07}):
+\begin{itemize}
+\item $\mathbf{BCI}$, $\mathbf{BCK}$, $\IL$ and $\CL$ in the implicational
+  language. $\IL=\{K,S\}^*$ and $\CL=\IL+P$ as in \cite{NM21}.
+\item $\mathbf{FL_e}$ (full Lambek calculus with exchange) and
+  $\mathbf{FL_{ew}}$ (with exchange and weakening) in the language
+  $\{\to,\cdot,\wedge,\vee,0,1\}$, possibly with $\bot,\top$. Intuitionistic
+  logic in the full language contains $\mathbf{FL_{ew}}$.
+\end{itemize}
+For implicational formulas, $\alpha\in\CL$ iff $\alpha$ is true under every
+Boolean valuation.
+
+A \emph{substitution} $\sigma$ maps variables to formulas; $\sigma\alpha$ is
+the result of applying it to $\alpha$. We write $\beta\sub\alpha$ if
+$\alpha=\sigma\beta$ for some $\sigma$, and $\beta\ssub\alpha$ if
+$\beta\sub\alpha$ but not $\alpha\sub\beta$. A formula $\alpha$ is
+\emph{minimal in $L$} if $\alpha\in L$ and there is no $\beta\in L$ with
+$\beta\ssub\alpha$. The \emph{order} of an implicational formula is given
+by $\Ord(p)=1$ and $\Ord(\alpha\to\beta)=\max\{\Ord(\alpha)+1,\Ord(\beta)\}$.
+
+Every logic $L$ satisfies:
+\begin{enumerate}
+\item[(C1)] if $\gamma\in L$, then $\sigma\gamma\in L$ for every substitution $\sigma$;
+\item[(C2)] if $\gamma_1\to\dots\to\gamma_k\to\beta\in L$ and
+  $\gamma_1,\dots,\gamma_k\in L$, then $\beta\in L$.
+\end{enumerate}
+
+\paragraph{Occurrences.}
+We identify an occurrence in a formula $\alpha$ with its position in the
+syntax tree: a finite word over $\{0,1\}$. The empty word $\varepsilon$ is
+the root. If the subformula at $u$ is $\gamma\circ\delta$ ($\circ$ a binary
+connective), then $\gamma$ is at $u0$ and $\delta$ is at $u1$. We write
+$\alpha_u$ for the subformula at $u$. We say that $u$ is \emph{strictly
+below} $v$ if $v$ is a proper prefix of $u$. An occurrence $u$ is a
+\emph{leaf} if $\alpha_u$ is an atom, and a \emph{compound occurrence}
+otherwise. Two occurrences of the same formula are never strictly below one
+another.
+
+For a set $Q$ of occurrences in $\alpha$, no one of which is strictly below
+another, and a variable $z$, let $\alpha[Q:=z]$ be the formula obtained
+from $\alpha$ by replacing the subformula at each $u\in Q$ by $z$.

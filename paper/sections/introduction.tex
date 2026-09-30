@@ -1,0 +1,150 @@
+%======================================================================
+\section{Introduction}\label{sec:intro}
+
+%----------------------------------------------------------------------
+\subsection{The main theorem}
+
+Komori~\cite{Kom05} studied logics through the \emph{substitution
+preorder}: $\beta\sub\alpha$ iff $\alpha$ is a substitution instance of
+$\beta$. A formula $\alpha$ is \emph{minimal} in a logic $L$ if $\alpha\in L$
+and no strictly more general formula belongs to $L$. For example, Peirce's
+law $((a\to b)\to a)\to a$ is minimal in classical logic $\CL$.
+
+The \emph{polarized Statman translation} $\St$
+(Definition~\ref{def:S}) replaces every compound subformula occurrence $u$
+of $\alpha$ by a fresh variable $x_u$. It records the meaning of $x_u$ in a
+premise $E_u$, a one-way definition whose direction depends on the polarity
+of $u$:
+\[
+\St(\alpha)=E_{u_1}\to\dots\to E_{u_m}\to x_{\text{root}} .
+\]
+For Peirce's law, with $x,y,w$ standing for the whole formula,
+$(a\to b)\to a$ and $a\to b$,
+\[
+\St\bigl(((a\to b)\to a)\to a\bigr)
+=((a\to b)\to w)\to(y\to(w\to a))\to((y\to a)\to x)\to x .
+\]
+Each premise $E_u$ contains exactly two connectives. So for implicational
+$\alpha$, $\St(\alpha)$ has order at most $4$ and is computed in linear
+time.
+
+\begin{theorem}[Main Theorem]\label{thm:main}
+Let $L$ be a consistent logic that proves $\gamma\to\gamma$ for every
+formula $\gamma$. If $\alpha$ is minimal in $L$ and $\St(\alpha)\in L$, then
+$\St(\alpha)$ is minimal in $L$.
+\end{theorem}
+
+The hypothesis $\St(\alpha)\in L$ holds for every $\alpha\in L$ as soon as
+$L$ contains linear implicational logic $\mathbf{BCI}$
+(Corollary~\ref{cor:many-logics} below).
+
+%----------------------------------------------------------------------
+\subsection{Why the theorem holds}
+
+A generalization of $\St(\alpha)$ can only ``forget'' some identifications
+made in $\St(\alpha)$. The point is that each such forgetting can be pushed
+back to $\alpha$. The proof has two steps.
+\begin{enumerate}
+\item \emph{It suffices to consider one-step generalizations}
+  (Corollary~\ref{cor:criterion}). A formula in $L$ is minimal iff no
+  formula obtained from it by replacing some occurrences of \emph{one}
+  subformula by a fresh variable $z$ is in $L$.
+\item \emph{Every one-step generalization of $\St(\alpha)$ decodes to one of
+  $\alpha$} (Lemma~\ref{lem:key}). Let $\alpha'$ be such a generalization.
+  We give a substitution $\theta$ that maps each (possibly damaged)
+  definition in $\alpha'$ to a formula of the form $\gamma\to\gamma$, and
+  maps the conclusion to a one-step generalization $\beta$ of $\alpha$:
+  \[
+  \theta\alpha'=(\gamma_1\to\gamma_1)\to\dots\to(\gamma_k\to\gamma_k)\to\beta .
+  \]
+  If $\alpha'\in L$, then $\beta\in L$ by modus ponens. This is impossible,
+  because $\alpha$ is minimal.
+\end{enumerate}
+Only closure under substitution and modus ponens, the formulas
+$\gamma\to\gamma$ and consistency are used. So the argument works for any
+logic. Polarity is needed only to guarantee $\St(\alpha)\in L$. For Peirce's
+law, a generalization of $\St$ that separates the two occurrences of $w$ is
+decoded in Example~\ref{ex:decode}.
+
+%----------------------------------------------------------------------
+\subsection{What follows}
+
+\begin{corollary}\label{cor:many-logics}
+Suppose that one of the following holds:
+\begin{enumerate}
+\item[(i)] $L$ is an implicational logic containing $\mathbf{BCI}$ (e.g.\
+  $\mathbf{BCI}$, $\mathbf{BCK}$, $\IL$, $\LC$, $\CL$);
+\item[(ii)] $L$ is a logic in the language $\{\to,\cdot,0,1\}$ containing
+  the full Lambek calculus with exchange $\mathbf{FL_e}$;
+\item[(iii)] $L$ contains $\mathbf{FL_{ew}}$ ($\mathbf{FL_e}$ with
+  weakening), in a language with $\to$ and some of
+  $\cdot,\wedge,\vee,0,1,\bot,\top$ (e.g.\ $\IL$ in the full language).
+\end{enumerate}
+Then $L+\alpha=L+\St(\alpha)$ for every $\alpha$. If moreover $L$ is
+consistent and $\alpha$ is minimal in $L$, then $\St(\alpha)$ is minimal in
+$L$.
+\end{corollary}
+
+Taking $L=\CL$ for minimality and a base logic $L_0\supseteq\mathbf{BCI}$
+for the axiomatization, we obtain a normal form:
+
+\begin{corollary}[Order-four normal form]\label{cor:normal-form}
+Let $L_0$ be an implicational logic containing $\mathbf{BCI}$ (e.g.\
+$\mathbf{BCI}$, $\mathbf{BCK}$, $\IL$). If $L=L_0+\Gamma$ with every
+$\alpha\in\Gamma$ minimal in $\CL$, then
+$L=L_0+\{\St(\alpha)\mid\alpha\in\Gamma\}$, where every $\St(\alpha)$ is
+minimal in $\CL$ and of order at most $4$.
+\end{corollary}
+
+For the Komori--Kashima problem \cite{Kom05,Kas05}, this has the following
+consequences.
+\begin{itemize}
+\item Nakamura and Matsuda~\cite{NM21} gave a $\CL$-minimal axiom $G'$ of
+  Gödel--Dummett logic $\LC$ of order $5$, and asked whether order $4$
+  suffices \cite[Open Problem~2]{NM21}. $\St(G')$ is a $\CL$-minimal axiom
+  of $\LC$ of order $4$, so the answer is yes. The formula is displayed in
+  Corollary~\ref{cor:LC}.
+\item The bound $4$ is optimal: classical tautologies of order at most $3$
+  are intuitionistic theorems (Proposition~\ref{prop:order3}).
+\item Corollary~\ref{cor:normal-form} holds over $\mathbf{BCK}$, so it also
+  applies to Komori's original super-$\mathbf{BCK}$ formulation
+  \cite[footnote~1]{NM21}. For the question which logics are axiomatizable
+  by $\CL$-minimal formulas \cite[Open Problem~1]{NM21}, one may restrict
+  attention to order $4$.
+\end{itemize}
+
+The base logic $\mathbf{BCI}$ cannot be weakened by dropping $B$ or $C$
+(Proposition~\ref{prop:weak}). The implicational case of the main theorem
+and Corollary~\ref{cor:many-logics}(i) are formalized in Lean~4
+(Section~\ref{sec:lean}).
+
+%----------------------------------------------------------------------
+\subsection{Related work and outline}
+
+The translation is not new. Extension variables go back to Tseitin
+\cite{Tse68}. Statman~\cite{Sta79} used them to reduce intuitionistic
+propositional logic to its implicational fragment (see also
+Švejdar~\cite{Sve03}). One-way definitions chosen by polarity appear in the
+Plaisted--Greenbaum translation \cite{PG86} and in Mints' normal form
+\cite{Min90}. Rybakov~\cite{Ryb97} uses extension variables for rules.
+Closest to us is Jeřábek~\cite{Jer16}. His $\varphi^+$ is our $\St(\varphi)$
+with an extra ``$\wedge1$'' in each definition; with it he shows that the
+substructural hierarchy of Ciabattoni, Galatos and Terui \cite{CGT08}
+collapses to $\mathcal N_3$ over $\mathbf{FL_e}$. To our knowledge, the
+preservation of minimality has not been observed before. The extra
+``$\wedge1$'' destroys it (Section~\ref{sec:additive}).
+\plot{Check the exact forms used in \cite{Sta79}, \cite{Sve03}, \cite{Min90}.}
+
+The rest of the paper is organized as follows.
+\begin{itemize}
+\item Section~\ref{sec:prelim}: preliminaries.
+\item Section~\ref{sec:translation}: the translation and its basic
+  properties.
+\item Section~\ref{sec:kk}: the consequences above, with $\St(G')$
+  displayed.
+\item Section~\ref{sec:proof}: the proof of Theorem~\ref{thm:main}.
+\item Section~\ref{sec:remarks}: supplementary remarks (weaker base logics,
+  additive connectives, premises of order $3$).
+\item Section~\ref{sec:lean}: the formalization.
+\item Section~\ref{sec:conclusion}: open problems.
+\end{itemize}
