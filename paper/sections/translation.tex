@@ -1,5 +1,5 @@
 %======================================================================
-\section{The Polarized Statman Translation}\label{sec:translation}
+\section{The Translation}\label{sec:translation}
 
 Fix a formula $\alpha$. Assign a \emph{polarity} to each occurrence of
 $\alpha$: $\varepsilon$ is positive. If $u$ is a compound occurrence with
@@ -27,9 +27,12 @@ Then $\St(\alpha)=E_{u_1}\to\dots\to E_{u_m}\to r_\varepsilon$.
 \end{definition}
 
 For implicational $\alpha$, $\St(\alpha)$ is implicational.
-Jeřábek's $\varphi^+$ \cite[Def.~3.6]{Jer16} uses $(b_u\to x_u)\wedge 1$ in
-place of $E_u$ and a product in place of the iterated implication. We
-explain in Remark~\ref{rem:wrapper} why the ``$\wedge1$'' must be dropped
+This is Jeřábek's $\varphi^+$ \cite[Def.~3.6]{Jer16} with three changes:
+$\varphi^+$ uses $E_u\wedge1$ in place of $E_u$ (that is,
+$(b_u\to x_u)\wedge1$ for positive and $(x_u\to b_u)\wedge1$ for negative
+$u$), a product of the definitions in place of the iterated implication, and
+a fresh variable, with its own definition, for each occurrence of a
+constant. We explain in Remark~\ref{rem:wrapper} why the ``$\wedge1$'' must be dropped
 here.
 
 \begin{example}\label{ex:peirce}

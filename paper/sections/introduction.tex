@@ -10,8 +10,10 @@ $\beta$. A formula $\alpha$ is \emph{minimal} in a logic $L$ if $\alpha\in L$
 and no strictly more general formula belongs to $L$. For example, Peirce's
 law $((a\to b)\to a)\to a$ is minimal in classical logic $\CL$.
 
-The \emph{polarized Statman translation} $\St$
-(Definition~\ref{def:S}) replaces every compound subformula occurrence $u$
+The translation $\St$ (Definition~\ref{def:S}) is a variant of the
+polarized extension-variable translation $\varphi^+$ of
+Jeřábek~\cite[Def.~3.6]{Jer16}, with the wrappers ``$\wedge1$'' removed.
+It replaces every compound subformula occurrence $u$
 of $\alpha$ by a fresh variable $x_u$. It records the meaning of $x_u$ in a
 premise $E_u$, a one-way definition whose direction depends on the polarity
 of $u$:
@@ -90,7 +92,7 @@ $L$.
 Taking $L=\CL$ for minimality and a base logic $L_0\supseteq\mathbf{BCI}$
 for the axiomatization, we obtain a normal form:
 
-\begin{corollary}[Order-four normal form]\label{cor:normal-form}
+\begin{corollary}[Order-$4$ normal form]\label{cor:normal-form}
 Let $L_0$ be an implicational logic containing $\mathbf{BCI}$ (e.g.\
 $\mathbf{BCI}$, $\mathbf{BCK}$, $\IL$). If $L=L_0+\Gamma$ with every
 $\alpha\in\Gamma$ minimal in $\CL$, then
@@ -129,12 +131,22 @@ propositional logic to its implicational fragment (see also
 Švejdar~\cite{Sve03}). One-way definitions chosen by polarity appear in the
 Plaisted--Greenbaum translation \cite{PG86} and in Mints' normal form
 \cite{Min90}. Rybakov~\cite{Ryb97} uses extension variables for rules.
-Closest to us is Jeřábek~\cite{Jer16}. His $\varphi^+$ is our $\St(\varphi)$
-with an extra ``$\wedge1$'' in each definition; with it he shows that the
-substructural hierarchy of Ciabattoni, Galatos and Terui \cite{CGT08}
-collapses to $\mathcal N_3$ over $\mathbf{FL_e}$. To our knowledge, the
-preservation of minimality has not been observed before. The extra
-``$\wedge1$'' destroys it (Section~\ref{sec:additive}).
+Our translation is essentially that of Jeřábek~\cite{Jer16}. His
+$\varphi^+$ \cite[Def.~3.6]{Jer16} introduces a fresh variable for every
+non-variable subformula occurrence, uses the same polarized one-way
+definitions, and wraps each of them as $E_u\wedge1$. $\St$ differs from
+$\varphi^+$ only in dropping these wrappers, in currying the product of the
+definitions into iterated implications, and in treating constants as
+atoms. With the wrappers, $\mathbf{FL_e}+\varphi=\mathbf{FL_e}+\varphi^+$
+holds for every $\varphi$ in the full language \cite[Thm.~3.8]{Jer16}, and
+Jeřábek uses this to show that the substructural hierarchy of Ciabattoni,
+Galatos and Terui \cite{CGT08} collapses to $\mathcal N_3$ over
+$\mathbf{FL_e}$. Our contribution is not the translation but the
+observation that, without the wrappers, it preserves minimality. To our
+knowledge this has not been observed before. The wrappers are needed for
+soundness over $\mathbf{FL_e}$ with additive connectives, but they destroy
+minimality (Section~\ref{sec:additive}); this is why our results for the
+full language require $\mathbf{FL_{ew}}$.
 \plot{Check the exact forms used in \cite{Sta79}, \cite{Sve03}, \cite{Min90}.}
 
 The rest of the paper is organized as follows.
