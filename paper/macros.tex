@@ -8,12 +8,50 @@
 \newtheorem{remark}[theorem]{Remark}
 \newtheorem{problem}[theorem]{Open Problem}
 
+\newcommand{\proofcasebase}[1]{\hspace{.5em}\textit{#1}\hspace{.5em}~}
+\newcommand{\proofcase}[1]{\noindent\setlength{\fboxsep}{1pt}\proofcasebase{#1}}
 \newcommand{\plot}[1]{\par\noindent\textcolor{blue}{\textsf{[Plot: #1]}}\par}
-\newcommand{\IL}{\mathbf{IL}}
-\newcommand{\CL}{\mathbf{CL}}
-\newcommand{\LC}{\mathbf{LC}}
-\newcommand{\Ord}{\mathrm{Ord}}
-\newcommand{\sub}{\leqslant_{\mathrm{sub}}}
-\newcommand{\ssub}{<_{\mathrm{sub}}}
-\newcommand{\St}{\mathsf{S}}
-\newcommand{\repl}[3]{#1[#2\rightsquigarrow #3]}
+% Logics
+\knowledgenewrobustcmd\IL{\cmdkl{\mathbf{IL}}}
+\knowledgenewrobustcmd\CL{\cmdkl{\mathbf{CL}}}
+\knowledgenewrobustcmd\LC{\cmdkl{\mathbf{LC}}}
+\knowledgenewrobustcmd\BCI{\cmdkl{\mathbf{BCI}}}
+\knowledgenewrobustcmd\BCK{\cmdkl{\mathbf{BCK}}}
+\knowledgenewrobustcmd\BC{\cmdkl{\mathbf{BC}}}
+\knowledgenewrobustcmd\BK{\cmdkl{\mathbf{BK}}}
+\knowledgenewrobustcmd\CK{\cmdkl{\mathbf{CK}}}
+\knowledgenewrobustcmd\BBpKI{\cmdkl{\mathbf{BB'KI}}}
+\knowledgenewrobustcmd\Tto{\cmdkl{\mathbf{T}_\to}}
+\knowledgenewrobustcmd\FLe{\cmdkl{\mathbf{FL_e}}}
+\knowledgenewrobustcmd\FLew{\cmdkl{\mathbf{FL_{ew}}}}
+\knowledgenewrobustcmd\FL{\cmdkl{\mathbf{FL}}}
+\knowledgenewrobustcmd\lclos[1]{{#1}^{\cmdkl{*}}}
+\knowledgenewrobustcmd\lplus{\mathbin{\cmdkl{+}}}
+% Axiom schemes
+\knowledgenewrobustcmd\axB{\cmdkl{B}}
+\knowledgenewrobustcmd\axBp{\cmdkl{B'}}
+\knowledgenewrobustcmd\axC{\cmdkl{C}}
+\knowledgenewrobustcmd\axK{\cmdkl{K}}
+\knowledgenewrobustcmd\axI{\cmdkl{I}}
+\knowledgenewrobustcmd\axS{\cmdkl{S}}
+\knowledgenewrobustcmd\axW{\cmdkl{W}}
+% Formulas and occurrences
+\knowledgenewrobustcmd\Ord{\cmdkl{\mathrm{Ord}}}
+\knowledgenewrobustcmd\sub{\mathrel{\cmdkl{\leqslant_{\mathrm{sub}}}}}
+\knowledgenewrobustcmd\ssub{\mathrel{\cmdkl{<_{\mathrm{sub}}}}}
+\knowledgenewrobustcmd\subf[2]{{#1}\cmdkl{{}_{#2}}}
+\knowledgenewrobustcmd\gen[3]{{#1}\cmdkl{[}{#2}\cmdkl{:=}{#3}\cmdkl{]}}
+\knowledgenewrobustcmd\rt{\cmdkl{\varepsilon}}
+% The translation
+\knowledgenewrobustcmd\St{\cmdkl{\mathsf{S}}}
+\knowledgenewrobustcmd\ev[1]{\cmdkl{x}_{#1}}
+\knowledgenewrobustcmd\rv[1]{\cmdkl{r}_{#1}}
+\knowledgenewrobustcmd\body[1]{\cmdkl{b}_{#1}}
+\knowledgenewrobustcmd\dprem[1]{\cmdkl{E}_{#1}}
+\knowledgenewrobustcmd\decsub[1]{\cmdkl{\theta}_{#1}}
+\knowledgenewrobustcmd\tl[1]{\cmdkl{T}_{#1}}
+\knowledgenewrobustcmd\pprem{\cmdkl{\mathsf{prem}}}
+\knowledgenewrobustcmd\pbody{\cmdkl{\mathsf{body}}}
+\knowledgenewrobustcmd\pdef{\cmdkl{\mathsf{def}}}
+\knowledgenewrobustcmd\prep{\cmdkl{\mathsf{rep}}}
+\knowledgenewrobustcmd\hgt{\cmdkl{h}}

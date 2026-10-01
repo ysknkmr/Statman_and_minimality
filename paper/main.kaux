@@ -1,0 +1,515 @@
+
+\KAuxCommand \KAuxEOF {m}{Does nothing, useless empty argument, and is searched for knowing if the kaux file was written till the end.}
+\KAuxCommand \KAuxUndeclaredScopeTag {m}{Package scope: States that a labelname is used in a knowledge definition.}
+\KAuxCommand \KAuxDeclaredScopeTag {m}{Package scope: States that a labelname has been declared.}
+\KAuxCommand \KAuxNewLinkScopetagInstance {mm}{Package scope: Declares that a label is declared in an instance of a scope.}
+\KAuxCommand \KAuxScopeNewInstance {mmm}{Package scope: Declares a new instance of a scope.}
+\KAuxCommand \KAuxScopeTag {mm}{Package scope: Links a scopetag to an instance of a scope.}
+\KAuxCommand \KAuxKnowledge {mmmm}{Package knowledge: Declares a knowledge. Takes the {namespace}{instance}{knowledge}{directives}.}
+\KAuxCommand \KAuxErrorKnowledgeRecursive {mmmm}{Package 'knowledge: A knowledge has recursive definition. {namespace}{scope}{undefined knowledge}{base knowledge}}
+\KAuxCommand \KAuxErrorKnowledgeUnknown {mmmmm}{Package 'knowledge: A knowledge is not defined. {namespace}{scope/empty}{undefined knowledge}{base knowledge}{command}}
+\KAuxCommand \KAuxErrorLabelUnknown {m}{Package 'knowledge: A label is not defined. {label}}
+\KAuxCommand \KAuxAutoref {mmm}{Package knowledge: Declares an autoref knowledge. Arguments {namespace}{instance}{knowledge}.}
+\KAuxCommand \KAuxAutorefTarget {mmm}{Package knowledge: Declares the use of a target to an autoref knowledge. Arguments {namespace}{instance}{knowledge}.}
+\KAuxCommand \KAuxUseKnowledge {mmm}{Package knowledge: Identifies the use of some knowledge. Arguments {namespace}{instance}{knowledge}.}
+
+
+\KAuxFileAt {macros.tex}{15}
+\KAuxAutoref {default}{base}{\IL }
+
+\KAuxFileAt {macros.tex}{16}
+\KAuxAutoref {default}{base}{\CL }
+
+\KAuxFileAt {macros.tex}{17}
+\KAuxAutoref {default}{base}{\LC }
+
+\KAuxFileAt {macros.tex}{18}
+\KAuxAutoref {default}{base}{\BCI }
+
+\KAuxFileAt {macros.tex}{19}
+\KAuxAutoref {default}{base}{\BCK }
+
+\KAuxFileAt {macros.tex}{20}
+\KAuxAutoref {default}{base}{\BC }
+
+\KAuxFileAt {macros.tex}{21}
+\KAuxAutoref {default}{base}{\BK }
+
+\KAuxFileAt {macros.tex}{22}
+\KAuxAutoref {default}{base}{\CK }
+
+\KAuxFileAt {macros.tex}{23}
+\KAuxAutoref {default}{base}{\BBpKI }
+
+\KAuxFileAt {macros.tex}{24}
+\KAuxAutoref {default}{base}{\Tto }
+
+\KAuxFileAt {macros.tex}{25}
+\KAuxAutoref {default}{base}{\FLe }
+
+\KAuxFileAt {macros.tex}{26}
+\KAuxAutoref {default}{base}{\FLew }
+
+\KAuxFileAt {macros.tex}{27}
+\KAuxAutoref {default}{base}{\FL }
+
+\KAuxFileAt {macros.tex}{28}
+\KAuxAutoref {default}{base}{\lclos }
+
+\KAuxFileAt {macros.tex}{29}
+\KAuxAutoref {default}{base}{\lplus }
+
+\KAuxFileAt {macros.tex}{31}
+\KAuxAutoref {default}{base}{\axB }
+
+\KAuxFileAt {macros.tex}{32}
+\KAuxAutoref {default}{base}{\axBp }
+
+\KAuxFileAt {macros.tex}{33}
+\KAuxAutoref {default}{base}{\axC }
+
+\KAuxFileAt {macros.tex}{34}
+\KAuxAutoref {default}{base}{\axK }
+
+\KAuxFileAt {macros.tex}{35}
+\KAuxAutoref {default}{base}{\axI }
+
+\KAuxFileAt {macros.tex}{36}
+\KAuxAutoref {default}{base}{\axS }
+
+\KAuxFileAt {macros.tex}{37}
+\KAuxAutoref {default}{base}{\axW }
+
+\KAuxFileAt {macros.tex}{39}
+\KAuxAutoref {default}{base}{\Ord }
+
+\KAuxFileAt {macros.tex}{40}
+\KAuxAutoref {default}{base}{\sub }
+
+\KAuxFileAt {macros.tex}{41}
+\KAuxAutoref {default}{base}{\ssub }
+
+\KAuxFileAt {macros.tex}{42}
+\KAuxAutoref {default}{base}{\subf }
+
+\KAuxFileAt {macros.tex}{43}
+\KAuxAutoref {default}{base}{\gen }
+
+\KAuxFileAt {macros.tex}{44}
+\KAuxAutoref {default}{base}{\rt }
+
+\KAuxFileAt {macros.tex}{46}
+\KAuxAutoref {default}{base}{\St }
+
+\KAuxFileAt {macros.tex}{47}
+\KAuxAutoref {default}{base}{\ev }
+
+\KAuxFileAt {macros.tex}{48}
+\KAuxAutoref {default}{base}{\rv }
+
+\KAuxFileAt {macros.tex}{49}
+\KAuxAutoref {default}{base}{\body }
+
+\KAuxFileAt {macros.tex}{50}
+\KAuxAutoref {default}{base}{\dprem }
+
+\KAuxFileAt {macros.tex}{51}
+\KAuxAutoref {default}{base}{\decsub }
+
+\KAuxFileAt {macros.tex}{52}
+\KAuxAutoref {default}{base}{\tl }
+
+\KAuxFileAt {macros.tex}{53}
+\KAuxAutoref {default}{base}{\pprem }
+
+\KAuxFileAt {macros.tex}{54}
+\KAuxAutoref {default}{base}{\pbody }
+
+\KAuxFileAt {macros.tex}{55}
+\KAuxAutoref {default}{base}{\pdef }
+
+\KAuxFileAt {macros.tex}{56}
+\KAuxAutoref {default}{base}{\prep }
+
+\KAuxFileAt {macros.tex}{57}
+\KAuxAutoref {default}{base}{\hgt }
+
+\KAuxFileAt {knowledge.tex}{4}
+
+\KAuxFileAt {knowledge.tex}{5}
+\KAuxAutoref {default}{base}{logic}
+
+\KAuxFileAt {knowledge.tex}{6}
+
+\KAuxFileAt {knowledge.tex}{7}
+
+\KAuxFileAt {knowledge.tex}{8}
+\KAuxAutoref {default}{base}{order}
+
+\KAuxFileAt {knowledge.tex}{9}
+
+\KAuxFileAt {knowledge.tex}{10}
+\KAuxAutoref {default}{base}{substitution preorder}
+
+\KAuxFileAt {knowledge.tex}{11}
+
+\KAuxFileAt {knowledge.tex}{12}
+\KAuxAutoref {default}{base}{strictly more general}
+
+\KAuxFileAt {knowledge.tex}{13}
+
+\KAuxFileAt {knowledge.tex}{14}
+\KAuxAutoref {default}{base}{minimal}
+
+\KAuxFileAt {knowledge.tex}{15}
+
+\KAuxFileAt {knowledge.tex}{16}
+
+\KAuxFileAt {knowledge.tex}{17}
+
+\KAuxFileAt {knowledge.tex}{18}
+\KAuxAutoref {default}{base}{strictly below}
+
+\KAuxFileAt {knowledge.tex}{19}
+
+\KAuxFileAt {knowledge.tex}{20}
+\KAuxAutoref {default}{base}{leaf}
+
+\KAuxFileAt {knowledge.tex}{21}
+
+\KAuxFileAt {knowledge.tex}{22}
+
+\KAuxFileAt {knowledge.tex}{23}
+\KAuxAutoref {default}{base}{compound occurrence}
+
+\KAuxFileAt {knowledge.tex}{24}
+
+\KAuxFileAt {knowledge.tex}{25}
+
+\KAuxFileAt {knowledge.tex}{26}
+
+\KAuxFileAt {knowledge.tex}{27}
+\KAuxAutoref {default}{base}{atom}
+
+\KAuxFileAt {knowledge.tex}{28}
+
+\KAuxFileAt {knowledge.tex}{29}
+
+\KAuxFileAt {knowledge.tex}{30}
+\KAuxAutoref {default}{base}{polarity}
+
+\KAuxFileAt {knowledge.tex}{31}
+
+\KAuxFileAt {knowledge.tex}{32}
+\KAuxAutoref {default}{base}{positive}
+
+\KAuxFileAt {knowledge.tex}{33}
+
+\KAuxFileAt {knowledge.tex}{34}
+\KAuxAutoref {default}{base}{negative}
+
+\KAuxFileAt {knowledge.tex}{35}
+
+\KAuxFileAt {knowledge.tex}{36}
+\KAuxAutoref {default}{base}{extension variable}
+
+\KAuxFileAt {knowledge.tex}{37}
+
+\KAuxFileAt {knowledge.tex}{38}
+
+\KAuxFileAt {knowledge.tex}{39}
+\KAuxAutoref {default}{base}{body}
+
+\KAuxFileAt {knowledge.tex}{40}
+
+\KAuxFileAt {knowledge.tex}{41}
+
+\KAuxFileAt {knowledge.tex}{42}
+\KAuxAutoref {default}{base}{defining premise}
+
+\KAuxFileAt {knowledge.tex}{43}
+
+\KAuxFileAt {knowledge.tex}{44}
+
+\KAuxFileAt {knowledge.tex}{45}
+\KAuxAutoref {default}{base}{translation}
+
+\KAuxFileAt {knowledge.tex}{46}
+
+\KAuxFileAt {knowledge.tex}{47}
+\KAuxAutoref {default}{base}{decoding substitution}
+
+\KAuxFileAt {knowledge.tex}{48}
+
+\KAuxFileAt {knowledge.tex}{49}
+\KAuxAutoref {default}{base}{one-step generalization}
+
+\KAuxFileAt {knowledge.tex}{50}
+
+\KAuxFileAt {knowledge.tex}{51}
+
+\KAuxFileAt {knowledge.tex}{52}
+\KAuxAutoref {default}{base}{height}
+
+\KAuxFileAt {knowledge.tex}{53}
+
+\KAuxFileAt {knowledge.tex}{54}
+\KAuxAutoref {default}{base}{basic}
+
+\KAuxFileAt {knowledge.tex}{55}
+
+\KAuxFileAt {knowledge.tex}{56}
+\KAuxAutoref {default}{base}{top-level premises}
+
+\KAuxFileAt {knowledge.tex}{57}
+
+\KAuxFileAt {knowledge.tex}{58}
+
+\KAuxFileAt {knowledge.tex}{59}
+\KAuxAutoref {default}{base}{Horn clause}
+
+\KAuxFileAt {knowledge.tex}{60}
+
+\KAuxFileAt {main.tex}{25}
+\KAuxScopeNewInstance {base}{base}{}
+\KAuxScopeNewInstance {document}{document}{base}
+\KAuxDeclaredScopeTag {sec:intro}
+\KAuxNewLinkScopetagInstance {sec:intro}{document}
+\KAuxDeclaredScopeTag {thm:main}
+\KAuxNewLinkScopetagInstance {thm:main}{document}
+\KAuxDeclaredScopeTag {sec:related}
+\KAuxNewLinkScopetagInstance {sec:related}{document}
+\KAuxDeclaredScopeTag {sec:prelim}
+\KAuxNewLinkScopetagInstance {sec:prelim}{document}
+
+\KAuxFileAt {preliminaries.tex}{9}
+\KAuxAutorefTarget {default}{base}{order}
+\KAuxAutorefTarget {default}{base}{\Ord }
+
+\KAuxFileAt {preliminaries.tex}{12}
+\KAuxAutorefTarget {default}{base}{height}
+\KAuxAutorefTarget {default}{base}{\hgt }
+
+\KAuxFileAt {preliminaries.tex}{17}
+\KAuxAutorefTarget {default}{base}{logic}
+
+\KAuxFileAt {preliminaries.tex}{19}
+\KAuxAutorefTarget {default}{base}{\lclos }
+
+\KAuxFileAt {preliminaries.tex}{20}
+\KAuxAutorefTarget {default}{base}{\lplus }
+
+\KAuxFileAt {preliminaries.tex}{32}
+\KAuxAutorefTarget {default}{base}{\axI }
+
+\KAuxFileAt {preliminaries.tex}{36}
+\KAuxAutorefTarget {default}{base}{\sub }
+
+\KAuxFileAt {preliminaries.tex}{37}
+\KAuxAutorefTarget {default}{base}{\ssub }
+
+\KAuxFileAt {preliminaries.tex}{39}
+\KAuxAutorefTarget {default}{base}{substitution preorder}
+
+\KAuxFileAt {preliminaries.tex}{40}
+\KAuxAutorefTarget {default}{base}{strictly more general}
+
+\KAuxFileAt {preliminaries.tex}{43}
+\KAuxAutorefTarget {default}{base}{minimal}
+
+\KAuxFileAt {preliminaries.tex}{51}
+\KAuxAutorefTarget {default}{base}{\rt }
+
+\KAuxFileAt {preliminaries.tex}{53}
+\KAuxAutorefTarget {default}{base}{\subf }
+
+\KAuxFileAt {preliminaries.tex}{54}
+\KAuxAutorefTarget {default}{base}{strictly below}
+
+\KAuxFileAt {preliminaries.tex}{55}
+\KAuxAutorefTarget {default}{base}{leaf}
+
+\KAuxFileAt {preliminaries.tex}{56}
+\KAuxAutorefTarget {default}{base}{compound occurrence}
+
+\KAuxFileAt {preliminaries.tex}{62}
+\KAuxAutorefTarget {default}{base}{\gen }
+
+\KAuxFileAt {preliminaries.tex}{66}
+\KAuxAutorefTarget {default}{base}{one-step generalization}
+\KAuxDeclaredScopeTag {cor:criterion}
+\KAuxNewLinkScopetagInstance {cor:criterion}{document}
+\KAuxDeclaredScopeTag {sec:translation}
+\KAuxNewLinkScopetagInstance {sec:translation}{document}
+
+\KAuxFileAt {translation.tex}{4}
+\KAuxAutorefTarget {default}{base}{polarity}
+\KAuxAutorefTarget {default}{base}{positive}
+
+\KAuxFileAt {translation.tex}{5}
+\KAuxAutorefTarget {default}{base}{negative}
+
+\KAuxFileAt {translation.tex}{9}
+\KAuxAutorefTarget {default}{base}{\ev }
+
+\KAuxFileAt {translation.tex}{10}
+\KAuxAutorefTarget {default}{base}{extension variable}
+
+\KAuxFileAt {translation.tex}{14}
+\KAuxAutorefTarget {default}{base}{\rv }
+
+\KAuxFileAt {translation.tex}{18}
+\KAuxAutorefTarget {default}{base}{\body }
+\KAuxAutorefTarget {default}{base}{body}
+
+\KAuxFileAt {translation.tex}{19}
+\KAuxAutorefTarget {default}{base}{defining premise}
+
+\KAuxFileAt {translation.tex}{21}
+\KAuxAutorefTarget {default}{base}{\dprem }
+\KAuxDeclaredScopeTag {def:S}
+\KAuxNewLinkScopetagInstance {def:S}{document}
+
+\KAuxFileAt {translation.tex}{29}
+\KAuxAutorefTarget {default}{base}{translation}
+
+\KAuxFileAt {translation.tex}{31}
+\KAuxAutorefTarget {default}{base}{\St }
+
+\KAuxFileAt {translation.tex}{35}
+\KAuxAutorefTarget {default}{base}{\decsub }
+\KAuxDeclaredScopeTag {ex:peirce}
+\KAuxNewLinkScopetagInstance {ex:peirce}{document}
+\KAuxDeclaredScopeTag {ex:lc}
+\KAuxNewLinkScopetagInstance {ex:lc}{document}
+\KAuxDeclaredScopeTag {sec:proof}
+\KAuxNewLinkScopetagInstance {sec:proof}{document}
+
+\KAuxFileAt {proof.tex}{12}
+\KAuxAutorefTarget {default}{base}{\tl }
+
+\KAuxFileAt {proof.tex}{15}
+\KAuxAutorefTarget {default}{base}{\pprem }
+\KAuxAutorefTarget {default}{base}{\pbody }
+
+\KAuxFileAt {proof.tex}{16}
+\KAuxAutorefTarget {default}{base}{\pdef }
+
+\KAuxFileAt {proof.tex}{20}
+\KAuxAutorefTarget {default}{base}{\prep }
+\KAuxDeclaredScopeTag {lem:shape}
+\KAuxNewLinkScopetagInstance {lem:shape}{document}
+
+\KAuxFileAt {proof.tex}{63}
+\KAuxAutorefTarget {default}{base}{basic}
+\KAuxDeclaredScopeTag {lem:key}
+\KAuxNewLinkScopetagInstance {lem:key}{document}
+\KAuxDeclaredScopeTag {lem:normal}
+\KAuxNewLinkScopetagInstance {lem:normal}{document}
+\KAuxDeclaredScopeTag {ex:decode}
+\KAuxNewLinkScopetagInstance {ex:decode}{document}
+\KAuxDeclaredScopeTag {sec:normal-form}
+\KAuxNewLinkScopetagInstance {sec:normal-form}{document}
+
+\KAuxFileAt {normalform.tex}{8}
+\KAuxAutorefTarget {default}{base}{\axB }
+\KAuxAutorefTarget {default}{base}{\axBp }
+
+\KAuxFileAt {normalform.tex}{9}
+\KAuxAutorefTarget {default}{base}{\axC }
+\KAuxAutorefTarget {default}{base}{\axS }
+
+\KAuxFileAt {normalform.tex}{10}
+\KAuxAutorefTarget {default}{base}{\axW }
+\KAuxAutorefTarget {default}{base}{\axK }
+
+\KAuxFileAt {normalform.tex}{13}
+\KAuxAutorefTarget {default}{base}{\BCI }
+
+\KAuxFileAt {normalform.tex}{14}
+\KAuxAutorefTarget {default}{base}{\BCK }
+\KAuxAutorefTarget {default}{base}{\IL }
+
+\KAuxFileAt {normalform.tex}{15}
+\KAuxAutorefTarget {default}{base}{\CL }
+
+\KAuxFileAt {normalform.tex}{16}
+\KAuxAutorefTarget {default}{base}{\LC }
+\KAuxDeclaredScopeTag {lem:sound}
+\KAuxNewLinkScopetagInstance {lem:sound}{document}
+\KAuxDeclaredScopeTag {cor:many-logics}
+\KAuxNewLinkScopetagInstance {cor:many-logics}{document}
+\KAuxDeclaredScopeTag {cor:normal-form}
+\KAuxNewLinkScopetagInstance {cor:normal-form}{document}
+\KAuxDeclaredScopeTag {prop:order3}
+\KAuxNewLinkScopetagInstance {prop:order3}{document}
+\KAuxDeclaredScopeTag {sec:kk}
+\KAuxNewLinkScopetagInstance {sec:kk}{document}
+\KAuxDeclaredScopeTag {cor:LC}
+\KAuxNewLinkScopetagInstance {cor:LC}{document}
+\KAuxDeclaredScopeTag {sec:order3}
+\KAuxNewLinkScopetagInstance {sec:order3}{document}
+
+\KAuxFileAt {kk.tex}{52}
+\KAuxAutorefTarget {default}{base}{top-level premises}
+\KAuxDeclaredScopeTag {prop:one-premise}
+\KAuxNewLinkScopetagInstance {prop:one-premise}{document}
+
+\KAuxFileAt {kk.tex}{65}
+\KAuxAutorefTarget {default}{base}{Horn clause}
+\KAuxDeclaredScopeTag {rem:many}
+\KAuxNewLinkScopetagInstance {rem:many}{document}
+\KAuxDeclaredScopeTag {sec:remarks}
+\KAuxNewLinkScopetagInstance {sec:remarks}{document}
+
+\KAuxFileAt {remarks.tex}{8}
+\KAuxAutorefTarget {default}{base}{\BC }
+\KAuxDeclaredScopeTag {prop:needI}
+\KAuxNewLinkScopetagInstance {prop:needI}{document}
+\KAuxDeclaredScopeTag {sec:fl}
+\KAuxNewLinkScopetagInstance {sec:fl}{document}
+
+\KAuxFileAt {substructural.tex}{15}
+\KAuxAutorefTarget {default}{base}{atom}
+
+\KAuxFileAt {substructural.tex}{16}
+\KAuxAutorefTarget {default}{base}{\FLe }
+
+\KAuxFileAt {substructural.tex}{17}
+\KAuxAutorefTarget {default}{base}{\FLew }
+
+\KAuxFileAt {substructural.tex}{20}
+\KAuxAutorefTarget {default}{base}{\FL }
+\KAuxDeclaredScopeTag {thm:main-fl}
+\KAuxNewLinkScopetagInstance {thm:main-fl}{document}
+\KAuxDeclaredScopeTag {lem:sound-fl}
+\KAuxNewLinkScopetagInstance {lem:sound-fl}{document}
+\KAuxDeclaredScopeTag {cor:fl}
+\KAuxNewLinkScopetagInstance {cor:fl}{document}
+\KAuxDeclaredScopeTag {sec:additive}
+\KAuxNewLinkScopetagInstance {sec:additive}{document}
+\KAuxDeclaredScopeTag {rem:wrapper}
+\KAuxNewLinkScopetagInstance {rem:wrapper}{document}
+\KAuxDeclaredScopeTag {sec:conclusion}
+\KAuxNewLinkScopetagInstance {sec:conclusion}{document}
+\KAuxDeclaredScopeTag {app:criterion}
+\KAuxNewLinkScopetagInstance {app:criterion}{document}
+\KAuxDeclaredScopeTag {sec:lean}
+\KAuxNewLinkScopetagInstance {sec:lean}{document}
+\KAuxDeclaredScopeTag {app:weak}
+\KAuxNewLinkScopetagInstance {app:weak}{document}
+
+\KAuxFileAt {app-weak.tex}{8}
+\KAuxAutorefTarget {default}{base}{\CK }
+
+\KAuxFileAt {app-weak.tex}{9}
+\KAuxAutorefTarget {default}{base}{\BK }
+
+\KAuxFileAt {app-weak.tex}{10}
+\KAuxAutorefTarget {default}{base}{\BBpKI }
+
+\KAuxFileAt {app-weak.tex}{12}
+\KAuxAutorefTarget {default}{base}{\Tto }
+\KAuxDeclaredScopeTag {prop:weak}
+\KAuxNewLinkScopetagInstance {prop:weak}{document}
+\KAuxEOF {}

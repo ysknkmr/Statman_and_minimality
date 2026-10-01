@@ -1,0 +1,34 @@
+%% Knowledge package configuration (as in the LMCS and PODS2027 papers).
+%% Define \submission before this file to switch to electronic mode
+%% (no anchor points, no composition-time diagnostics).
+\ifdefined\submission
+  \usepackage[xcolor, hyperref, electronic]{knowledge}
+  \knowledgeconfigure{visible anchor points=false}
+\else
+  \usepackage[xcolor, hyperref, composition]{knowledge}
+\fi
+\knowledgeconfigure{notion}
+\knowledgeconfigure{diagnose line=true, diagnose bar=true}
+
+%% Very dark red for an introduction, very dark blue for a reference,
+%% so that the links read as text rather than as hyperlinks.
+\definecolor{Dark Ruby Red}{HTML}{580507}
+\definecolor{Dark Blue Sapphire}{HTML}{053641}
+\definecolor{Dark Gamboge}{HTML}{be7c00}
+
+\IfKnowledgePaperModeTF{%
+  %
+}{%
+  \knowledgestyle{intro notion}{color={Dark Ruby Red}, emphasize}
+  \knowledgestyle{notion}{color={Dark Blue Sapphire}}
+  \IfKnowledgeElectronicModeTF{%
+    %
+  }{%
+    % Composition mode: highlight what is not yet a knowledge.
+    \knowledgeconfigure{anchor point color={Dark Ruby Red}, anchor point shape=corner}
+    \knowledgestyle{intro unknown}{color={Dark Gamboge}, emphasize}
+    \knowledgestyle{intro unknown cont}{color={Dark Gamboge}, emphasize}
+    \knowledgestyle{kl unknown}{color={Dark Gamboge}}
+    \knowledgestyle{kl unknown cont}{color={Dark Gamboge}}
+  }%
+}

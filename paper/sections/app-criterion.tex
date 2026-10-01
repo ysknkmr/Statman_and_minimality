@@ -1,0 +1,45 @@
+%======================================================================
+\section{Proof of Proposition~\ref{cor:criterion}}\label{app:criterion}
+
+\begin{proof}[Proof of Proposition~\ref{cor:criterion}]
+\proofcase{``Only if''.}
+Suppose that $\alpha$ is \kl{minimal} in $L$. Let $\beta=\gen{\alpha}{Q}{z}$ be a \kl{one-step generalization} of $\alpha$; we show that $\beta\ssub\alpha$, so that $\beta\notin L$. Since $z$ does not occur in $\alpha$, substituting $\delta$ for $z$ in
+$\beta$ yields $\alpha$; hence $\beta\sub\alpha$. Suppose, towards a
+contradiction, that $\tau\alpha=\beta$ for some substitution $\tau$. Note
+that a substitution never decreases the number of occurrences of $\to$.
+
+\proofcase{Case: $\delta$ is not a variable.}
+Then $\delta$ contains $\to$, so $\beta$ has
+fewer occurrences of $\to$ than $\alpha$, which is impossible.
+
+\proofcase{Case: $\delta$ is a variable $p$.}
+Then $\alpha$ and $\beta$ have the same
+number of occurrences of $\to$, so $\tau$ maps each variable of $\alpha$
+to a variable. Thus $\tau\alpha$ has the same syntax tree as $\alpha$ and
+carries the variable $\tau(p)$ at every \kl{leaf} at which $\alpha$ carries $p$.
+At these \kl{leaves}, however, $\beta$ carries $z$ (at the elements of $Q$) as
+well as $p$ (at an occurrence outside $Q$). Hence $\tau(p)=z$ and
+$\tau(p)=p$, a contradiction.
+
+\proofcase{``If''.}
+Suppose that no \kl{one-step generalization} of $\alpha$ belongs to $L$. Let $\gamma\in L$ and let $\sigma$ be a substitution with
+$\sigma\gamma=\alpha$. We show that $\alpha\sub\gamma$.
+
+\proofcase{Case: $\sigma$ maps the variables of $\gamma$ injectively to
+variables.}
+Then there is a substitution $\tau$ with $\tau(\sigma(q))=q$ for
+every variable $q$ of $\gamma$, and $\tau\alpha=\tau\sigma\gamma=\gamma$.
+
+\proofcase{Case: otherwise.}
+There is a variable $q$ of $\gamma$ such that either
+(i)~$\sigma(q)$ is not a variable, or (ii)~$\sigma(q)=\sigma(q')$ is a
+variable for some variable $q'\ne q$ of $\gamma$. Let $z$ be a variable not
+occurring in $\alpha$, and let $\sigma'$ agree with $\sigma$ except that
+$\sigma'(q)=z$. Every occurrence of $q$ in $\gamma$ gives rise to an
+occurrence of $\delta:=\sigma(q)$ in $\alpha=\sigma\gamma$; let $Q$ be the
+set of these occurrences. Then $Q\ne\emptyset$ and
+$\sigma'\gamma=\gen{\alpha}{Q}{z}$. In case~(ii), the occurrences of $q'$ in
+$\gamma$ give rise to occurrences of the variable $\delta$ that do not
+belong to $Q$. Therefore $\sigma'\gamma$ is a \kl{one-step generalization} of
+$\alpha$, and $\sigma'\gamma\in L$ by (C1), contrary to the hypothesis.
+\end{proof}

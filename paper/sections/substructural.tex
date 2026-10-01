@@ -1,0 +1,130 @@
+%======================================================================
+\section{Substructural Logics}\label{sec:fl}
+
+In this section we extend the translation to richer languages and show
+that the analogue of Corollary~\ref{cor:many-logics} holds over
+$\FLe$ in the multiplicative language and over $\FLew$
+in the full language, but not over $\FLe$ with additive
+connectives. The results of this section are not used elsewhere in the
+paper.
+
+\subsection{The translation in a richer language}
+
+Let $\mathcal L$ be a language that contains $\to$ and possibly some of the
+binary connectives $\cdot$ (fusion), $\wedge$ and $\vee$ and some of the
+constants $\bot,\top,0,1$. \AP An \intro{atom} is a variable or a constant. \AP We
+consider the full Lambek calculus with exchange $\intro*\FLe$ and its
+extension $\intro*\FLew$ by weakening, in the language
+$\{\to,\cdot,\wedge,\vee,0,1\}$, possibly expanded by $\bot$ and $\top$
+(see~\cite{GJKO07}). Intuitionistic logic in this language contains
+$\FLew$. The full Lambek calculus $\intro*\FL$ without exchange has two
+implications $\backslash$ and $/$ in place of $\to$. Logics in $\mathcal L$, \kl{one-step generalizations} and
+occurrences are defined as in Sections~\ref{sec:prelim}
+and~\ref{sec:proof}, except that an occurrence $u$ is a \kl{leaf} if
+$\subf{\alpha}{u}$ is an \kl{atom}, and if $\subf{\alpha}{u}=\gamma\circ\delta$ for a binary
+connective $\circ$, then $\gamma$ is at $u0$ and $\delta$ is at $u1$.
+
+The translation $\St$ is defined as in Definition~\ref{def:S}, with the
+following changes. If $\subf{\alpha}{u}=\subf{\alpha}{u0}\circ\subf{\alpha}{u1}$ with
+$\circ\in\{\cdot,\wedge,\vee\}$, then both $u0$ and $u1$ have the same
+\kl{polarity} as $u$. For a \kl{leaf} $u$ we put $\rv{u}=\subf{\alpha}{u}$, so that constants
+are treated like variables, and the \kl{body} of a \kl{compound occurrence} $u$ with
+$\subf{\alpha}{u}=\subf{\alpha}{u0}\circ\subf{\alpha}{u1}$ is $\body{u}=\rv{u0}\circ \rv{u1}$.
+
+\begin{theorem}\label{thm:main-fl}
+Let $L$ be a \kl{logic} in $\mathcal L$ containing $\axI$. If $\alpha$ is \kl{minimal}
+in $L$ and $\St(\alpha)\in L$, then $\St(\alpha)$ is \kl{minimal} in $L$.
+\end{theorem}
+\begin{proof}
+The proof of Theorem~\ref{thm:main} in Section~\ref{sec:proof} goes through after the following changes:
+\begin{itemize}
+\item variables of $\alpha$ are replaced by \kl{atoms} of $\alpha$, except
+  in the condition on $\delta$ in the definition of a \kl{one-step
+  generalization}, which still
+  concerns variables only;
+\item in the ``only if'' part of the proof of
+  Proposition~\ref{cor:criterion} (Appendix~\ref{app:criterion}), occurrences of $\to$ are replaced by
+  occurrences of connectives and constants;
+\item in Lemmas~\ref{lem:shape}(d) and~\ref{lem:key},
+  the implication in a \kl{body} is replaced by the main connective of the
+  corresponding occurrence.\qedhere
+\end{itemize}
+\end{proof}
+
+\subsection{Soundness over \texorpdfstring{$\FLe$}{FLe} and \texorpdfstring{$\FLew$}{FLew}}
+
+\begin{lemma}\label{lem:sound-fl}
+In each of the following cases, $\alpha\to\St(\alpha)\in L$ for every
+formula $\alpha$ of $\mathcal L$:
+\begin{enumerate}
+\item[(i)] $\mathcal L\subseteq\{\to,\cdot,0,1\}$ and $L\supseteq\FLe$;
+\item[(ii)] $L\supseteq\FLew$; in particular, $L\supseteq\IL$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+We argue as in the proof of Lemma~\ref{lem:sound}, in the sequent calculus
+for $\FLe$, with weakening in case~(ii). The case of fusion is
+similar to that of implication, and again every formula of $\Gamma_u$ is
+used exactly once; this proves (i). For $\wedge$ and $\vee$, the rules
+$({\wedge}\mathrm{R})$ and $({\vee}\mathrm{L})$ share their context between
+the two premises, and in each premise we remove the \kl{defining premises}
+belonging to the other subtree by weakening; this proves (ii).
+\end{proof}
+
+\begin{corollary}\label{cor:fl}
+In each case of Lemma~\ref{lem:sound-fl}, $L\lplus \alpha=L\lplus \St(\alpha)$ for every
+formula $\alpha$ of $\mathcal L$. If, moreover, $\alpha$ is \kl{minimal} in $L$,
+then so is $\St(\alpha)$.
+\end{corollary}
+\begin{proof}
+As in the proof of Corollary~\ref{cor:many-logics},
+using Lemma~\ref{lem:sound-fl} and Theorem~\ref{thm:main-fl}.
+\end{proof}
+
+\subsection{Additive connectives over \texorpdfstring{$\FLe$}{FLe}}\label{sec:additive}
+
+The proof of Theorem~\ref{thm:main-fl} uses only (C1)--(C3), and \kl{polarity}
+enters only through Lemma~\ref{lem:sound-fl}. It is exactly this lemma that
+fails over $\FLe$ in the presence of additive connectives. The
+following two observations, both verified with a cut-free prover for
+$\FLe$ (\texttt{tools/fle\_check.py}), show that the difficulty
+cannot be removed simply by adding Jeřábek's wrappers ``$\wedge1$''.
+
+\begin{remark}\label{rem:wrapper}
+Let $\mathcal L=\{\to,\cdot,\wedge,\vee,0,1\}$.
+\begin{enumerate}
+\item[(a)] \emph{Without the wrappers, $\St$ is not sound over
+  $\FLe$.} The formula $\alpha=(q\to q)\wedge(r\to r)$ is \kl{minimal}
+  in $\FLe$, but
+  \[
+  \St(\alpha)=((q\to q)\to \ev{0})\to((r\to r)\to \ev{1})\to((\ev{0}\wedge \ev{1})\to
+  \ev{\rt})\to \ev{\rt}
+  \]
+  is not provable in $\FLe$: each premise of the rule
+  $({\wedge}\mathrm{R})$ would have to discard the \kl{defining premise}
+  belonging to the other conjunct.
+\item[(b)] \emph{With the wrappers, minimality is always lost.} Jeřábek's
+  $\varphi^+$ has $\dprem{u}\wedge1$ in place of $\dprem{u}$, which makes it sound over
+  $\FLe$ \cite[Thm.~3.8]{Jer16}. The \kl{defining premise} of the root
+  is never discarded in the proof, so replacing its conjunct $1$ by $z$
+  gives a \kl{one-step generalization} that is still provable, by
+  $({\wedge}\mathrm{L})$. Hence $\varphi^+$ is not \kl{minimal} in any \kl{logic}
+  $L\supseteq\FLe$, including $\FLew$, $\IL$ and $\CL$,
+  whenever $\varphi$ is compound. For example,
+  $(((p\to p)\to \ev{\rt})\wedge z)\to \ev{\rt}$ is provable.
+\end{enumerate}
+\end{remark}
+
+Exhaustive tests over all formulas in $\to,\wedge,\vee$ with at most four
+binary connectives and three variables give the following picture. Up to
+renaming, there are $413$ formulas \kl{minimal} in $\FLe$. For $164$ of
+them $\St(\alpha)$ is provable, and in all these cases it is \kl{minimal}, as
+predicted by Theorem~\ref{thm:main-fl}. The formula $\varphi^+$ is provable in
+all $413$ cases and \kl{minimal} in none. Wrapping only the \kl{defining premises} of
+occurrences \kl{strictly below} an additive occurrence yields a provable formula
+in all $413$ cases, but a \kl{minimal} one in only $255$. For
+$\alpha=p\vee(q\to q)$, for instance, the wrapper can be removed because
+the rule $({\vee}\mathrm{R})$ selects one disjunct. Thus a
+minimality-preserving translation over $\FLe$, if it exists, must
+adapt the wrappers to the actual proof. We leave open whether such a
+translation exists, as well as the non-commutative case $\FL$.

@@ -1,115 +1,109 @@
 %======================================================================
 \section{The Translation}\label{sec:translation}
 
-Fix a formula $\alpha$. Assign a \emph{polarity} to each occurrence of
-$\alpha$: $\varepsilon$ is positive. If $u$ is a compound occurrence with
-$\alpha_u=\alpha_{u0}\to\alpha_{u1}$, then $u1$ has the polarity of $u$ and
-$u0$ the opposite one. If $\alpha_u=\alpha_{u0}\circ\alpha_{u1}$ with
-$\circ\in\{\cdot,\wedge,\vee\}$, both $u0$ and $u1$ have the polarity of $u$.
-For each compound occurrence $u$ choose a new variable $x_u$ (an
-\emph{extension variable}), distinct from the variables of $\alpha$ and from
-each other. For every occurrence $u$ put
+\AP Fix a formula $\alpha$. We assign a \intro{polarity}, \intro{positive}
+or \intro{negative}, to each occurrence in $\alpha$ as follows. The root
+$\rt$ is \kl{positive}. If
+$\subf{\alpha}{u}=\subf{\alpha}{u0}\to\subf{\alpha}{u1}$, then $u1$ has
+the same \kl{polarity} as $u$ and $u0$ the opposite one. \AP For each
+\kl{compound occurrence} $u$ we choose a new variable $\intro*\ev{u}$,
+called an \intro{extension variable}, so that distinct occurrences receive
+distinct variables and no $\ev{u}$ occurs in $\alpha$. For every
+occurrence $u$ let
 \[
-r_u=\begin{cases}\alpha_u,&u\text{ a leaf},\\ x_u,&u\text{ compound,}\end{cases}
+\intro*\rv{u}=\begin{cases}\subf{\alpha}{u},&\text{if $u$ is a \kl{leaf}},\\
+\ev{u},&\text{if $u$ is a \kl{compound occurrence}.}\end{cases}
 \]
-and for every compound occurrence $u$ with
-$\alpha_u=\alpha_{u0}\circ\alpha_{u1}$ put $b_u=r_{u0}\circ r_{u1}$ (the
-\emph{body}) and
+\AP For every \kl{compound occurrence} $u$ we call
+$\intro*\body{u}=\rv{u0}\to\rv{u1}$ the \intro{body} of $u$, and we define
+the \intro{defining premise} of $u$ by
 \[
-E_u=\begin{cases}b_u\to x_u,& u\text{ positive},\\
-x_u\to b_u,& u\text{ negative}\end{cases}
-\qquad\text{(the \emph{link} of $u$).}
+\intro*\dprem{u}=\begin{cases}\body{u}\to\ev{u},&\text{if $u$ is \kl{positive}},\\
+\ev{u}\to\body{u},&\text{if $u$ is \kl{negative}.}\end{cases}
 \]
 
 \begin{definition}\label{def:S}
-Let $u_1,\dots,u_m$ be the compound occurrences of $\alpha$ in post-order.
-Then $\St(\alpha)=E_{u_1}\to\dots\to E_{u_m}\to r_\varepsilon$.
+\AP Let $u_1,\dots,u_m$ be the \kl{compound occurrences} of $\alpha$,
+listed in post-order; that is, $u_i$ precedes $u_j$ if and only if $u_i$
+is \kl{strictly below} $u_j$, or $u_i=w0u'$ and $u_j=w1u''$ for some
+words $w,u',u''$. The \intro{translation} of $\alpha$ is the formula
+\[
+\intro*\St(\alpha)=\dprem{u_1}\to\dots\to\dprem{u_m}\to\rv{\rt} .
+\]
 \end{definition}
 
-For implicational $\alpha$, $\St(\alpha)$ is implicational.
-This is Jeřábek's $\varphi^+$ \cite[Def.~3.6]{Jer16} with three changes:
-$\varphi^+$ uses $E_u\wedge1$ in place of $E_u$ (that is,
-$(b_u\to x_u)\wedge1$ for positive and $(x_u\to b_u)\wedge1$ for negative
-$u$), a product of the definitions in place of the iterated implication, and
-a fresh variable, with its own definition, for each occurrence of a
-constant. We explain in Remark~\ref{rem:wrapper} why the ``$\wedge1$'' must be dropped
-here.
+If $\alpha$ is a variable, then $m=0$ and $\St(\alpha)=\alpha$. \AP Let $\intro*\decsub{\alpha}$ be the substitution that maps each
+$\ev{u}$ to $\subf{\alpha}{u}$ and fixes all other variables; then
+$\decsub{\alpha}(\rv{v})=\subf{\alpha}{v}$ for every occurrence $v$ of
+$\alpha$.
+
+
+In the following examples, each implication node of the syntax tree of
+$\alpha$, that is, each \kl{compound occurrence} $u$, is annotated with
+$\ev{u}$ and the \kl{polarity} of $u$; the left and right children of $u$
+are $u0$ and $u1$.
 
 \begin{example}\label{ex:peirce}
-Let $\alpha=((a\to b)\to a)\to a$ (Peirce's law). Its compound occurrences
-are $\varepsilon$ (positive), $0$ (negative) and $00$ (positive), with
-$\alpha_{00}=a\to b$ and $\alpha_0=(a\to b)\to a$. Writing $x,y,w$ for
-$x_\varepsilon,x_0,x_{00}$:
+For Peirce's law $\alpha=((a\to b)\to a)\to a$:
 \[
-\St(\alpha)=((a\to b)\to w)\to(y\to(w\to a))\to((y\to a)\to x)\to x.
+\begin{tikzpicture}[syntree,
+  level 1/.style={sibling distance=26mm},
+  level 2/.style={sibling distance=16mm},
+  level 3/.style={sibling distance=9mm}]
+\node[ann={$\ev{\rt}^{+}$}] {$\to$}
+  child {node[ann={$\ev{0}^{-}$}] {$\to$}
+    child {node[ann={$\ev{00}^{+}$}] {$\to$} child {node {$a$}} child {node {$b$}}}
+    child {node {$a$}}}
+  child {node {$a$}};
+\end{tikzpicture}
+\qquad
+\begin{aligned}
+\dprem{00}&=\body{00}\to\ev{00}=(a\to b)\to\ev{00},\\
+\dprem{0}&=\ev{0}\to\body{0}=\ev{0}\to(\ev{00}\to a),\\
+\dprem{\rt}&=\body{\rt}\to\ev{\rt}=(\ev{0}\to a)\to\ev{\rt}.
+\end{aligned}
+\]
+Hence
+\[
+\St(\alpha)=((a\to b)\to\ev{00})\to(\ev{0}\to\ev{00}\to a)\to((\ev{0}\to a)\to\ev{\rt})\to\ev{\rt}.
 \]
 \end{example}
 
-\begin{lemma}\label{lem:order}
-If $\alpha$ is implicational, $\St(\alpha)$ has $3m+1$ variable occurrences
-and $\Ord(\St(\alpha))\le4$.
-\end{lemma}
-\begin{proof}
-Each $E_u$ has three variable occurrences. $\Ord(b_u)=2$, so
-$\Ord(b_u\to x_u)=3$ and $\Ord(x_u\to b_u)=2$. Hence
-$\Ord(\St(\alpha))\le\max\{3+1,1\}=4$.
-\end{proof}
-
-The next lemma lists the facts about the shape of $\St(\alpha)$ used below.
-All are immediate from the definition.
-
-\begin{lemma}[Soundness]\label{lem:sound}
-In each of the following cases, $L\vdash\alpha\to\St(\alpha)$ for every
-formula $\alpha$ of the given language:
-\begin{enumerate}
-\item[(i)] $\mathcal L=\{\to\}$ and $L\supseteq\mathbf{BCI}$;
-\item[(ii)] $\mathcal L\subseteq\{\to,\cdot,0,1\}$ and $L\supseteq\mathbf{FL_e}$;
-\item[(iii)] $L\supseteq\mathbf{FL_{ew}}$, in any sublanguage of
-  $\{\to,\cdot,\wedge,\vee,0,1,\bot,\top\}$ containing $\to$; in particular
-  $L\supseteq\IL$.
-\end{enumerate}
-\end{lemma}
-\begin{proof}
-We argue in the sequent calculus for $\mathbf{FL_e}$ (with weakening in case
-(iii)). For a compound occurrence $u$, let $\Gamma_u$ be the multiset of the
-links $E_v$ with $v=u$ or $v$ strictly below $u$; for a leaf, $\Gamma_u$ is
-empty. We show by induction from the leaves upward:
+\begin{example}\label{ex:lc}
+For the axiom $\alpha=((a\to b)\to c)\to((b\to a)\to c)\to c$ of
+Gödel--Dummett logic:
 \[
-\Gamma_u,\alpha_u\vdash r_u\ (u\text{ positive}),\qquad
-\Gamma_u,r_u\vdash\alpha_u\ (u\text{ negative}).
+\begin{tikzpicture}[syntree,
+  level 1/.style={sibling distance=38mm},
+  level 2/.style={sibling distance=19mm},
+  level 3/.style={sibling distance=14mm},
+  level 4/.style={sibling distance=9mm}]
+\node[ann={$\ev{\rt}^{+}$}] {$\to$}
+  child {node[ann={$\ev{0}^{-}$}] {$\to$}
+    child {node[ann={$\ev{00}^{+}$}] {$\to$} child {node {$a$}} child {node {$b$}}}
+    child {node {$c$}}}
+  child {node[ann={$\ev{1}^{+}$}] {$\to$}
+    child {node[ann={$\ev{10}^{-}$}] {$\to$}
+      child {node[ann={$\ev{100}^{+}$}] {$\to$} child {node {$b$}} child {node {$a$}}}
+      child {node {$c$}}}
+    child {node {$c$}}};
+\end{tikzpicture}
+\qquad
+\begin{aligned}
+\dprem{00}&=(a\to b)\to\ev{00},\\
+\dprem{0}&=\ev{0}\to(\ev{00}\to c),\\
+\dprem{100}&=(b\to a)\to\ev{100},\\
+\dprem{10}&=\ev{10}\to(\ev{100}\to c),\\
+\dprem{1}&=(\ev{10}\to c)\to\ev{1},\\
+\dprem{\rt}&=(\ev{0}\to\ev{1})\to\ev{\rt}.
+\end{aligned}
 \]
-For leaves this is an axiom. Let $u$ be positive with
-$\alpha_u=\alpha_{u0}\to\alpha_{u1}$. The occurrence $u0$ is negative and
-$u1$ is positive. From the induction hypotheses and $\to$-left,
-$\Gamma_{u0},\Gamma_{u1},\alpha_u,r_{u0}\vdash r_{u1}$. By $\to$-right and
-$\to$-left with $E_u=(r_{u0}\to r_{u1})\to x_u$, we get
-$\Gamma_u,\alpha_u\vdash x_u$. The case of fusion is similar. Every formula
-of $\Gamma_u$ is used exactly once, so no structural rule other than exchange
-is needed; this proves (i) and (ii). For $\wedge$ and $\vee$, the
-right-$\wedge$ and left-$\vee$ rules share the context. In each branch we
-remove the links of the other subtree by weakening; this proves (iii).
-Negative occurrences are symmetric. Taking $u=\varepsilon$ gives
-$E_{u_1},\dots,E_{u_m},\alpha\vdash r_\varepsilon$, i.e.\
-$\vdash\alpha\to\St(\alpha)$ after exchange.
-\end{proof}
-\begin{lemma}[Decoding]\label{lem:decode}
-Let $\theta_\alpha$ be the substitution with $\theta_\alpha(x_u)=\alpha_u$
-for each compound occurrence $u$, fixing all other variables. Then
-$\theta_\alpha(r_u)=\alpha_u$ for all $u$, and
+Listing the \kl{defining premises} in this order (post-order), we obtain
 \[
-\theta_\alpha\St(\alpha)=(\alpha_{u_1}\to\alpha_{u_1})\to\dots\to
-(\alpha_{u_m}\to\alpha_{u_m})\to\alpha .
+\begin{aligned}
+\St(\alpha)={}&((a\to b)\to\ev{00})\to(\ev{0}\to\ev{00}\to c)
+\to((b\to a)\to\ev{100})\to(\ev{10}\to\ev{100}\to c)\\
+&\to((\ev{10}\to c)\to\ev{1})\to((\ev{0}\to\ev{1})\to\ev{\rt})\to\ev{\rt}.
+\end{aligned}
 \]
-Consequently, if a logic $L$ contains $I$, then
-$\alpha\in L+\St(\alpha)$, and $\St(\alpha)\in L$ implies $\alpha\in L$.
-\end{lemma}
-\begin{proof}
-$\theta_\alpha(r_u)=\alpha_u$ holds by definition. Hence
-$\theta_\alpha(b_u)=\alpha_{u0}\circ\alpha_{u1}=\alpha_u=\theta_\alpha(x_u)$,
-so $\theta_\alpha(E_u)=\alpha_u\to\alpha_u$ in both polarities. The rest
-follows from (C1)--(C3).
-\end{proof}
-
-\begin{corollary}\label{cor:equiv}
-In each case of Lemma~\ref{lem:sound}, $L+\alpha=L+\St(\alpha)$.
-\end{corollary}
+\end{example}

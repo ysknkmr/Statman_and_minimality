@@ -1,29 +1,59 @@
 %======================================================================
-\section{Formalization}\label{sec:lean}
+\section{Formalization in Lean}\label{sec:lean}
 
 \plot{Half a page.}
-File \texttt{lean/StatmanMinimality.lean} (about 1300
-lines, implicational language): Lean~4 core only, no Mathlib, no
-\texttt{sorry}, no \texttt{native\_decide}. \texttt{\#print axioms} reports
-only \texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}.
-Theorem~\ref{thm:main} is formalized in exactly the generality stated: a
-logic is a predicate \texttt{Th} with \texttt{PreLogic Th} (closed under
-substitution and modus ponens, containing every instance $\gamma\to\gamma$
-of $I$), and
-\texttt{statman\_minimalIn : PreLogic Th $\to$ ($\forall$ q, Occ q A $\to$ q
-< N) $\to$ MinimalIn Th A $\to$ Th (statman A N) $\to$ MinimalIn Th
-(statman A N)}. The classical instance \texttt{statman\_minimal} uses
-\texttt{logic\_valid} and \texttt{statman\_valid}. Lemma~\ref{lem:sound}(i)
-and Corollary~\ref{cor:equiv} are formalized for every implicational logic
-containing $\mathbf{BCI}$ (\texttt{BCIExt Th}: closed under substitution and
-modus ponens, proving all instances of $B$, $C$, $I$):
-\texttt{BCIExt.statman\_imp : Th (A $\to$ statman A N)},
-\texttt{BCIExt.statman\_iff : Th A $\leftrightarrow$ Th (statman A N)}, and
-\texttt{BCIExt.statman\_minimal} (Corollary~\ref{cor:many-logics} in the
-implicational language, without extra hypotheses). Also formalized:
-\texttt{statman\_ord} (order $\le4$) and \texttt{statman\_Gprime}
-(Corollary~\ref{cor:LC}: the displayed $\St(G')$ equals
-\texttt{statman Gprime 8}). Not formalized: the full language
-(Lemma~\ref{lem:sound}(ii),(iii)). Correspondence: \texttt{reduction} and
-\texttt{strict} = Corollary~\ref{cor:criterion};
-\texttt{decode}/\texttt{decode\_node} = Lemma~\ref{lem:key} (organized node by node rather than by Lemma~\ref{lem:normal}).
+Theorem~\ref{thm:main}, Lemma~\ref{lem:sound}, the \kl{order} bound of
+Corollary~\ref{cor:normal-form},
+Corollary~\ref{cor:many-logics} and the explicit formula of
+Corollary~\ref{cor:LC} have been formalized in the
+Lean~4 proof assistant~\cite{Lean}. The development consists of a single
+file, \texttt{lean/StatmanMinimality.lean}, of about 1300 lines. It uses
+only the Lean core library, without Mathlib, and contains neither
+\texttt{sorry} nor \texttt{native\_decide}; the command
+\texttt{\#print axioms} reports only the standard axioms \texttt{propext},
+\texttt{Classical.choice} and \texttt{Quot.sound}. (The identifiers in the
+formalization use the name \texttt{statman} for the translation $\St$.)
+
+Theorem~\ref{thm:main} is formalized in exactly the generality stated. A
+logic is represented by a predicate \texttt{Th} on formulas satisfying
+\texttt{PreLogic Th}, which expresses closure under substitution and modus
+ponens together with all instances $\gamma\to\gamma$ of $\axI$. The main
+theorem reads
+\begin{quote}
+\ttfamily statman\_minimalIn : PreLogic Th $\to$\\
+\hspace*{2em}($\forall$ q, Occ q A $\to$ q < N) $\to$ MinimalIn Th A $\to$\\
+\hspace*{2em}Th (statman A N) $\to$ MinimalIn Th (statman A N),
+\end{quote}
+where the hypothesis on \texttt{N} ensures that the extension variables are
+fresh. The classical instance \texttt{statman\_minimal} is derived from it
+by means of \texttt{logic\_valid} and \texttt{statman\_valid}.
+
+Lemma~\ref{lem:sound} and the decoding argument in the proof of
+Corollary~\ref{cor:many-logics} are formalized for
+every logic containing $\BCI$, represented by
+\texttt{BCIExt Th} (closure under substitution and modus ponens, and all
+instances of $\axB$, $\axC$ and $\axI$), as
+\begin{quote}
+\ttfamily BCIExt.statman\_imp : Th (A $\to$ statman A N),\\
+BCIExt.statman\_iff : ($\forall$ q, Occ q A $\to$ q < N) $\to$\\
+\hspace*{2em}(Th A $\leftrightarrow$ Th (statman A N)),
+\end{quote}
+from which the equation $L\lplus\alpha=L\lplus\St(\alpha)$ of
+Corollary~\ref{cor:many-logics} follows.
+\begin{sloppypar}
+\noindent The theorem \texttt{BCIExt.statman\_minimal} is
+Corollary~\ref{cor:many-logics}, without further hypotheses. We have also
+formalized the \kl{order} bound $\Ord(\St(\alpha))\le4$ as
+\texttt{statman\_ord}, and the
+explicit formula of Corollary~\ref{cor:LC}: \texttt{statman\_Gprime}
+states that the displayed formula $\St(G')$ equals
+\texttt{statman Gprime 8}, and \texttt{SGprime\_ord} states that it has
+\kl{order}~$4$. The results of Section~\ref{sec:fl} have not been
+formalized.
+\end{sloppypar}
+
+The formal proof follows the paper closely. The lemmas \texttt{reduction}
+and \texttt{strict} correspond to Proposition~\ref{cor:criterion}, and
+\texttt{decode} and \texttt{decode\_node} correspond to
+Lemma~\ref{lem:key}; the latter are organized node by node rather than via
+the reduction to basic generalizations of Lemma~\ref{lem:normal}.

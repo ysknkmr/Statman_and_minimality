@@ -1,249 +1,204 @@
 %======================================================================
 \section{Proof of the Main Theorem}\label{sec:proof}
 
-We follow the two steps described in the introduction.
-Section~\ref{sec:criterion} proves the criterion (step~1).
-Section~\ref{sec:decoding} proves the decoding (step~2) and
-Theorem~\ref{thm:main}.
+Throughout this section, $\alpha$ is a formula that is not a variable,
+$u_1,\dots,u_m$ are its \kl{compound occurrences} in post-order, and $z$
+is a variable not occurring in $\St(\alpha)$. By
+Proposition~\ref{cor:criterion}, it suffices to show, for a \kl{logic}
+$L$ containing $\axI$, that if a \kl{one-step generalization} of
+$\St(\alpha)$ belongs to $L$, then so does one of $\alpha$.
 
-\subsection{A criterion for minimality}\label{sec:criterion}
-
-\begin{definition}\label{def:onestep}
-Let $\delta$ be a formula, let $Q$ be a nonempty set of occurrences of
-$\delta$ in $\alpha$ (that is, $\alpha_u=\delta$ for $u\in Q$), and let $z$
-be a variable not occurring in $\alpha$. If $\delta$ is a variable, assume
-moreover that some occurrence of $\delta$ in $\alpha$ is not in $Q$. Then
-$\alpha[Q:=z]$ is called a \emph{one-step generalization} of $\alpha$.
-\end{definition}
-
-\begin{example}
-For $\alpha=(a\to b)\to(a\to b)$, both $z\to(a\to b)$ (with $\delta=a\to b$)
-and $(z\to b)\to(a\to b)$ (with $\delta=a$) are one-step generalizations of
-$\alpha$. $(z\to b)\to(z\to b)$ is not one, because all occurrences of $a$
-are replaced.
-\end{example}
-
-\begin{lemma}\label{lem:strict}
-Every one-step generalization $\beta=\alpha[Q:=z]$ of $\alpha$ satisfies
-$\beta\ssub\alpha$.
-\end{lemma}
-\begin{proof}
-$\beta\sub\alpha$, because substituting $\delta$ for $z$ in $\beta$ gives
-$\alpha$ ($z$ does not occur in $\alpha$). Suppose, for a contradiction, that
-$\tau\alpha=\beta$ for some $\tau$. Call connectives and constants
-\emph{symbols}. A substitution never decreases the number of occurrences of
-symbols.
-
-If $\delta$ is not a variable, it contains a symbol, so $\beta$ has fewer
-symbols than $\alpha$. This is a contradiction.
-
-If $\delta$ is a variable $p$, then $\alpha$ and $\beta$ have the same number
-of symbols, so $\tau$ maps each variable of $\alpha$ to a variable. Then
-$\tau\alpha$ has the same syntax tree as $\alpha$, with the variable
-$\tau(p)$ at every leaf where $\alpha$ has $p$. But at these leaves $\beta$
-has $z$ (at $u\in Q$) and $p$ (at the occurrence outside $Q$). Hence
-$\tau(p)=z$ and $\tau(p)=p$, a contradiction.
-\end{proof}
-
-\begin{lemma}\label{lem:criterion}
-Let $L$ be a logic and $\alpha\in L$. If no one-step generalization of
-$\alpha$ is in $L$, then $\alpha$ is minimal in $L$.
-\end{lemma}
-\begin{proof}
-Let $\gamma\in L$ and $\sigma\gamma=\alpha$. We show $\alpha\sub\gamma$.
-
-Suppose first that $\sigma$ maps the variables of $\gamma$ injectively to
-variables. Then there is a substitution $\tau$ with $\tau(\sigma(q))=q$ for
-every variable $q$ of $\gamma$, and $\tau\alpha=\tau\sigma\gamma=\gamma$.
-
-Otherwise, there is a variable $q$ of $\gamma$ such that either (i)
-$\sigma(q)$ is not a variable, or (ii) $\sigma(q)=\sigma(q')$ is a variable
-for some variable $q'\ne q$ of $\gamma$. Let $z$ be a variable not occurring
-in $\alpha$, and let $\sigma'$ agree with $\sigma$ except that
-$\sigma'(q)=z$. Every occurrence of $q$ in $\gamma$ yields an occurrence of
-$\delta:=\sigma(q)$ in $\alpha=\sigma\gamma$. Let $Q$ be the set of these
-occurrences; $Q\ne\emptyset$. Then $\sigma'\gamma=\alpha[Q:=z]$. In case (ii),
-the occurrences of $q'$ in $\gamma$ yield occurrences of the variable
-$\delta$ that are not in $Q$. So $\sigma'\gamma$ is a one-step generalization
-of $\alpha$, and $\sigma'\gamma\in L$ by (C1). This contradicts the
-hypothesis.
-\end{proof}
-
-\begin{corollary}\label{cor:criterion}
-Let $L$ be a logic. A formula $\alpha\in L$ is minimal in $L$ if and only if
-no one-step generalization of $\alpha$ is in $L$.
-\end{corollary}
-\begin{proof}
-``If'' is Lemma~\ref{lem:criterion}. ``Only if'' follows from
-Lemma~\ref{lem:strict}.
-\end{proof}
-
-
-\subsection{Decoding one-step generalizations}\label{sec:decoding}
-
-For an occurrence $u$ of $\alpha$, the \emph{reading} of $u$ is the
-occurrence of $r_u$ inside the body $b_v$ of its parent $v$, or the last
-formula $r_\varepsilon$ of $\St(\alpha)$ when $u=\varepsilon$. The next lemma
-lists the facts about the shape of $\St(\alpha)$ that we use. All of them are
-immediate from the definition.
+\AP We first name some occurrences in $\St(\alpha)$. For $1\le i\le m+1$,
+let $\intro*\tl{i}=\dprem{u_i}\to\dots\to\dprem{u_m}\to\ev{\rt}$; thus
+$\tl{1}=\St(\alpha)$, $\tl{m+1}=\ev{\rt}$, and $\tl{i}$ occurs in
+$\St(\alpha)$ at $1^{i-1}$. For $u=u_i$, the formula $\dprem{u}$ occurs at
+$\intro*\pprem(u)=1^{i-1}0$, and we let $\intro*\pbody(u)$ and
+$\intro*\pdef(u)$ be the occurrences of $\body{u}$ and $\ev{u}$ in
+$\dprem{u}$; that is, $\pbody(u)=\pprem(u)0$ and $\pdef(u)=\pprem(u)1$ if
+$u$ is \kl{positive}, and $\pbody(u)=\pprem(u)1$ and $\pdef(u)=\pprem(u)0$
+if $u$ is \kl{negative}. Finally, for an occurrence $v$ of $\alpha$ we
+define the occurrence $\intro*\prep(v)$ of $\rv{v}$ in $\St(\alpha)$ by
+$\prep(w0)=\pbody(w)0$, $\prep(w1)=\pbody(w)1$ and $\prep(\rt)=1^m$.
 
 \begin{lemma}\label{lem:shape}
+\leavevmode
 \begin{enumerate}
-\item[(a)] For each compound occurrence $u$, $x_u$ occurs in $\St(\alpha)$
-  exactly twice: at the reading of $u$, and as the \emph{head} of $E_u$
-  (the variable side of the link).
-\item[(b)] The occurrences of atoms of $\alpha$ in $\St(\alpha)$ are exactly
-  the readings of the leaves of $\alpha$. So for each atom $c$ they
-  correspond bijectively to the leaves $u$ with $\alpha_u=c$.
-\item[(c)] Every compound subformula occurrence in $\St(\alpha)$ is of
-  exactly one of the following kinds:
-  \begin{itemize}
-  \item a body $b_u$ (both immediate subformulas are atoms);
-  \item a link $E_u$ (one immediate subformula is an atom, the other a body);
-  \item a \emph{tail} $T_i=E_{u_i}\to\dots\to E_{u_m}\to r_\varepsilon$ with
-    $1\le i\le m$ (its left immediate subformula is a link).
-  \end{itemize}
-  In particular, no tail is a subformula of a link, and distinct tails are
-  distinct formulas.
-\item[(d)] If $b_u=b_v$ as formulas, then $\alpha_u=\alpha_v$. If $E_u=E_v$
-  as formulas, then $u=v$.
+\item[(a)] Every occurrence in $\St(\alpha)$ is exactly one of $1^{i-1}$
+  $(1\le i\le m)$, $\pprem(u)$, $\pbody(u)$, $\pdef(u)$ and $\prep(v)$,
+  and the subformula of $\St(\alpha)$ there is $\tl{i}$, $\dprem{u}$,
+  $\body{u}$, $\ev{u}$ and $\rv{v}$, respectively.
+\item[(b)] For a \kl{compound occurrence} $u$ of $\alpha$, the variable
+  $\ev{u}$ occurs in $\St(\alpha)$ exactly at $\pdef(u)$ and $\prep(u)$. A
+  variable $c$ of $\alpha$ occurs in $\St(\alpha)$ exactly at the
+  occurrences $\prep(v)$ with $v$ a \kl{leaf} of $\alpha$ and
+  $\subf{\alpha}{v}=c$.
+\item[(c)] $\hgt(\body{u})=1$, $\hgt(\dprem{u})=2$ and $\hgt(\tl{i})\ge3$
+  for $i\le m$. Hence a formula of \kl{height}~$1$ occurs in $\St(\alpha)$
+  only at occurrences $\pbody(u)$, a formula of \kl{height}~$2$ only at
+  occurrences $\pprem(u)$, and a formula of \kl{height} at least~$3$ only
+  at occurrences $1^{i-1}$.
+\item[(d)] If $\body{u}=\body{v}$, then $\subf{\alpha}{u}=\subf{\alpha}{v}$.
+  If $\dprem{u}=\dprem{v}$, then $u=v$. If $\tl{i}=\tl{j}$, then $i=j$.
 \end{enumerate}
 \end{lemma}
 \begin{proof}
-(a)--(c) follow by inspecting Definition~\ref{def:S}. For the last claims
-of (c): the proper subformulas of a link are its body and atoms, and $T_i$
-has $m-i+1$ premises. For (d), note that $r_w$ determines $\alpha_w$: if
-$r_w$ is an atom of $\alpha$, then $\alpha_w=r_w$; if $r_w=x_{w'}$, then
-$w=w'$. So $b_u=b_v$ gives the same main connective,
-$\alpha_{u0}=\alpha_{v0}$ and $\alpha_{u1}=\alpha_{v1}$, hence
-$\alpha_u=\alpha_v$. A positive link has the form (body)$\to$(variable), and
-a negative one (variable)$\to$(body). So $E_u=E_v$ forces equal polarity and
-$x_u=x_v$, hence $u=v$.
+(a) and (b) follow from Definition~\ref{def:S}, since the
+\kl{extension variables} are distinct and do not occur in $\alpha$.
+
+(c) We have $\body{u}=\rv{u0}\to\rv{u1}$ with $\rv{u0}$ and $\rv{u1}$
+variables, $\dprem{u}$ is $\body{u}\to\ev{u}$ or $\ev{u}\to\body{u}$, and
+$\tl{i}=\dprem{u_i}\to\tl{i+1}$. The second claim follows from~(a), since
+the formulas at $\pdef(u)$ and $\prep(v)$ are variables.
+
+(d) If $\body{u}=\body{v}$, then
+$\subf{\alpha}{u}=\decsub{\alpha}(\body{u})=\decsub{\alpha}(\body{v})=\subf{\alpha}{v}$.
+Since $\body{u}$ is not a variable, $\dprem{u}$ is of the form
+$\gamma\to p$ with $p$ a variable if and only if $u$ is \kl{positive}.
+Hence $\dprem{u}=\dprem{v}$ implies that $u$ and $v$ have the same
+\kl{polarity}, so $\ev{u}=\ev{v}$ and $u=v$. Finally, if $i<j$, then
+$\tl{j}$ is a proper subformula of $\tl{i}$, so $\tl{i}\ne\tl{j}$.
 \end{proof}
 
-We call a one-step generalization $\St(\alpha)[P:=z]$ \emph{normal} if every
-position in $P$ is a reading or a body. We first reduce to normal ones.
-Throughout, $z$ is a variable not occurring in $\St(\alpha)$.
-
-\begin{lemma}[Normalization]\label{lem:normal}
-If some one-step generalization of $\St(\alpha)$ belongs to a logic $L$,
-then some normal one-step generalization of $\St(\alpha)$ belongs to $L$.
-\end{lemma}
-\begin{proof}
-Let $\alpha'=\St(\alpha)[P:=z]\in L$, where $P$ is a set of occurrences of
-$\delta$. We go through the kinds of $\delta$ given by
-Lemma~\ref{lem:shape}. Each step replaces $\alpha'$ by a substitution
-instance, which stays in $L$ by (C1).
-\begin{itemize}
-\item \emph{$\delta$ is an atom of $\alpha$ or a body.} Then every
-  occurrence of $\delta$ is a reading, resp.\ a body, by
-  Lemma~\ref{lem:shape}(b),(c). So $\alpha'$ is already normal.
-\item \emph{$\delta=x_u$.} By Lemma~\ref{lem:shape}(a) and the definition of
-  a one-step generalization, $P$ is one of the two occurrences of $x_u$. If
-  it is the reading, $\alpha'$ is normal. If it is the head, exchange the
-  variables $x_u$ and $z$. The result is $\St(\alpha)$ with the reading of
-  $u$ replaced by $z$, which is normal.
-\item \emph{$\delta=E_u$.} By Lemma~\ref{lem:shape}(c),(d), $E_u$ occurs
-  only once, so $\alpha'$ is $\St(\alpha)$ with the premise $E_u$ replaced
-  by $z$. Substitute for $z$ the link $E_u$ with its head replaced by $z$.
-  This gives $\St(\alpha)$ with the head of $E_u$ replaced by $z$, which is
-  the previous case.
-\item \emph{$\delta=T_i$.} By Lemma~\ref{lem:shape}(c), $T_i$ occurs only
-  once, so $\alpha'=E_{u_1}\to\dots\to E_{u_{i-1}}\to z$. Substitute for $z$
-  the tail $T_i$ with its last formula $r_\varepsilon$ replaced by $z$. This
-  gives $\St(\alpha)$ with the reading of $\varepsilon$ replaced by $z$,
-  which is normal.\qedhere
-\end{itemize}
-\end{proof}
+\AP We call a \kl{one-step generalization} $\gen{\St(\alpha)}{P}{z}$
+\intro{basic} if every element of $P$ is of the form $\pbody(u)$ or
+$\prep(v)$.
 
 \begin{lemma}[Decoding]\label{lem:key}
-Let $\alpha'=\St(\alpha)[P:=z]$ be a normal one-step generalization. Let $Q$
-be the set of occurrences $u$ of $\alpha$ such that the reading or the body
-of $u$ lies in $P$. Then $\beta=\alpha[Q:=z]$ is a one-step generalization of
-$\alpha$, and there is a substitution $\theta$ with
+Let $\alpha'=\gen{\St(\alpha)}{P}{z}$ be a \kl{basic} \kl{one-step
+generalization} of $\St(\alpha)$, and let
 \[
-\theta\alpha'=(\gamma_1\to\gamma_1)\to\dots\to(\gamma_k\to\gamma_k)\to\beta .
+Q=\{v\mid\prep(v)\in P\}\cup\{u\mid\pbody(u)\in P\}.
+\]
+Then $\beta=\gen{\alpha}{Q}{z}$ is a \kl{one-step generalization} of
+$\alpha$, and there are a substitution $\theta$ and formulas
+$\gamma_1,\dots,\gamma_m$ such that
+\[
+\theta\alpha'=(\gamma_1\to\gamma_1)\to\dots\to(\gamma_m\to\gamma_m)\to\beta .
 \]
 \end{lemma}
 \begin{proof}
-\emph{$\beta$ is a one-step generalization.} $Q$ is nonempty. All
-$\alpha_u$ ($u\in Q$) are the same formula $\delta_0$:
-\begin{itemize}
-\item if $\delta$ is an atom, then $\delta_0=\delta$;
-\item if $\delta=x_w$, then $Q=\{w\}$;
-\item if $\delta$ is a body, use Lemma~\ref{lem:shape}(d).
-\end{itemize}
-In particular, no element of $Q$ is strictly below another. If $\delta_0$ is
-a variable, then $\delta=\delta_0$ and $Q$ misses some leaf labelled
-$\delta_0$ by Lemma~\ref{lem:shape}(b).
+Let $\delta$ be the formula such that $P$ is a set of occurrences of
+$\delta$. We first show that $\beta$ is a \kl{one-step generalization} of
+$\alpha$. Clearly $Q\ne\emptyset$, and $z$ does not occur in $\alpha$,
+since every variable of $\alpha$ occurs in $\St(\alpha)$. If $\delta$ is a
+variable of $\alpha$, then by Lemma~\ref{lem:shape}(b), $Q$ is a set of
+\kl{leaves} $v$ with $\subf{\alpha}{v}=\delta$, and some such \kl{leaf} is
+not in $Q$, since $P$ does not contain all occurrences of $\delta$. If
+$\delta=\ev{w}$, then $P=\{\prep(w)\}$ by Lemma~\ref{lem:shape}(b), since
+$P$ is \kl{basic}; hence $Q=\{w\}$, and $\subf{\alpha}{w}$ is not a
+variable. If $\delta$ is not a variable, then
+$Q$ is the set of $u$ with $\pbody(u)\in P$, so $\body{u}=\delta$ and
+$\subf{\alpha}{u}=\decsub{\alpha}(\delta)$ for all $u\in Q$.
 
-\emph{The substitution.} Call $v$ \emph{hidden} if it is strictly below some
-element of $Q$. For $v$ not hidden, write $\beta_v$ for the subformula of
-$\beta$ at $v$ ($\beta_v=z$ for $v\in Q$). Let $\theta$ fix $z$ and the
-variables of $\alpha$, and put
-\[
-\theta(x_v)=\begin{cases}
-\alpha_v,&\text{if $v$ is hidden, or the reading of $v$ is in $P$},\\
-\beta_v,&\text{otherwise.}
+Since $P$ is \kl{basic}, no occurrence $1^{i-1}$, $\pprem(u)$ or
+$\pdef(u)$ belongs to $P$. In particular, for every \kl{compound
+occurrence} $v$ of $\alpha$,
+\begin{equation}\label{eq:body}
+\alpha'_{\pbody(v)}=
+\begin{cases}
+z, & \text{if $\pbody(v)\in P$},\\
+\alpha'_{\prep(v0)}\to\alpha'_{\prep(v1)}, & \text{otherwise},
 \end{cases}
+\end{equation}
+where $\alpha'_{\prep(vj)}$ is $z$ or $\rv{vj}$ for $j=0,1$. Let
+$\theta(p)=p$ for every variable $p$ that is not an \kl{extension
+variable}, and let
+\[
+\theta(\ev{v})=\theta(\alpha'_{\pbody(v)})
 \]
-Here is the rule behind this choice: $x_v$ is sent to $\alpha_v$ when only
-its head survives, and to $\beta_v$ when its reading survives.
+for every \kl{compound occurrence} $v$ of $\alpha$. By~\eqref{eq:body},
+the only \kl{extension variables} that may occur in $\alpha'_{\pbody(v)}$
+are $\ev{v0}$ and $\ev{v1}$, so this defines $\theta$ by induction on
+$\hgt(\subf{\alpha}{v})$.
 
-\emph{Readings.} If $v$ is hidden, $\theta$ maps the reading of $v$ to
-$\alpha_v$. If $v$ is not hidden, it maps it to $\beta_v$:
-\begin{itemize}
-\item if the reading is in $P$, it is $z=\beta_v$;
-\item otherwise it is $r_v$, and $\theta(r_v)=\beta_v$ by definition (for a
-  leaf $v\notin Q$, $\beta_v=\alpha_v=r_v$).
-\end{itemize}
-(Positions below an element of $Q$ are not in $P$, because $Q$ has no
-nested elements.)
+We claim that $\theta(\alpha'_{\prep(v)})=\subf{\beta}{v}$ for every
+occurrence $v$ of $\alpha$ that is not \kl{strictly below} an element of
+$Q$. Here $\prep(v)$ is an occurrence in $\alpha'$, since no proper prefix
+of $\prep(v)$ belongs to $P$: the proper prefixes are of the form
+$1^{i-1}$, together with $\pprem(w)$ and $\pbody(w)$ if $v=wj$, and in
+the latter case $\pbody(w)\notin P$ because $w\notin Q$. We argue by
+induction on $\hgt(\subf{\alpha}{v})$. If $\prep(v)\in P$, then $v\in Q$
+and both sides are $z$. Otherwise $\alpha'_{\prep(v)}=\rv{v}$. If $v$ is a
+\kl{leaf}, then $v\notin Q$ and both sides are $\subf{\alpha}{v}$. If $v$
+is a \kl{compound occurrence} and $\pbody(v)\in P$, then $v\in Q$ and
+both sides are $z$. Otherwise $v\notin Q$, so neither $v0$ nor $v1$ is
+\kl{strictly below} an element of $Q$, and by~\eqref{eq:body} and the
+induction hypothesis,
+\[
+\theta(\ev{v})=\theta(\alpha'_{\prep(v0)})\to\theta(\alpha'_{\prep(v1)})
+=\subf{\beta}{v0}\to\subf{\beta}{v1}=\subf{\beta}{v}.
+\]
 
-\emph{Premises.} Let $v$ be compound, with main connective $\circ$.
-\begin{itemize}
-\item If $v$ is hidden, $E_v$ is unchanged, and $\theta$ maps its body to
-  $\alpha_{v0}\circ\alpha_{v1}=\alpha_v=\theta(x_v)$.
-\item If $v$ is not hidden and $v\notin Q$, $E_v$ is unchanged, and $\theta$
-  maps its body to $\beta_{v0}\circ\beta_{v1}=\beta_v=\theta(x_v)$.
-\item If $v\in Q$ and its body is in $P$, then $E_v$ has become $z\to x_v$ or
-  $x_v\to z$, and $\theta(x_v)=\beta_v=z$.
-\item If $v\in Q$ and its reading is in $P$, then $E_v$ is unchanged. Its
-  children are hidden, so $\theta$ maps its body to $\alpha_v=\theta(x_v)$.
-\end{itemize}
-In every case the premise is mapped to $\gamma\to\gamma$ (in either
-polarity).
+Since no occurrence $1^{i-1}$ belongs to $P$, we have
+$\alpha'=\alpha'_{\pprem(u_1)}\to\dots\to\alpha'_{\pprem(u_m)}\to
+\alpha'_{\prep(\rt)}$. Since $\pdef(u_i)\notin P$, the formula
+$\alpha'_{\pprem(u_i)}$ is $\alpha'_{\pbody(u_i)}\to\ev{u_i}$ or
+$\ev{u_i}\to\alpha'_{\pbody(u_i)}$, and $\theta$ maps it to
+$\gamma_i\to\gamma_i$ with $\gamma_i=\theta(\ev{u_i})$. By the claim for
+$v=\rt$, $\theta$ maps $\alpha'_{\prep(\rt)}$ to $\beta$.
+\end{proof}
 
-\emph{Conclusion.} The last formula is the reading of $\varepsilon$, which is
-not hidden. So it is mapped to $\beta_\varepsilon=\beta$.
+\begin{lemma}[Reduction]\label{lem:normal}
+If some \kl{one-step generalization} of $\St(\alpha)$ belongs to a
+\kl{logic} $L$, then so does some \kl{basic} one.
+\end{lemma}
+\begin{proof}
+Let $\alpha'=\gen{\St(\alpha)}{P}{z}\in L$, where $P$ is a set of
+occurrences of a formula $\delta$. Since $\sigma\alpha'\in L$ for every
+substitution $\sigma$ by (C1), it suffices to find $\sigma$ such that
+$\sigma\alpha'$ is a \kl{basic} \kl{one-step generalization} of
+$\St(\alpha)$. We distinguish cases on $\delta$.
+
+If $\delta$ is a variable of $\alpha$ or $\hgt(\delta)=1$, then every
+element of $P$ is of the form $\prep(v)$ or $\pbody(u)$, respectively, by
+Lemma~\ref{lem:shape}(b) and~(c), so $\alpha'$ itself is \kl{basic}.
+
+If $\delta=\ev{u}$, then $P=\{\prep(u)\}$ or $P=\{\pdef(u)\}$ by
+Lemma~\ref{lem:shape}(b), since $P$ does not contain all occurrences of
+$\delta$. In the first case $\alpha'$ is \kl{basic}. In the second case,
+the substitution that interchanges $\ev{u}$ and $z$ maps $\alpha'$ to
+$\gen{\St(\alpha)}{\{\prep(u)\}}{z}$.
+
+If $\hgt(\delta)=2$, then $\delta=\dprem{u}$ and $P=\{\pprem(u)\}$ for
+some $u$ by Lemma~\ref{lem:shape}(c) and~(d). Let $d\in\{0,1\}$ be such
+that $\pdef(u)=\pprem(u)d$. Substituting $\gen{\dprem{u}}{\{d\}}{z}$ for
+$z$, we obtain $\gen{\St(\alpha)}{\{\pdef(u)\}}{z}$, which is treated in
+the previous case.
+
+If $\hgt(\delta)\ge3$, then $\delta=\tl{i}$ and $P=\{1^{i-1}\}$ for some
+$i\le m$ by Lemma~\ref{lem:shape}(c) and~(d). Substituting
+$\gen{\tl{i}}{\{1^{m-i+1}\}}{z}$ for $z$, we obtain
+$\gen{\St(\alpha)}{\{\prep(\rt)\}}{z}$, which is \kl{basic}.
 \end{proof}
 
 \begin{proof}[Proof of Theorem~\ref{thm:main}]
-If $\alpha$ is an atom, then $\St(\alpha)=\alpha$ and there is nothing to
-prove. Otherwise, suppose some one-step generalization of $\St(\alpha)$ is in
-$L$. By Lemma~\ref{lem:normal}, some normal one-step generalization $\alpha'$
-is in $L$. By Lemma~\ref{lem:key} and (C1)--(C3), the one-step
-generalization $\beta$ of $\alpha$ is in $L$. This contradicts the
-minimality of $\alpha$ (Corollary~\ref{cor:criterion}). Hence no one-step
-generalization of $\St(\alpha)$ is in $L$. Since $\St(\alpha)\in L$,
-$\St(\alpha)$ is minimal by Corollary~\ref{cor:criterion}.
+If $\alpha$ is a variable, then $\St(\alpha)=\alpha$ and there is
+nothing to prove. Otherwise, suppose
+that some \kl{one-step generalization} of $\St(\alpha)$ belongs to $L$.
+By Lemma~\ref{lem:normal}, some \kl{basic} one, say $\alpha'$, belongs to
+$L$. Take $\beta$, $\theta$ and $\gamma_1,\dots,\gamma_m$ as in
+Lemma~\ref{lem:key}. Then $\theta\alpha'\in L$ by (C1) and
+$\gamma_i\to\gamma_i\in L$ by (C3), so $\beta\in L$ by (C2). This
+contradicts the \kl{minimality} of $\alpha$ by
+Proposition~\ref{cor:criterion}, since $\beta$ is a \kl{one-step
+generalization} of $\alpha$. Hence no \kl{one-step generalization} of
+$\St(\alpha)$ belongs to $L$, and since $\St(\alpha)\in L$,
+$\St(\alpha)$ is \kl{minimal} in $L$ by Proposition~\ref{cor:criterion}.
 \end{proof}
 
-Consistency of $L$ is not needed. If $\alpha$ is compound and minimal in $L$,
-then the variable $z$, a one-step generalization of $\alpha$, is not in $L$.
-
 \begin{example}\label{ex:decode}
-We illustrate Lemma~\ref{lem:key} with Example~\ref{ex:peirce}. Replace the
-reading of $00$, i.e.\ the second occurrence of $w=x_{00}$, by $z$:
+Let $\alpha$ be Peirce's law as in Example~\ref{ex:peirce}, and replace
+the occurrence of $\ev{00}$ in $\dprem{0}$, that is, at $\prep(00)$, by
+$z$:
 \[
-\alpha'=((a\to b)\to w)\to(y\to(z\to a))\to((y\to a)\to x)\to x .
+\alpha'=((a\to b)\to\ev{00})\to(\ev{0}\to z\to a)\to((\ev{0}\to a)\to\ev{\rt})\to\ev{\rt} .
 \]
-Here $Q=\{00\}$ and $\beta=(z\to a)\to a$. The substitution is
-$w\mapsto a\to b$ (only the head of $w$ survives), $y\mapsto z\to a$ and
-$x\mapsto\beta$:
+Then $Q=\{00\}$ and $\beta=(z\to a)\to a$. The substitution $\theta$ maps
+$\ev{00}$ to $a\to b$, $\ev{0}$ to $z\to a$ and $\ev{\rt}$ to
+$(z\to a)\to a=\beta$, so that
 \[
 \theta\alpha'=((a\to b)\to(a\to b))\to((z\to a)\to(z\to a))\to
 (\beta\to\beta)\to\beta .
 \]
-Since $\beta\notin\CL$ ($z=0$, $a=0$), neither is $\alpha'$.
+Since $\beta$ is not a classical tautology, neither is $\alpha'$.
 \end{example}

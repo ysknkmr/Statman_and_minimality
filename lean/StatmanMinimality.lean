@@ -1266,7 +1266,7 @@ def Gprime : Form :=
   ((V 0 ⟶ V 3) ⟶ V 4) ⟶ ((V 2 ⟶ V 1) ⟶ V 6) ⟶
   (((V 1 ⟶ V 2) ⟶ V 4) ⟶ ((V 3 ⟶ V 0) ⟶ V 6) ⟶ V 5 ⟶ V 7) ⟶ V 7
 
-/-- `S(G')` written out, as displayed in the paper (Corollary 5.3). -/
+/-- `S(G')` written out, as displayed in the paper (Corollary 6.1). -/
 def SGprime : Form :=
   (V 9 ⟶ (V 0 ⟶ V 1)) ⟶
   (V 11 ⟶ (V 2 ⟶ V 3)) ⟶
