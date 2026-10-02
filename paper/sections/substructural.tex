@@ -18,7 +18,7 @@ extension $\intro*\FLew$ by weakening, in the language
 $\{\to,\cdot,\wedge,\vee,0,1\}$, possibly expanded by $\bot$ and $\top$
 (see~\cite{GJKO07}). Intuitionistic logic in this language contains
 $\FLew$. The full Lambek calculus $\intro*\FL$ without exchange has two
-implications $\backslash$ and $/$ in place of $\to$. Logics in $\mathcal L$, \kl{one-step generalizations} and
+implications $\backslash$ and $/$ in place of $\to$. Logics in $\mathcal L$, the sets $\Gen{\alpha}$ and
 occurrences are defined as in Sections~\ref{sec:prelim}
 and~\ref{sec:proof}, except that an occurrence $u$ is a \kl{leaf} if
 $\subf{\alpha}{u}$ is an \kl{atom}, and if $\subf{\alpha}{u}=\gamma\circ\delta$ for a binary
@@ -28,8 +28,8 @@ The translation $\St$ is defined as in Definition~\ref{def:S}, with the
 following changes. If $\subf{\alpha}{u}=\subf{\alpha}{u0}\circ\subf{\alpha}{u1}$ with
 $\circ\in\{\cdot,\wedge,\vee\}$, then both $u0$ and $u1$ have the same
 \kl{polarity} as $u$. For a \kl{leaf} $u$ we put $\rv{u}=\subf{\alpha}{u}$, so that constants
-are treated like variables, and the \kl{body} of a \kl{compound occurrence} $u$ with
-$\subf{\alpha}{u}=\subf{\alpha}{u0}\circ\subf{\alpha}{u1}$ is $\body{u}=\rv{u0}\circ \rv{u1}$.
+are treated like variables, and for a \kl{non-leaf occurrence} $u$ with
+$\subf{\alpha}{u}=\subf{\alpha}{u0}\circ\subf{\alpha}{u1}$ we put $\body{u}=\rv{u0}\circ \rv{u1}$.
 
 \begin{theorem}\label{thm:main-fl}
 Let $L$ be a \kl{logic} in $\mathcal L$ containing $\axI$. If $\alpha$ is \kl{minimal}
@@ -39,14 +39,13 @@ in $L$ and $\St(\alpha)\in L$, then $\St(\alpha)$ is \kl{minimal} in $L$.
 The proof of Theorem~\ref{thm:main} in Section~\ref{sec:proof} goes through after the following changes:
 \begin{itemize}
 \item variables of $\alpha$ are replaced by \kl{atoms} of $\alpha$, except
-  in the condition on $\delta$ in the definition of a \kl{one-step
-  generalization}, which still
+  in the condition on $\delta$ in the definition of $\Gen{\alpha}$, which still
   concerns variables only;
 \item in the ``only if'' part of the proof of
   Proposition~\ref{cor:criterion} (Appendix~\ref{app:criterion}), occurrences of $\to$ are replaced by
   occurrences of connectives and constants;
 \item in Lemmas~\ref{lem:shape}(d) and~\ref{lem:key},
-  the implication in a \kl{body} is replaced by the main connective of the
+  the implication in $\body{u}$ is replaced by the main connective of the
   corresponding occurrence.\qedhere
 \end{itemize}
 \end{proof}
@@ -67,8 +66,8 @@ for $\FLe$, with weakening in case~(ii). The case of fusion is
 similar to that of implication, and again every formula of $\Gamma_u$ is
 used exactly once; this proves (i). For $\wedge$ and $\vee$, the rules
 $({\wedge}\mathrm{R})$ and $({\vee}\mathrm{L})$ share their context between
-the two premises, and in each premise we remove the \kl{defining premises}
-belonging to the other subtree by weakening; this proves (ii).
+the two upper sequents, and in each upper sequent we remove the formulas $\dprem{v}$
+with $v$ in the other subtree by weakening; this proves (ii).
 \end{proof}
 
 \begin{corollary}\label{cor:fl}
@@ -88,30 +87,32 @@ enters only through Lemma~\ref{lem:sound-fl}. It is exactly this lemma that
 fails over $\FLe$ in the presence of additive connectives. The
 following two observations, both verified with a cut-free prover for
 $\FLe$ (\texttt{tools/fle\_check.py}), show that the difficulty
-cannot be removed simply by adding Jeřábek's wrappers ``$\wedge1$''.
+cannot be removed simply by replacing each $\dprem{u}$ by
+$\dprem{u}\wedge1$ as Jeřábek does.
 
 \begin{remark}\label{rem:wrapper}
 Let $\mathcal L=\{\to,\cdot,\wedge,\vee,0,1\}$.
 \begin{enumerate}
-\item[(a)] \emph{Without the wrappers, $\St$ is not sound over
+\item[(a)] \emph{Without the conjunctions $\wedge1$, $\St$ is not sound over
   $\FLe$.} The formula $\alpha=(q\to q)\wedge(r\to r)$ is \kl{minimal}
   in $\FLe$, but
   \[
-  \St(\alpha)=((q\to q)\to \ev{0})\to((r\to r)\to \ev{1})\to((\ev{0}\wedge \ev{1})\to
-  \ev{\rt})\to \ev{\rt}
+  \St(\alpha)=((q\to q)\to \evfp{q\to q})\to((r\to r)\to \evfp{r\to r})
+  \to((\evfp{q\to q}\wedge \evfp{r\to r})\to\evfp{\alpha})\to \evfp{\alpha}
   \]
-  is not provable in $\FLe$: each premise of the rule
-  $({\wedge}\mathrm{R})$ would have to discard the \kl{defining premise}
-  belonging to the other conjunct.
-\item[(b)] \emph{With the wrappers, minimality is always lost.} Jeřábek's
+  is not provable in $\FLe$: each upper sequent of the rule
+  $({\wedge}\mathrm{R})$ would have to discard one of the \kl{antecedents}
+  $(q\to q)\to\evfp{q\to q}$ and $(r\to r)\to\evfp{r\to r}$.
+\item[(b)] \emph{With the conjunctions $\wedge1$, minimality is always lost.} Jeřábek's
   $\varphi^+$ has $\dprem{u}\wedge1$ in place of $\dprem{u}$, which makes it sound over
-  $\FLe$ \cite[Thm.~3.8]{Jer16}. The \kl{defining premise} of the root
+  $\FLe$ \cite[Thm.~3.8]{Jer16}. The factor $\dprem{\rt}\wedge1$
   is never discarded in the proof, so replacing its conjunct $1$ by $z$
-  gives a \kl{one-step generalization} that is still provable, by
+  gives an element of $\Gen{\varphi^+}$ that is still provable, by
   $({\wedge}\mathrm{L})$. Hence $\varphi^+$ is not \kl{minimal} in any \kl{logic}
   $L\supseteq\FLe$, including $\FLew$, $\IL$ and $\CL$,
-  whenever $\varphi$ is compound. For example,
-  $(((p\to p)\to \ev{\rt})\wedge z)\to \ev{\rt}$ is provable.
+  whenever $\varphi$ is compound. For example, for $\varphi=p\to p$ we have
+  $\varphi^+=(((p\to p)\to \evfp{p\to p})\wedge 1)\to \evfp{p\to p}$, and
+  $(((p\to p)\to \evfp{p\to p})\wedge z)\to \evfp{p\to p}$ is provable.
 \end{enumerate}
 \end{remark}
 
@@ -120,11 +121,11 @@ binary connectives and three variables give the following picture. Up to
 renaming, there are $413$ formulas \kl{minimal} in $\FLe$. For $164$ of
 them $\St(\alpha)$ is provable, and in all these cases it is \kl{minimal}, as
 predicted by Theorem~\ref{thm:main-fl}. The formula $\varphi^+$ is provable in
-all $413$ cases and \kl{minimal} in none. Wrapping only the \kl{defining premises} of
-occurrences \kl{strictly below} an additive occurrence yields a provable formula
+all $413$ cases and \kl{minimal} in none. Replacing $\dprem{u}$ by $\dprem{u}\wedge1$ only for
+occurrences $u$ \kl{strictly below} an additive occurrence yields a provable formula
 in all $413$ cases, but a \kl{minimal} one in only $255$. For
-$\alpha=p\vee(q\to q)$, for instance, the wrapper can be removed because
+$\alpha=p\vee(q\to q)$, for instance, the conjunction $\wedge1$ is not needed because
 the rule $({\vee}\mathrm{R})$ selects one disjunct. Thus a
 minimality-preserving translation over $\FLe$, if it exists, must
-adapt the wrappers to the actual proof. We leave open whether such a
+choose the conjunctions $\wedge1$ according to the actual proof. We leave open whether such a
 translation exists, as well as the non-commutative case $\FL$.

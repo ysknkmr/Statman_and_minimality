@@ -7,8 +7,8 @@ Corollary~\ref{cor:many-logics} is shown in Appendix~\ref{app:weak}. The
 results are not used elsewhere in the paper. \AP We write
 $\intro*\BC=\lclos{\{\axB,\axC\}}$.
 
-The proof of Theorem~\ref{thm:main} uses $\axI$ only to discharge the
-premises $\gamma\to\gamma$ produced by the decoding (Lemma~\ref{lem:key}).
+The proof of Theorem~\ref{thm:main} uses $\axI$ only to remove the
+\kl{antecedents} $\gamma\to\gamma$ of the formula $\theta\alpha'$ in Lemma~\ref{lem:key}.
 The next proposition shows that this use is essential, even over
 $\BC$.
 
@@ -27,13 +27,15 @@ valuation in $M$. Then $L_M$ is a \kl{logic} containing $\BC$ but not
 $\axI$. Moreover, for $\alpha=(p\to q)\to(p\to q)$ the following hold:
 \begin{enumerate}
 \item[(a)] $\alpha$ is \kl{minimal} in $L_M$;
-\item[(b)] $\St(\alpha)=(\ev{0}\to(p\to q))\to((p\to q)\to \ev{1})\to((\ev{0}\to \ev{1})\to
-  \ev{\rt})\to \ev{\rt}$ belongs to $L_M$;
-\item[(c)] $\St(\alpha)$ is not \kl{minimal} in $L_M$, since its \kl{one-step generalization}
+\item[(b)] $\St(\alpha)=(\evfn{p\to q}\to(p\to q))\to((p\to q)\to \evfp{p\to q})
+  \to((\evfn{p\to q}\to \evfp{p\to q})\to\evfp{\alpha})\to \evfp{\alpha}$
+  belongs to $L_M$;
+\item[(c)] $\St(\alpha)$ is not \kl{minimal} in $L_M$, since the formula
   \[
-  \alpha'=(\ev{0}\to z)\to(z\to \ev{1})\to((\ev{0}\to \ev{1})\to \ev{\rt})\to \ev{\rt} ,
+  \alpha'=(\evfn{p\to q}\to z)\to(z\to \evfp{p\to q})\to((\evfn{p\to q}\to \evfp{p\to q})\to \evfp{\alpha})\to \evfp{\alpha} ,
   \]
-  obtained by replacing both \kl{bodies} $p\to q$ by $z$, belongs to $L_M$.
+  which belongs to $\Gen{\St(\alpha)}$ and is obtained by replacing both
+  occurrences of $p\to q$ by $z$, belongs to $L_M$.
 \end{enumerate}
 Hence Theorem~\ref{thm:main} fails for logics not containing $\axI$, even if
 $\St(\alpha)\in L$.
@@ -44,7 +46,7 @@ ponens because $0\to y=0$ implies $y=0$. A finite check shows that $\axB$ and
 $\axC$ take only the value $0$, whereas $2\to2=1$; hence $\axI\notin L_M$.
 
 (a) We have $\alpha\in L_M$, since the values of implications lie in
-$\{0,1\}$ and $0\to0=1\to1=0$. The \kl{one-step generalizations} of $\alpha$ are
+$\{0,1\}$ and $0\to0=1\to1=0$. The elements of $\Gen{\alpha}$ are
 \[
 (z\to q)\to(p\to q),\quad (p\to z)\to(p\to q),\quad (p\to q)\to(z\to q),\quad
 (p\to q)\to(p\to z),
@@ -63,9 +65,9 @@ $\St(\alpha)$ is its instance under $z\mapsto p\to q$; both are theorems of
 $\BC$.
 \end{proof}
 
-Decoding $\alpha'$ as in Lemma~\ref{lem:key} gives $\beta=z\to z$, and the
-premise that would have to be discharged is exactly $z\to z$, which is not
-available in $L_M$.
+Applying Lemma~\ref{lem:key} to $\alpha'$ gives $\beta=z\to z$, and the
+\kl{antecedent} of $\theta\alpha'$ that would have to be removed is exactly
+$z\to z$, which does not belong to $L_M$.
 \plot{Checks: \texttt{tools/bc\_alpha\_matrix.py} (matrix $M$, found with z3
 and verified by exhaustive evaluation) and \texttt{tools/bc\_check.py}
 (condensed detachment: $\St(\alpha),\alpha'\in\BC$).}

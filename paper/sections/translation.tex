@@ -6,24 +6,23 @@ or \intro{negative}, to each occurrence in $\alpha$ as follows. The root
 $\rt$ is \kl{positive}. If
 $\subf{\alpha}{u}=\subf{\alpha}{u0}\to\subf{\alpha}{u1}$, then $u1$ has
 the same \kl{polarity} as $u$ and $u0$ the opposite one. \AP For each
-\kl{compound occurrence} $u$ we choose a new variable $\intro*\ev{u}$,
+\kl{non-leaf occurrence} $u$ we choose a new variable $\intro*\ev{u}$,
 called an \intro{extension variable}, so that distinct occurrences receive
 distinct variables and no $\ev{u}$ occurs in $\alpha$. For every
 occurrence $u$ let
 \[
 \intro*\rv{u}=\begin{cases}\subf{\alpha}{u},&\text{if $u$ is a \kl{leaf}},\\
-\ev{u},&\text{if $u$ is a \kl{compound occurrence}.}\end{cases}
+\ev{u},&\text{if $u$ is a \kl{non-leaf occurrence}.}\end{cases}
 \]
-\AP For every \kl{compound occurrence} $u$ we call
-$\intro*\body{u}=\rv{u0}\to\rv{u1}$ the \intro{body} of $u$, and we define
-the \intro{defining premise} of $u$ by
+\AP For every \kl{non-leaf occurrence} $u$ we put
+$\intro*\body{u}=\rv{u0}\to\rv{u1}$ and
 \[
 \intro*\dprem{u}=\begin{cases}\body{u}\to\ev{u},&\text{if $u$ is \kl{positive}},\\
 \ev{u}\to\body{u},&\text{if $u$ is \kl{negative}.}\end{cases}
 \]
 
 \begin{definition}\label{def:S}
-\AP Let $u_1,\dots,u_m$ be the \kl{compound occurrences} of $\alpha$,
+\AP Let $u_1,\dots,u_m$ be the \kl{non-leaf occurrences} of $\alpha$,
 listed in post-order; that is, $u_i$ precedes $u_j$ if and only if $u_i$
 is \kl{strictly below} $u_j$, or $u_i=w0u'$ and $u_j=w1u''$ for some
 words $w,u',u''$. The \intro{translation} of $\alpha$ is the formula
@@ -32,78 +31,47 @@ words $w,u',u''$. The \intro{translation} of $\alpha$ is the formula
 \]
 \end{definition}
 
-If $\alpha$ is a variable, then $m=0$ and $\St(\alpha)=\alpha$. \AP Let $\intro*\decsub{\alpha}$ be the substitution that maps each
+If $\alpha$ is a variable, then $m=0$ and $\St(\alpha)=\alpha$.
+
+\begin{lemma}\label{lem:order}
+$\Ord(\St(\alpha))\le4$ for every formula $\alpha$.
+\end{lemma}
+\begin{proof}
+Every formula $\body{u}=\rv{u0}\to\rv{u1}$ has \kl{order} $2$, so every
+formula $\dprem{u}$ has \kl{order} at most $3$, and hence
+$\Ord(\St(\alpha))\le4$.
+\end{proof}
+
+\AP Let $\intro*\decsub{\alpha}$ be the substitution that maps each
 $\ev{u}$ to $\subf{\alpha}{u}$ and fixes all other variables; then
 $\decsub{\alpha}(\rv{v})=\subf{\alpha}{v}$ for every occurrence $v$ of
 $\alpha$.
 
 
-In the following examples, each implication node of the syntax tree of
-$\alpha$, that is, each \kl{compound occurrence} $u$, is annotated with
-$\ev{u}$ and the \kl{polarity} of $u$; the left and right children of $u$
-are $u0$ and $u1$.
+\AP In examples we use the following notation, similar to that of
+Jeřábek~\cite[Def.~3.6]{Jer16}. If $u$ is the only occurrence of a compound
+formula $\gamma$ in $\alpha$ that is \kl{positive}, then we write
+$\intro*\evfp{\gamma}$ for $\ev{u}$; if $u$ is the only occurrence of
+$\gamma$ in $\alpha$ that is \kl{negative}, then we write
+$\intro*\evfn{\gamma}$ for $\ev{u}$. In particular, $\evfp{\alpha}=\ev{\rt}$.
 
 \begin{example}\label{ex:peirce}
-For Peirce's law $\alpha=((a\to b)\to a)\to a$:
+For Peirce's law $\alpha=((a\to b)\to a)\to a$,
 \[
-\begin{tikzpicture}[syntree,
-  level 1/.style={sibling distance=26mm},
-  level 2/.style={sibling distance=16mm},
-  level 3/.style={sibling distance=9mm}]
-\node[ann={$\ev{\rt}^{+}$}] {$\to$}
-  child {node[ann={$\ev{0}^{-}$}] {$\to$}
-    child {node[ann={$\ev{00}^{+}$}] {$\to$} child {node {$a$}} child {node {$b$}}}
-    child {node {$a$}}}
-  child {node {$a$}};
-\end{tikzpicture}
-\qquad
-\begin{aligned}
-\dprem{00}&=\body{00}\to\ev{00}=(a\to b)\to\ev{00},\\
-\dprem{0}&=\ev{0}\to\body{0}=\ev{0}\to(\ev{00}\to a),\\
-\dprem{\rt}&=\body{\rt}\to\ev{\rt}=(\ev{0}\to a)\to\ev{\rt}.
-\end{aligned}
-\]
-Hence
-\[
-\St(\alpha)=((a\to b)\to\ev{00})\to(\ev{0}\to\ev{00}\to a)\to((\ev{0}\to a)\to\ev{\rt})\to\ev{\rt}.
+\St(\alpha)=((a\to b)\to\evfp{a\to b})\to(\evfn{(a\to b)\to a}\to\evfp{a\to b}\to a)
+\to((\evfn{(a\to b)\to a}\to a)\to\evfp{\alpha})\to\evfp{\alpha}.
 \]
 \end{example}
 
 \begin{example}\label{ex:lc}
 For the axiom $\alpha=((a\to b)\to c)\to((b\to a)\to c)\to c$ of
-Gödel--Dummett logic:
-\[
-\begin{tikzpicture}[syntree,
-  level 1/.style={sibling distance=38mm},
-  level 2/.style={sibling distance=19mm},
-  level 3/.style={sibling distance=14mm},
-  level 4/.style={sibling distance=9mm}]
-\node[ann={$\ev{\rt}^{+}$}] {$\to$}
-  child {node[ann={$\ev{0}^{-}$}] {$\to$}
-    child {node[ann={$\ev{00}^{+}$}] {$\to$} child {node {$a$}} child {node {$b$}}}
-    child {node {$c$}}}
-  child {node[ann={$\ev{1}^{+}$}] {$\to$}
-    child {node[ann={$\ev{10}^{-}$}] {$\to$}
-      child {node[ann={$\ev{100}^{+}$}] {$\to$} child {node {$b$}} child {node {$a$}}}
-      child {node {$c$}}}
-    child {node {$c$}}};
-\end{tikzpicture}
-\qquad
-\begin{aligned}
-\dprem{00}&=(a\to b)\to\ev{00},\\
-\dprem{0}&=\ev{0}\to(\ev{00}\to c),\\
-\dprem{100}&=(b\to a)\to\ev{100},\\
-\dprem{10}&=\ev{10}\to(\ev{100}\to c),\\
-\dprem{1}&=(\ev{10}\to c)\to\ev{1},\\
-\dprem{\rt}&=(\ev{0}\to\ev{1})\to\ev{\rt}.
-\end{aligned}
-\]
-Listing the \kl{defining premises} in this order (post-order), we obtain
+Gödel--Dummett logic,
 \[
 \begin{aligned}
-\St(\alpha)={}&((a\to b)\to\ev{00})\to(\ev{0}\to\ev{00}\to c)
-\to((b\to a)\to\ev{100})\to(\ev{10}\to\ev{100}\to c)\\
-&\to((\ev{10}\to c)\to\ev{1})\to((\ev{0}\to\ev{1})\to\ev{\rt})\to\ev{\rt}.
+\St(\alpha)={}&((a\to b)\to\evfp{a\to b})\to(\evfn{(a\to b)\to c}\to\evfp{a\to b}\to c)\\
+&\to((b\to a)\to\evfp{b\to a})\to(\evfn{(b\to a)\to c}\to\evfp{b\to a}\to c)\\
+&\to((\evfn{(b\to a)\to c}\to c)\to\evfp{((b\to a)\to c)\to c})\\
+&\to((\evfn{(a\to b)\to c}\to\evfp{((b\to a)\to c)\to c})\to\evfp{\alpha})\to\evfp{\alpha}.
 \end{aligned}
 \]
 \end{example}

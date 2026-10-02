@@ -3,7 +3,7 @@
 
 \begin{proof}[Proof of Proposition~\ref{cor:criterion}]
 \proofcase{``Only if''.}
-Suppose that $\alpha$ is \kl{minimal} in $L$. Let $\beta=\gen{\alpha}{Q}{z}$ be a \kl{one-step generalization} of $\alpha$; we show that $\beta\ssub\alpha$, so that $\beta\notin L$. Since $z$ does not occur in $\alpha$, substituting $\delta$ for $z$ in
+Suppose that $\alpha$ is \kl{minimal} in $L$. Let $\beta=\gen{\alpha}{Q}{z}\in\Gen{\alpha}$; we show that $\beta\ssub\alpha$, so that $\beta\notin L$. Since $z$ does not occur in $\alpha$, substituting $\delta$ for $z$ in
 $\beta$ yields $\alpha$; hence $\beta\sub\alpha$. Suppose, towards a
 contradiction, that $\tau\alpha=\beta$ for some substitution $\tau$. Note
 that a substitution never decreases the number of occurrences of $\to$.
@@ -22,7 +22,7 @@ well as $p$ (at an occurrence outside $Q$). Hence $\tau(p)=z$ and
 $\tau(p)=p$, a contradiction.
 
 \proofcase{``If''.}
-Suppose that no \kl{one-step generalization} of $\alpha$ belongs to $L$. Let $\gamma\in L$ and let $\sigma$ be a substitution with
+Suppose that $\Gen{\alpha}\cap L=\emptyset$. Let $\gamma\in L$ and let $\sigma$ be a substitution with
 $\sigma\gamma=\alpha$. We show that $\alpha\sub\gamma$.
 
 \proofcase{Case: $\sigma$ maps the variables of $\gamma$ injectively to
@@ -40,6 +40,5 @@ occurrence of $\delta:=\sigma(q)$ in $\alpha=\sigma\gamma$; let $Q$ be the
 set of these occurrences. Then $Q\ne\emptyset$ and
 $\sigma'\gamma=\gen{\alpha}{Q}{z}$. In case~(ii), the occurrences of $q'$ in
 $\gamma$ give rise to occurrences of the variable $\delta$ that do not
-belong to $Q$. Therefore $\sigma'\gamma$ is a \kl{one-step generalization} of
-$\alpha$, and $\sigma'\gamma\in L$ by (C1), contrary to the hypothesis.
+belong to $Q$. Therefore $\sigma'\gamma\in\Gen{\alpha}$, and $\sigma'\gamma\in L$ by (C1), contrary to the hypothesis.
 \end{proof}

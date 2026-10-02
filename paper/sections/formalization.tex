@@ -2,8 +2,8 @@
 \section{Formalization in Lean}\label{sec:lean}
 
 \plot{Half a page.}
-Theorem~\ref{thm:main}, Lemma~\ref{lem:sound}, the \kl{order} bound of
-Corollary~\ref{cor:normal-form},
+Theorem~\ref{thm:main}, Lemma~\ref{lem:sound}, the \kl{order} bound
+(Lemma~\ref{lem:order}),
 Corollary~\ref{cor:many-logics} and the explicit formula of
 Corollary~\ref{cor:LC} have been formalized in the
 Lean~4 proof assistant~\cite{Lean}. The development consists of a single
@@ -28,7 +28,7 @@ where the hypothesis on \texttt{N} ensures that the extension variables are
 fresh. The classical instance \texttt{statman\_minimal} is derived from it
 by means of \texttt{logic\_valid} and \texttt{statman\_valid}.
 
-Lemma~\ref{lem:sound} and the decoding argument in the proof of
+Lemma~\ref{lem:sound} and the argument in the proof of
 Corollary~\ref{cor:many-logics} are formalized for
 every logic containing $\BCI$, represented by
 \texttt{BCIExt Th} (closure under substitution and modus ponens, and all
@@ -45,8 +45,9 @@ Corollary~\ref{cor:many-logics} follows.
 Corollary~\ref{cor:many-logics}, without further hypotheses. We have also
 formalized the \kl{order} bound $\Ord(\St(\alpha))\le4$ as
 \texttt{statman\_ord}, and the
-explicit formula of Corollary~\ref{cor:LC}: \texttt{statman\_Gprime}
-states that the displayed formula $\St(G')$ equals
+explicit formula~\eqref{eq:SGprime}: \texttt{statman\_Gprime}
+states that the formula $\St(G')$ in~\eqref{eq:SGprime}, with the
+variables numbered as in \texttt{paper/gen\_SGprime.py}, equals
 \texttt{statman Gprime 8}, and \texttt{SGprime\_ord} states that it has
 \kl{order}~$4$. The results of Section~\ref{sec:fl} have not been
 formalized.
@@ -56,4 +57,4 @@ The formal proof follows the paper closely. The lemmas \texttt{reduction}
 and \texttt{strict} correspond to Proposition~\ref{cor:criterion}, and
 \texttt{decode} and \texttt{decode\_node} correspond to
 Lemma~\ref{lem:key}; the latter are organized node by node rather than via
-the reduction to basic generalizations of Lemma~\ref{lem:normal}.
+the reduction to $\Genb{\alpha}$ in Lemma~\ref{lem:normal}.

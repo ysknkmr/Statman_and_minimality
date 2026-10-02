@@ -3,7 +3,12 @@
 % Springer template used by Studia Logica (sections numbered, results
 % numbered within sections as in Nakamura--Matsuda 2021, "Presented by"
 % line added by the editor, author addresses at the end).
-\documentclass[11pt,dvipdfmx]{article}
+\RequirePackage{iftex}
+\ifpTeX
+  \documentclass[11pt,dvipdfmx]{article}
+\else
+  \documentclass[11pt]{article}
+\fi
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage[margin=30mm]{geometry}
 \usepackage{xcolor}
@@ -39,7 +44,6 @@ formulas, Substitution preorder, Axiomatization, Extension variables.
 \input{sections/remarks}
 \input{sections/substructural}
 \input{sections/conclusion}
-
 
 
 \input{references}

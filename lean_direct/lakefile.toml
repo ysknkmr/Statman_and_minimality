@@ -1,0 +1,6 @@
+name = "sgprime"
+defaultTargets = ["SGprime"]
+
+[[lean_lib]]
+name = "SGprime"
+globs = ["SGprime.+"]

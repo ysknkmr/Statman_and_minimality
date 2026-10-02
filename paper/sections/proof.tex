@@ -2,11 +2,11 @@
 \section{Proof of the Main Theorem}\label{sec:proof}
 
 Throughout this section, $\alpha$ is a formula that is not a variable,
-$u_1,\dots,u_m$ are its \kl{compound occurrences} in post-order, and $z$
+$u_1,\dots,u_m$ are its \kl{non-leaf occurrences} in post-order, and $z$
 is a variable not occurring in $\St(\alpha)$. By
 Proposition~\ref{cor:criterion}, it suffices to show, for a \kl{logic}
-$L$ containing $\axI$, that if a \kl{one-step generalization} of
-$\St(\alpha)$ belongs to $L$, then so does one of $\alpha$.
+$L$ containing $\axI$, that if $\Gen{\St(\alpha)}\cap L\neq\emptyset$, then
+$\Gen{\alpha}\cap L\neq\emptyset$.
 
 \AP We first name some occurrences in $\St(\alpha)$. For $1\le i\le m+1$,
 let $\intro*\tl{i}=\dprem{u_i}\to\dots\to\dprem{u_m}\to\ev{\rt}$; thus
@@ -27,7 +27,7 @@ $\prep(w0)=\pbody(w)0$, $\prep(w1)=\pbody(w)1$ and $\prep(\rt)=1^m$.
   $(1\le i\le m)$, $\pprem(u)$, $\pbody(u)$, $\pdef(u)$ and $\prep(v)$,
   and the subformula of $\St(\alpha)$ there is $\tl{i}$, $\dprem{u}$,
   $\body{u}$, $\ev{u}$ and $\rv{v}$, respectively.
-\item[(b)] For a \kl{compound occurrence} $u$ of $\alpha$, the variable
+\item[(b)] For a \kl{non-leaf occurrence} $u$ of $\alpha$, the variable
   $\ev{u}$ occurs in $\St(\alpha)$ exactly at $\pdef(u)$ and $\prep(u)$. A
   variable $c$ of $\alpha$ occurs in $\St(\alpha)$ exactly at the
   occurrences $\prep(v)$ with $v$ a \kl{leaf} of $\alpha$ and
@@ -59,18 +59,16 @@ Hence $\dprem{u}=\dprem{v}$ implies that $u$ and $v$ have the same
 $\tl{j}$ is a proper subformula of $\tl{i}$, so $\tl{i}\ne\tl{j}$.
 \end{proof}
 
-\AP We call a \kl{one-step generalization} $\gen{\St(\alpha)}{P}{z}$
-\intro{basic} if every element of $P$ is of the form $\pbody(u)$ or
-$\prep(v)$.
+\AP Let $\intro*\Genb{\alpha}$ be the set of formulas
+$\gen{\St(\alpha)}{P}{z}\in\Gen{\St(\alpha)}$ such that every element of $P$
+is of the form $\pbody(u)$ or $\prep(v)$.
 
-\begin{lemma}[Decoding]\label{lem:key}
-Let $\alpha'=\gen{\St(\alpha)}{P}{z}$ be a \kl{basic} \kl{one-step
-generalization} of $\St(\alpha)$, and let
+\begin{lemma}\label{lem:key}
+Let $\alpha'=\gen{\St(\alpha)}{P}{z}\in\Genb{\alpha}$, and let
 \[
 Q=\{v\mid\prep(v)\in P\}\cup\{u\mid\pbody(u)\in P\}.
 \]
-Then $\beta=\gen{\alpha}{Q}{z}$ is a \kl{one-step generalization} of
-$\alpha$, and there are a substitution $\theta$ and formulas
+Then $\beta=\gen{\alpha}{Q}{z}\in\Gen{\alpha}$, and there are a substitution $\theta$ and formulas
 $\gamma_1,\dots,\gamma_m$ such that
 \[
 \theta\alpha'=(\gamma_1\to\gamma_1)\to\dots\to(\gamma_m\to\gamma_m)\to\beta .
@@ -78,20 +76,19 @@ $\gamma_1,\dots,\gamma_m$ such that
 \end{lemma}
 \begin{proof}
 Let $\delta$ be the formula such that $P$ is a set of occurrences of
-$\delta$. We first show that $\beta$ is a \kl{one-step generalization} of
-$\alpha$. Clearly $Q\ne\emptyset$, and $z$ does not occur in $\alpha$,
+$\delta$. We first show that $\beta\in\Gen{\alpha}$. Clearly $Q\ne\emptyset$, and $z$ does not occur in $\alpha$,
 since every variable of $\alpha$ occurs in $\St(\alpha)$. If $\delta$ is a
 variable of $\alpha$, then by Lemma~\ref{lem:shape}(b), $Q$ is a set of
 \kl{leaves} $v$ with $\subf{\alpha}{v}=\delta$, and some such \kl{leaf} is
 not in $Q$, since $P$ does not contain all occurrences of $\delta$. If
 $\delta=\ev{w}$, then $P=\{\prep(w)\}$ by Lemma~\ref{lem:shape}(b), since
-$P$ is \kl{basic}; hence $Q=\{w\}$, and $\subf{\alpha}{w}$ is not a
+$\alpha'\in\Genb{\alpha}$; hence $Q=\{w\}$, and $\subf{\alpha}{w}$ is not a
 variable. If $\delta$ is not a variable, then
 $Q$ is the set of $u$ with $\pbody(u)\in P$, so $\body{u}=\delta$ and
 $\subf{\alpha}{u}=\decsub{\alpha}(\delta)$ for all $u\in Q$.
 
-Since $P$ is \kl{basic}, no occurrence $1^{i-1}$, $\pprem(u)$ or
-$\pdef(u)$ belongs to $P$. In particular, for every \kl{compound
+Since $\alpha'\in\Genb{\alpha}$, no occurrence $1^{i-1}$, $\pprem(u)$ or
+$\pdef(u)$ belongs to $P$. In particular, for every \kl{non-leaf
 occurrence} $v$ of $\alpha$,
 \begin{equation}\label{eq:body}
 \alpha'_{\pbody(v)}=
@@ -106,7 +103,7 @@ variable}, and let
 \[
 \theta(\ev{v})=\theta(\alpha'_{\pbody(v)})
 \]
-for every \kl{compound occurrence} $v$ of $\alpha$. By~\eqref{eq:body},
+for every \kl{non-leaf occurrence} $v$ of $\alpha$. By~\eqref{eq:body},
 the only \kl{extension variables} that may occur in $\alpha'_{\pbody(v)}$
 are $\ev{v0}$ and $\ev{v1}$, so this defines $\theta$ by induction on
 $\hgt(\subf{\alpha}{v})$.
@@ -120,7 +117,7 @@ the latter case $\pbody(w)\notin P$ because $w\notin Q$. We argue by
 induction on $\hgt(\subf{\alpha}{v})$. If $\prep(v)\in P$, then $v\in Q$
 and both sides are $z$. Otherwise $\alpha'_{\prep(v)}=\rv{v}$. If $v$ is a
 \kl{leaf}, then $v\notin Q$ and both sides are $\subf{\alpha}{v}$. If $v$
-is a \kl{compound occurrence} and $\pbody(v)\in P$, then $v\in Q$ and
+is a \kl{non-leaf occurrence} and $\pbody(v)\in P$, then $v\in Q$ and
 both sides are $z$. Otherwise $v\notin Q$, so neither $v0$ nor $v1$ is
 \kl{strictly below} an element of $Q$, and by~\eqref{eq:body} and the
 induction hypothesis,
@@ -138,24 +135,23 @@ $\gamma_i\to\gamma_i$ with $\gamma_i=\theta(\ev{u_i})$. By the claim for
 $v=\rt$, $\theta$ maps $\alpha'_{\prep(\rt)}$ to $\beta$.
 \end{proof}
 
-\begin{lemma}[Reduction]\label{lem:normal}
-If some \kl{one-step generalization} of $\St(\alpha)$ belongs to a
-\kl{logic} $L$, then so does some \kl{basic} one.
+\begin{lemma}\label{lem:normal}
+If $\Gen{\St(\alpha)}\cap L\neq\emptyset$ for a \kl{logic} $L$, then
+$\Genb{\alpha}\cap L\neq\emptyset$.
 \end{lemma}
 \begin{proof}
 Let $\alpha'=\gen{\St(\alpha)}{P}{z}\in L$, where $P$ is a set of
 occurrences of a formula $\delta$. Since $\sigma\alpha'\in L$ for every
 substitution $\sigma$ by (C1), it suffices to find $\sigma$ such that
-$\sigma\alpha'$ is a \kl{basic} \kl{one-step generalization} of
-$\St(\alpha)$. We distinguish cases on $\delta$.
+$\sigma\alpha'\in\Genb{\alpha}$. We distinguish cases on $\delta$.
 
 If $\delta$ is a variable of $\alpha$ or $\hgt(\delta)=1$, then every
 element of $P$ is of the form $\prep(v)$ or $\pbody(u)$, respectively, by
-Lemma~\ref{lem:shape}(b) and~(c), so $\alpha'$ itself is \kl{basic}.
+Lemma~\ref{lem:shape}(b) and~(c), so $\alpha'\in\Genb{\alpha}$.
 
 If $\delta=\ev{u}$, then $P=\{\prep(u)\}$ or $P=\{\pdef(u)\}$ by
 Lemma~\ref{lem:shape}(b), since $P$ does not contain all occurrences of
-$\delta$. In the first case $\alpha'$ is \kl{basic}. In the second case,
+$\delta$. In the first case $\alpha'\in\Genb{\alpha}$. In the second case,
 the substitution that interchanges $\ev{u}$ and $z$ maps $\alpha'$ to
 $\gen{\St(\alpha)}{\{\prep(u)\}}{z}$.
 
@@ -168,33 +164,33 @@ the previous case.
 If $\hgt(\delta)\ge3$, then $\delta=\tl{i}$ and $P=\{1^{i-1}\}$ for some
 $i\le m$ by Lemma~\ref{lem:shape}(c) and~(d). Substituting
 $\gen{\tl{i}}{\{1^{m-i+1}\}}{z}$ for $z$, we obtain
-$\gen{\St(\alpha)}{\{\prep(\rt)\}}{z}$, which is \kl{basic}.
+$\gen{\St(\alpha)}{\{\prep(\rt)\}}{z}\in\Genb{\alpha}$.
 \end{proof}
 
 \begin{proof}[Proof of Theorem~\ref{thm:main}]
 If $\alpha$ is a variable, then $\St(\alpha)=\alpha$ and there is
 nothing to prove. Otherwise, suppose
-that some \kl{one-step generalization} of $\St(\alpha)$ belongs to $L$.
-By Lemma~\ref{lem:normal}, some \kl{basic} one, say $\alpha'$, belongs to
-$L$. Take $\beta$, $\theta$ and $\gamma_1,\dots,\gamma_m$ as in
+that $\Gen{\St(\alpha)}\cap L\neq\emptyset$.
+By Lemma~\ref{lem:normal}, there is $\alpha'\in\Genb{\alpha}\cap L$. Take $\beta$, $\theta$ and $\gamma_1,\dots,\gamma_m$ as in
 Lemma~\ref{lem:key}. Then $\theta\alpha'\in L$ by (C1) and
 $\gamma_i\to\gamma_i\in L$ by (C3), so $\beta\in L$ by (C2). This
 contradicts the \kl{minimality} of $\alpha$ by
-Proposition~\ref{cor:criterion}, since $\beta$ is a \kl{one-step
-generalization} of $\alpha$. Hence no \kl{one-step generalization} of
-$\St(\alpha)$ belongs to $L$, and since $\St(\alpha)\in L$,
+Proposition~\ref{cor:criterion}, since $\beta\in\Gen{\alpha}$. Hence
+$\Gen{\St(\alpha)}\cap L=\emptyset$, and since $\St(\alpha)\in L$,
 $\St(\alpha)$ is \kl{minimal} in $L$ by Proposition~\ref{cor:criterion}.
 \end{proof}
 
 \begin{example}\label{ex:decode}
 Let $\alpha$ be Peirce's law as in Example~\ref{ex:peirce}, and replace
-the occurrence of $\ev{00}$ in $\dprem{0}$, that is, at $\prep(00)$, by
+the occurrence of $\evfp{a\to b}$ in the \kl{antecedent}
+$\evfn{(a\to b)\to a}\to\evfp{a\to b}\to a$, that is, at $\prep(00)$, by
 $z$:
 \[
-\alpha'=((a\to b)\to\ev{00})\to(\ev{0}\to z\to a)\to((\ev{0}\to a)\to\ev{\rt})\to\ev{\rt} .
+\alpha'=((a\to b)\to\evfp{a\to b})\to(\evfn{(a\to b)\to a}\to z\to a)
+\to((\evfn{(a\to b)\to a}\to a)\to\evfp{\alpha})\to\evfp{\alpha} .
 \]
 Then $Q=\{00\}$ and $\beta=(z\to a)\to a$. The substitution $\theta$ maps
-$\ev{00}$ to $a\to b$, $\ev{0}$ to $z\to a$ and $\ev{\rt}$ to
+$\evfp{a\to b}$ to $a\to b$, $\evfn{(a\to b)\to a}$ to $z\to a$ and $\evfp{\alpha}$ to
 $(z\to a)\to a=\beta$, so that
 \[
 \theta\alpha'=((a\to b)\to(a\to b))\to((z\to a)\to(z\to a))\to

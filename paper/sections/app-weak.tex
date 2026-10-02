@@ -16,11 +16,11 @@ The following hold.
 \begin{enumerate}
 \item[(a)] (Without $\axB$.) The formula $\axK$ is \kl{minimal} in $\CK$, but
   \[
-  \St(\axK)=((b\to a)\to \ev{1})\to((a\to \ev{1})\to \ev{\rt})\to \ev{\rt}
+  \St(\axK)=((b\to a)\to \evfp{b\to a})\to((a\to \evfp{b\to a})\to \evfp{\axK})\to \evfp{\axK}
   \]
   does not belong to $\CK$.
 \item[(b)] (Without $\axC$.) The formula $\axI$ is \kl{minimal} in $\BBpKI$,
-  but $\St(\axI)=((a\to a)\to \ev{\rt})\to \ev{\rt}$ does not belong to
+  but $\St(\axI)=((a\to a)\to \evfp{\axI})\to \evfp{\axI}$ does not belong to
   $\BBpKI$. Likewise, $\axK$ is \kl{minimal} in $\BK$ and in $\BBpKI$, but
   ${\St(\axK)\notin\BBpKI\supseteq\BK}$.
 \end{enumerate}
@@ -30,8 +30,8 @@ $L\lplus\alpha\ne L\lplus\St(\alpha)$ for $\alpha=\axK$; for $L=\BBpKI$ the
 same holds also for $\alpha=\axI$.
 \end{proposition}
 \begin{proof}
-\emph{Minimality.} The \kl{one-step generalizations} of $\axK$ are $z\to b\to a$,
-$a\to b\to z$, $a\to z$ and $z$, and those of $\axI$ are $z\to a$, $a\to z$
+\emph{Minimality.} The elements of $\Gen{\axK}$ are $z\to b\to a$,
+$a\to b\to z$, $a\to z$ and $z$, and those of $\Gen{\axI}$ are $z\to a$, $a\to z$
 and $z$. None of them is classically valid, so none of them belongs to any
 of the logics under consideration, all of which are contained in $\CL$.
 
@@ -49,15 +49,15 @@ A finite check shows that $M_4$ validates $\axC$ and $\axK$ (and hence also $\ax
 which is derivable in $\CK$) but not $\axB$. The set $\{0\}$ is closed
 under modus ponens, since $0\to y=0$ implies $y=0$, so every theorem of
 $\CK$ takes the value $0$. However, under the valuation $a=b=1$,
-$\ev{1}=2$ and $\ev{\rt}=3$ we have $b\to a=0$, $(b\to a)\to \ev{1}=2$, $a\to \ev{1}=1$
-and $(a\to \ev{1})\to \ev{\rt}=0$, so $\St(\axK)$ takes the value
+$\evfp{b\to a}=2$ and $\evfp{\axK}=3$ we have $b\to a=0$, $(b\to a)\to \evfp{b\to a}=2$,
+$a\to \evfp{b\to a}=1$ and $(a\to \evfp{b\to a})\to \evfp{\axK}=0$, so $\St(\axK)$ takes the value
 $2\to(0\to3)=2\to3=3\ne0$.
 
 (b) Let $M_3=(\{0,1,2\},\to,\{0\})$, where $x\to y=0$ if $y\le x$ and
 $x\to y=1$ otherwise. A finite check shows that $M_3$ validates $\axB$, $\axBp$,
 $\axK$ and $\axI$. As before, $\{0\}$ is closed under modus ponens, so every
 theorem of $\BBpKI$ takes the value $0$ in $M_3$. However, under the
-valuation $a=0$ and $\ev{\rt}=2$, the formula $\St(\axI)$ takes the value
+valuation $a=0$ and $\evfp{\axI}=2$, the formula $\St(\axI)$ takes the value
 $(0\to2)\to2=1\to2=1$. The formula $\St(\axK)$ is refuted similarly. (The
 matrix $M_3$ refutes $\axC$ and $\axW$.)
 \end{proof}
@@ -70,5 +70,6 @@ verified by exhaustive evaluation), \texttt{tools/bki\_matrix.py} (matrix $M_3$)
 \texttt{tools/ck\_cd.py} and \texttt{tools/bk\_cd.py} (condensed-detachment
 search, consistent with (a) and (b)). Open: ticket entailment
 $\Tto$, where $M_3$ does not apply because it
-refutes $\axW$; and whether reordering the premises helps. For (b), every order
-of premises fails already for $\St(\axI)$, which has a single premise.}
+refutes $\axW$; and whether listing the formulas $\dprem{u}$ in a different order helps.
+For (b), no order helps already for $\St(\axI)$, which has only one such
+formula.}

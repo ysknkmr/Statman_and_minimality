@@ -1,5 +1,5 @@
 %======================================================================
-\section{A Minimality-Preserving Normal Form}\label{sec:normal-form}
+\section{Soundness over \texorpdfstring{$\BCI$}{BCI}}\label{sec:sound}
 
 \AP We now apply Theorem~\ref{thm:main} to logics containing $\BCI$. We use
 the axiom schemes
@@ -24,16 +24,16 @@ formula $\alpha$.
 \end{lemma}
 \begin{proof}
 We argue in the implicational fragment of the sequent calculus for
-$\FLe$, which is complete for $\BCI$ (see~\cite{GJKO07}). For a \kl{compound occurrence}
- $u$, let $\Gamma_u$ be the multiset of the \kl{defining premises}
+$\FLe$, which is complete for $\BCI$ (see~\cite{GJKO07}). For a \kl{non-leaf occurrence}
+ $u$, let $\Gamma_u$ be the multiset of the formulas
 $\dprem{v}$ such that $v=u$ or $v$ is \kl{strictly below} $u$; for a \kl{leaf} $u$, let
 $\Gamma_u$ be empty. We show, by induction from the \kl{leaves} upward, that
 \[
 \Gamma_u,\subf{\alpha}{u}\vdash \rv{u}\quad\text{if $u$ is positive},\qquad
 \Gamma_u,\rv{u}\vdash\subf{\alpha}{u}\quad\text{if $u$ is negative}.
 \]
-For \kl{leaves}, these sequents are axioms. Suppose that $u$ is \kl{positive} and
-compound. Then $u0$ is \kl{negative} and $u1$ is \kl{positive}, so the induction
+For \kl{leaves}, these sequents are axioms. Suppose that $u$ is a \kl{positive}
+\kl{non-leaf occurrence}. Then $u0$ is \kl{negative} and $u1$ is \kl{positive}, so the induction
 hypotheses and the rule $({\to}\mathrm{L})$ yield
 $\Gamma_{u0},\Gamma_{u1},\subf{\alpha}{u},\rv{u0}\vdash \rv{u1}$. Applying
 $({\to}\mathrm{R})$ and then $({\to}\mathrm{L})$ with
@@ -53,42 +53,9 @@ $\St(\alpha)$.
 \end{corollary}
 \begin{proof}
 By Lemma~\ref{lem:sound}, $\St(\alpha)\in L\lplus\alpha$. Conversely, the
-substitution $\decsub{\alpha}$ of Section~\ref{sec:translation} maps every \kl{defining premise} $\dprem{u}$ to
+substitution $\decsub{\alpha}$ of Section~\ref{sec:translation} maps every formula $\dprem{u}$ to
 $\subf{\alpha}{u}\to\subf{\alpha}{u}$ and $\rv{\rt}$ to $\alpha$, so
 $\alpha\in L\lplus\St(\alpha)$ by (C1)--(C3). If $\alpha$ is \kl{minimal}
 in $L$, then $\alpha\in L$, hence $\St(\alpha)\in L$ by
 Lemma~\ref{lem:sound}, and Theorem~\ref{thm:main} applies.
-\end{proof}
-
-\begin{corollary}[Order-$4$ normal form]\label{cor:normal-form}
-Let $L_0$ be a \kl{logic} containing $\BCI$. If $L=L_0\lplus\Gamma$, where
-every $\alpha\in\Gamma$ is \kl{minimal} in $\CL$, then
-$L=L_0\lplus\{\St(\alpha)\mid\alpha\in\Gamma\}$, and every $\St(\alpha)$ is
-\kl{minimal} in $\CL$ and of \kl{order} at most $4$.
-\end{corollary}
-\begin{proof}
-The first two claims follow from Corollary~\ref{cor:many-logics} applied to
-$L_0$ and to $\CL$. Since every \kl{body} has \kl{order} $2$, every
-\kl{defining premise} has \kl{order} at most $3$, and hence
-$\Ord(\St(\alpha))\le4$.
-\end{proof}
-
-The bound $4$ cannot be improved: by the next proposition, a classical
-tautology of \kl{order} at most $3$ never axiomatizes a proper extension of
-$\IL$, whereas $\LC$ is axiomatized over $\IL$ by a formula \kl{minimal} in
-$\CL$ (Corollary~\ref{cor:LC}).
-
-\begin{proposition}\label{prop:order3}
-Every formula of $\CL$ of \kl{order} at most $3$ belongs to $\IL$.
-\end{proposition}
-\begin{proof}
-A formula of \kl{order} at most $2$ has the form $p_1\to\dots\to p_k\to q$ with
-variables $p_1,\dots,p_k,q$, and we read it as the rule ``from
-$p_1,\dots,p_k$ infer $q$''. A formula of \kl{order} at most $3$ has the form
-$F=H_1\to\dots\to H_n\to r$, where the $H_i$ are of \kl{order} at most $2$ and
-$r$ is a variable. Let $V$ be the closure of the empty set under the rules
-$H_1,\dots,H_n$. The valuation that makes exactly the variables in $V$ true
-satisfies every $H_i$, so $r\in V$ because $F\in\CL$. Following the
-construction of $V$ step by step, we can derive $r$ from $H_1,\dots,H_n$ by
-modus ponens in $\IL$. Hence $F\in\IL$.
 \end{proof}

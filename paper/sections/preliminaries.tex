@@ -44,7 +44,7 @@ is \intro{strictly more general} than $\alpha$.
 $\alpha\in L$ and there is no $\beta\in L$ with $\beta\ssub\alpha$.
 \end{definition}
 
-\subsection{Occurrences and one-step generalizations}
+\subsection{Occurrences and a criterion for minimality}
 
 \AP We identify an occurrence of a subformula in a formula $\alpha$ with its
 position in the syntax tree of $\alpha$, that is, with a finite word over
@@ -53,7 +53,7 @@ the subformula at $u$ is $\gamma\to\delta$, then $\gamma$ is at $u0$ and
 $\delta$ is at $u1$. We write $\intro*\subf{\alpha}{u}$ for the subformula
 of $\alpha$ at $u$. An occurrence $u$ is \intro{strictly below} $v$ if $v$
 is a proper prefix of $u$. An occurrence $u$ is a \intro{leaf} if
-$\subf{\alpha}{u}$ is a variable, and a \intro{compound occurrence}
+$\subf{\alpha}{u}$ is a variable, and a \intro{non-leaf occurrence}
 otherwise. Note that two distinct occurrences of the same formula are never
 \kl{strictly below} one another.
 
@@ -63,15 +63,15 @@ $\intro*\gen{\alpha}{Q}{z}$
 for the formula obtained from $\alpha$ by replacing the subformula at each
 $u\in Q$ by $z$.
 
-\AP A \intro{one-step generalization} of a formula $\alpha$ is a formula
-$\gen{\alpha}{Q}{z}$, where $Q$ is a nonempty set of occurrences of a single
+\AP We write $\intro*\Gen{\alpha}$ for the set of formulas
+$\gen{\alpha}{Q}{z}$ such that $Q$ is a nonempty set of occurrences of a single
 formula $\delta$ in $\alpha$, the variable $z$ does not occur in $\alpha$,
 and, if $\delta$ is a variable, some occurrence of $\delta$ does not belong
 to $Q$ (replacing all occurrences of a variable merely renames it).
 
 \begin{proposition}\label{cor:criterion}
 Let $L$ be a \kl{logic} and let $\alpha\in L$. Then $\alpha$ is \kl{minimal} in $L$
-if and only if no \kl{one-step generalization} of $\alpha$ belongs to $L$.
+if and only if $\Gen{\alpha}\cap L=\emptyset$.
 \end{proposition}
 
 This is essentially \cite[Props.~3.1 and~3.2]{NM21}; for completeness, we
