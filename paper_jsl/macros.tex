@@ -1,0 +1,100 @@
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{problem}[theorem]{Open Problem}
+
+\ifdefined\submission
+  \newcommand{\plot}[1]{}
+\else
+  \newcommand{\plot}[1]{\par\noindent\textcolor{blue}{\textsf{[Plot: #1]}}\par}
+\fi
+\newcommand{\proofcase}[1]{\par\textit{#1}\ }
+% Logics
+\knowledgenewrobustcmd\IL{\cmdkl{\mathbf{IL}}}
+\knowledgenewrobustcmd\CL{\cmdkl{\mathbf{CL}}}
+\knowledgenewrobustcmd\IPC{\cmdkl{\mathbf{IPC}}}
+\knowledgenewrobustcmd\CPC{\cmdkl{\mathbf{CPC}}}
+\knowledgenewrobustcmd\LC{\cmdkl{\mathbf{LC}}}
+\knowledgenewrobustcmd\KC{\cmdkl{\mathbf{KC}}}
+\knowledgenewrobustcmd\BCK{\cmdkl{\mathbf{BCK}}}
+\knowledgenewrobustcmd\BCI{\cmdkl{\mathbf{BCI}}}
+\knowledgenewrobustcmd\FLe{\cmdkl{\mathbf{FL_e}}}
+\knowledgenewrobustcmd\lclos[1]{{#1}^{\cmdkl{*}}}
+\knowledgenewrobustcmd\lplus{\mathbin{\cmdkl{+}}}
+% Axiom schemes
+\knowledgenewrobustcmd\axK{\cmdkl{K}}
+\knowledgenewrobustcmd\axS{\cmdkl{S}}
+\knowledgenewrobustcmd\axB{\cmdkl{B}}
+\knowledgenewrobustcmd\axC{\cmdkl{C}}
+\knowledgenewrobustcmd\axI{\cmdkl{I}}
+\knowledgenewrobustcmd\axP{\cmdkl{P}}
+% Formulas and occurrences
+\knowledgenewrobustcmd\Ord{\cmdkl{\mathrm{Ord}}}
+\knowledgenewrobustcmd\sizeof[1]{\cmdkl{|}#1\cmdkl{|}}
+\knowledgenewrobustcmd\Var{\cmdkl{\mathrm{Var}}}
+\knowledgenewrobustcmd\sub{\mathrel{\cmdkl{\leqslant_{\mathrm{sub}}}}}
+\knowledgenewrobustcmd\ssub{\mathrel{\cmdkl{<_{\mathrm{sub}}}}}
+\knowledgenewrobustcmd\Min{\cmdkl{\mathrm{Min}}}
+\knowledgenewrobustcmd\subf[2]{{#1}\cmdkl{{}_{#2}}}
+\knowledgenewrobustcmd\gen[3]{{#1}\cmdkl{[}{#2}\cmdkl{:=}{#3}\cmdkl{]}}
+\knowledgenewrobustcmd\Gen[1]{\cmdkl{\mathcal{G}}(#1)}
+\knowledgenewrobustcmd\Occ{\cmdkl{\mathrm{Occ}}}
+\knowledgenewrobustcmd\rt{\cmdkl{\varepsilon}}
+\knowledgenewrobustcmd\hgt{\cmdkl{h}}
+\knowledgenewrobustcmd\val[2]{\cmdkl{[\![}#1\cmdkl{]\!]}_{#2}}
+\knowledgenewrobustcmd\ttop{\cmdkl{\top}}
+\knowledgenewrobustcmd\seq[2]{#1\mathrel{\cmdkl{\Rightarrow}}#2}
+% Local constraints and the first layer
+\knowledgenewrobustcmd\nv[1]{\cmdkl{t}_{#1}}
+\knowledgenewrobustcmd\cons[1]{\cmdkl{C}_{#1}}
+\knowledgenewrobustcmd\Cons{\cmdkl{\mathcal{C}}}
+\knowledgenewrobustcmd\sel[1]{\cmdkl{x}_{#1}}
+\knowledgenewrobustcmd\sw{\cmdkl{s}}
+\knowledgenewrobustcmd\guarded[1]{\cmdkl{H}_{#1}}
+\knowledgenewrobustcmd\link[1]{\cmdkl{K}_{#1}}
+\knowledgenewrobustcmd\query{\cmdkl{Q}}
+\knowledgenewrobustcmd\Prem{\cmdkl{\Gamma}}
+\knowledgenewrobustcmd\goal{\cmdkl{D}}
+\knowledgenewrobustcmd\Fst[1]{\cmdkl{F}_{#1}}
+\knowledgenewrobustcmd\stdval[1]{\cmdkl{\nu}_{#1}}
+\knowledgenewrobustcmd\fresh[1]{\cmdkl{e}_{#1}}
+% Ports and spanning trees
+\knowledgenewrobustcmd\port[1]{\cmdkl{p}_{#1}}
+\knowledgenewrobustcmd\ported[1]{{#1}^{\cmdkl{\circ}}}
+\knowledgenewrobustcmd\guard[1]{\cmdkl{G}_{#1}}
+\knowledgenewrobustcmd\Guards{\cmdkl{\mathcal{G}\!u}}
+\knowledgenewrobustcmd\Edges{\cmdkl{\mathcal{R}}}
+\knowledgenewrobustcmd\Pos[1]{\cmdkl{P}_{#1}}
+\knowledgenewrobustcmd\Neg[1]{\cmdkl{N}_{#1}}
+\knowledgenewrobustcmd\term{\cmdkl{d}}
+\knowledgenewrobustcmd\Mz[1]{\cmdkl{M}_{#1}}
+\knowledgenewrobustcmd\Mh[1]{\cmdkl{\widehat{M}}_{#1}}
+\knowledgenewrobustcmd\recsub[1]{\cmdkl{\sigma}_{#1}}
+\knowledgenewrobustcmd\elimsub[1]{\cmdkl{\rho}_{#1}}
+\knowledgenewrobustcmd\collsub{\cmdkl{\tau}}
+% The translation
+\knowledgenewrobustcmd\St{\cmdkl{\mathsf{S}}}
+\knowledgenewrobustcmd\ev[1]{\cmdkl{x}_{#1}}
+\knowledgenewrobustcmd\rv[1]{\cmdkl{r}_{#1}}
+\knowledgenewrobustcmd\body[1]{\cmdkl{b}_{#1}}
+\knowledgenewrobustcmd\dprem[1]{\cmdkl{E}_{#1}}
+\knowledgenewrobustcmd\decsub[1]{\cmdkl{\theta}_{#1}}
+\knowledgenewrobustcmd\tl[1]{\cmdkl{T}_{#1}}
+\knowledgenewrobustcmd\Genb[1]{\cmdkl{\mathcal{B}}(#1)}
+\knowledgenewrobustcmd\pprem{\cmdkl{\mathsf{prem}}}
+\knowledgenewrobustcmd\pbody{\cmdkl{\mathsf{body}}}
+\knowledgenewrobustcmd\pdef{\cmdkl{\mathsf{def}}}
+\knowledgenewrobustcmd\prep{\cmdkl{\mathsf{rep}}}
+% Types
+\knowledgenewrobustcmd\lam{\cmdkl{\lambda}}
+\knowledgenewrobustcmd\cst[1]{\cmdkl{c}_{#1}}
+\knowledgenewrobustcmd\types[2]{\vdash #1\mathrel{\cmdkl{:}}#2}
+\knowledgenewrobustcmd\pt[1]{\cmdkl{\mathrm{pt}}(#1)}
+% Generic constructions of Section 3
+\knowledgenewrobustcmd\Mon[2]{\cmdkl{\mathsf{Mon}}(#1,#2)}
+\knowledgenewrobustcmd\Tc[1]{\cmdkl{\mathsf{T}}(#1)}

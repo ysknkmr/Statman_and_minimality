@@ -1,0 +1,52 @@
+%%%%%%%%%%%%%%%% Draft for The Journal of Symbolic Logic (asl.cls, jsl option)
+\documentclass[jsl,reqno,bibalpha]{asl}
+
+\usepackage{xcolor}
+% Uncomment for the submitted version (no color, no plot notes):
+% \def\submission{}
+\usepackage{hyperref}
+\hypersetup{hidelinks}
+\input{kl-config}
+
+\title[Minimal axioms for every intermediate logic]
+{Every intermediate logic is axiomatizable by formulas minimal in
+classical logic}
+
+\keywords{Intermediate logic, minimal formulas, substitution preorder,
+axiomatization, principal types, extension variables}
+\renewcommand{\subjclassname}{2020 \textit{Mathematics Subject Classification}}
+\subjclass{Primary 03B55; Secondary 03B20, 03B40}
+
+% \author{Anonymous author(s)}
+% \revauthor{Anonymous}
+\author{Yoshiki Nakamura}
+\revauthor{Nakamura, Yoshiki}
+\address{}
+\email{nakamura.yoshiki.ny@gmail.com}
+% \author{Naosuke Matsuda}
+% \revauthor{Matsuda, Naosuke}
+% \address{...}
+% \email{...}
+% \thanks{...}
+
+\input{macros}
+\input{knowledge}
+
+\begin{document}
+
+\input{sections/abstract}
+
+\maketitle
+
+\input{sections/introduction}
+\input{sections/preliminaries}
+\input{sections/implicational}
+\input{sections/order}
+\input{sections/full}
+\input{sections/principal}
+\input{sections/conclusion}
+
+\bibliographystyle{asl}
+\bibliography{references}
+
+\end{document}

@@ -1,0 +1,32 @@
+***********
+* Summary *
+***********
+
+0 undefined knowledge(s).
+0 autoreference(s) are introduced twice.
+0 autoreference(s) are used but not introduced.
+
+111 autoreference(s) are properly used.
+3 autoreference(s) are defined but not used.
+
+
+********
+* Help *
+********
+
+\knowledgeconfigure{diagnose bar=false} deactivate `|'-notation in diagnose file.
+\knowledgeconfigure{diagnose help=false} deactivate long help in the diagnose file.
+\knowledgeconfigure{diagnose line=true} add line numbers to diagnose file.
+
+***********************************
+* Autoref introduced but not used *
+***********************************
+
+% macros.tex:26
+macros.tex:26: {\FLe }{default}{base}
+% macros.tex:69
+macros.tex:69: {\guard }{default}{base}
+% knowledge.tex:107
+knowledge.tex:107: {translation}{default}{base}
+
+

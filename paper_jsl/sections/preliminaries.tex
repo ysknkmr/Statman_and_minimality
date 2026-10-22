@@ -1,0 +1,157 @@
+%======================================================================
+\section{Preliminaries}\label{sec:prelim}
+
+\subsection{Formulas and logics}
+
+Except in Section~\ref{sec:full}, formulas are built from propositional
+variables by the implication $\to$, which associates to the right:
+$\alpha\to\beta\to\gamma$ stands for $\alpha\to(\beta\to\gamma)$. For a
+finite list $\Delta=(\delta_1,\dots,\delta_k)$ of formulas we write
+$\Delta\to\beta$ for $\delta_1\to\dots\to\delta_k\to\beta$. In
+Section~\ref{sec:full} the language is $\{\bot,\wedge,\vee,\to\}$, and
+$\neg\alpha$ abbreviates $\alpha\to\bot$.
+
+\AP A \emph{substitution} $\sigma$ maps variables to formulas and is
+extended homomorphically to all formulas; in particular $\sigma(\bot)=\bot$.
+A \intro{logic} is a set of formulas closed under modus ponens and
+substitution. For a set $F$ of formulas, $\intro*\lclos{F}$ is the smallest
+\kl{logic} containing $F$; for a \kl{logic} $L$ we write
+$L\intro*\lplus F$ for $\lclos{(L\cup F)}$ and $L\lplus\alpha$ for
+$L\lplus\{\alpha\}$. Thus the members of $F$ are used as axiom schemes.
+
+\AP We use the axiom schemes
+\[
+\intro*\axK=a\to b\to a,\qquad
+\intro*\axS=(a\to b\to c)\to(a\to b)\to a\to c,\qquad
+\intro*\axI=a\to a,
+\]
+\[
+\intro*\axB=(b\to c)\to(a\to b)\to a\to c,\qquad
+\intro*\axC=(a\to b\to c)\to b\to a\to c,
+\]
+\[
+\intro*\axP=((a\to b)\to a)\to a .
+\]
+\AP Implicational intuitionistic and classical logic are
+$\intro*\IL=\lclos{\{\axK,\axS\}}$ and $\intro*\CL=\IL\lplus\axP$;
+we also use $\intro*\BCK=\lclos{\{\axB,\axC,\axK\}}$,
+$\intro*\BCI=\lclos{\{\axB,\axC,\axI\}}$ and Gödel--Dummett
+logic~\cite{Dum59} $\intro*\LC=\IL\lplus((a\to b)\to c)\to((b\to a)\to c)\to c$. In the full language,
+$\intro*\IPC$ and $\intro*\CPC$ denote intuitionistic and classical
+propositional logic. An \intro{intermediate logic} is a \kl{logic} $L$ with
+$\IL\subseteq L\subseteq\CL$, or with $\IPC\subseteq L\subseteq\CPC$ in the
+full language. A formula belongs to $\CL$ (resp.\ $\CPC$) if and only if it
+is true under every Boolean valuation; we write $v(\alpha)\in\{0,1\}$ for
+the value of $\alpha$ under a valuation $v$, with $v(\bot)=0$.
+
+\AP The \intro{order} of a formula is defined by $\intro*\Ord(p)=\Ord(\bot)=1$,
+$\Ord(\alpha\to\beta)=\max\{\Ord(\alpha)+1,\Ord(\beta)\}$ and
+$\Ord(\alpha\circ\beta)=\max\{\Ord(\alpha),\Ord(\beta)\}$ for
+$\circ\in\{\wedge,\vee\}$. \AP The \intro{size} $\intro*\sizeof{\alpha}$ is
+the number of occurrences of variables and of $\bot$ in $\alpha$, and
+$\intro*\Var(\alpha)$ is the set of variables of $\alpha$.
+
+\subsection{The substitution preorder}
+
+\AP We write $\beta\intro*\sub\alpha$ if $\alpha=\sigma\beta$ for some
+substitution $\sigma$; then $\beta$ is \intro{more general} than $\alpha$.
+We write $\beta\intro*\ssub\alpha$ if $\beta\sub\alpha$ but not
+$\alpha\sub\beta$, and say that $\beta$ is \intro{strictly more general}
+than $\alpha$. The relation $\sub$ is the \intro{substitution preorder}.
+\AP Since a substitution never decreases the number of occurrences of
+connectives and of $\bot$, we have $\alpha\sub\beta\sub\alpha$ if and only
+if $\beta$ is obtained from $\alpha$ by a \intro{renaming}, that is, by a
+substitution that maps $\Var(\alpha)$ injectively to variables.
+
+\begin{definition}
+\AP A formula $\alpha$ is \intro{minimal in} a \kl{logic} $L$ if
+$\alpha\in L$ and there is no $\beta\in L$ with $\beta\ssub\alpha$. We
+write $\intro*\Min(L)$ for the set of formulas \kl{minimal in} $L$.
+\end{definition}
+
+If $L\subseteq L'$, then $\Min(L')\cap L\subseteq\Min(L)$.
+
+\begin{remark}\label{rem:self}
+Up to \kl{renaming}, a formula $\alpha$ has only finitely many formulas
+$\beta\sub\alpha$. Hence for every $\alpha\in L$ there is
+$\beta\in\Min(L)$ with $\beta\sub\alpha$, and $\alpha\in L_0\lplus\beta$
+for every \kl{logic} $L_0$. Consequently $L=L_0\lplus(L\cap\Min(L))$ for
+every \kl{logic} $L_0\subseteq L$: every \kl{logic} is axiomatizable by
+formulas \kl{minimal in} itself. The content of
+Theorems~\ref{thm:intro-main} and~\ref{thm:intro-full} is that the axioms
+can be chosen \kl{minimal in} $\CL$ (resp.\ $\CPC$), and hence \kl{minimal
+in} every \kl{logic} between the given one and $\CL$ (resp.\ $\CPC$) at the
+same time.
+\end{remark}
+
+\subsection{Occurrences and a criterion for minimality}
+
+\AP We identify an \intro{occurrence} in a formula $\alpha$ with its position
+in the syntax tree, that is, with a word over $\{0,1\}$: the empty word
+$\intro*\rt$ is the root, and if the subformula at $u$ is $\gamma\circ\delta$
+with $\circ\in\{\wedge,\vee,\to\}$, then $\gamma$ is at $u0$ and $\delta$ at
+$u1$. We write $\intro*\subf{\alpha}{u}$ for the subformula at $u$. An
+\kl{occurrence} $u$ is \intro{strictly below} $v$ if $v$ is a proper prefix
+of $u$. \AP An \kl{occurrence} $u$ is a \intro{leaf} if $\subf{\alpha}{u}$ is
+a variable or $\bot$, and a \intro{non-leaf occurrence} otherwise. Distinct
+\kl{occurrences} of the same formula are never \kl{strictly below} one
+another. \AP We write $\intro*\Occ_\alpha(p)$ for the set of \kl{occurrences}
+of a variable $p$ in $\alpha$.
+
+\AP Each \kl{occurrence} has a \intro{polarity}, \intro{positive} or
+\intro{negative}: the root is \kl{positive}; if $\subf{\alpha}{u}$ is an
+implication, then $u1$ has the \kl{polarity} of $u$ and $u0$ the opposite
+one; if $\subf{\alpha}{u}$ is a conjunction or a disjunction, then $u0$ and
+$u1$ have the \kl{polarity} of $u$. If $\alpha=\Delta\to\beta$, every
+\kl{occurrence} in a member of $\Delta$ has, in $\alpha$, the opposite of its
+\kl{polarity} in that member.
+
+\AP Let $Q$ be a nonempty set of \kl{occurrences} of a single formula $\delta$
+in $\alpha$, and let $z$ be a variable not occurring in $\alpha$. We write
+$\intro*\gen{\alpha}{Q}{z}$ for the result of replacing the subformula at
+each element of $Q$ by $z$. We call it a \intro{splitting} of $\alpha$ if
+$\delta$ is a variable and $Q\ne\Occ_\alpha(\delta)$, and an
+\intro{abstraction} of $\alpha$ if $\delta$ is not a variable (that is,
+$\delta$ is $\bot$ or a compound formula). A \kl{splitting} with
+$|Q|=1$ is a \intro{separation}. \AP The \kl{splittings} and
+\kl{abstractions} of $\alpha$ are its \intro{elementary generalizations};
+we write $\intro*\Gen{\alpha}$ for the set of them.
+
+\begin{proposition}\label{prop:criterion}
+Let $L$ be a \kl{logic} and $\alpha\in L$. Then $\alpha$ is \kl{minimal in}
+$L$ if and only if $\Gen{\alpha}\cap L=\emptyset$.
+\end{proposition}
+
+For implicational formulas this is essentially \cite[Props.~3.1
+and~3.2]{NM21}; we include a proof.
+
+\begin{proof}
+\proofcase{``Only if''.}
+Let $\beta=\gen{\alpha}{Q}{z}\in\Gen{\alpha}$, where $Q$ is a set of
+\kl{occurrences} of $\delta$. Substituting $\delta$ for $z$ in $\beta$ yields
+$\alpha$, so $\beta\sub\alpha$. We show that $\alpha\not\sub\beta$, so that
+$\beta\notin L$ by \kl{minimality}. Suppose $\tau\alpha=\beta$. If $\delta$
+is not a variable, then $\beta$ has fewer occurrences of connectives and
+$\bot$ than $\alpha$, which is impossible. If $\delta$ is a variable $p$,
+then $\tau$ maps $\Var(\alpha)$ to variables, so $\tau\alpha$ carries the
+single variable $\tau(p)$ at all \kl{leaves} in $\Occ_\alpha(p)$, whereas
+$\beta$ carries $z$ at the elements of $Q$ and $p$ at the elements of
+$\Occ_\alpha(p)\setminus Q\ne\emptyset$; a contradiction.
+
+\proofcase{``If''.}
+Suppose $\Gen{\alpha}\cap L=\emptyset$, and let $\gamma\in L$ and
+$\sigma\gamma=\alpha$. If $\sigma$ maps $\Var(\gamma)$ injectively to
+variables, then $\alpha\sub\gamma$. Otherwise there is $q\in\Var(\gamma)$
+such that either $\sigma(q)$ is not a variable, or $\sigma(q)=\sigma(q')$
+is a variable for some $q'\in\Var(\gamma)$ with $q'\ne q$. Let $\sigma'$
+agree with $\sigma$ except that $\sigma'(q)=z$ for a variable $z$ not in
+$\alpha$. The \kl{occurrences} of $q$ in $\gamma$ give a nonempty set $Q$ of
+\kl{occurrences} of $\sigma(q)$ in $\alpha$ with
+$\sigma'\gamma=\gen{\alpha}{Q}{z}$, and in the second case the
+\kl{occurrences} of $q'$ give \kl{occurrences} of $\sigma(q)$ outside $Q$.
+Hence $\sigma'\gamma\in\Gen{\alpha}\cap L$, a contradiction.
+\end{proof}
+
+A \kl{splitting} that divides $\Occ_\alpha(p)$ into more than two classes
+is not needed: identifying all classes but one yields a \kl{splitting} in
+the above sense, which is an instance of the former.

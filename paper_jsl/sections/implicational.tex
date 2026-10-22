@@ -1,0 +1,556 @@
+%======================================================================
+\section{Implicational intermediate logics}\label{sec:implicational}
+
+In this section we construct, for every implicational formula $\Phi\in\CL$,
+a formula $\Mz{\Phi}$ \kl{minimal in} $\CL$ with
+$\IL\lplus\Mz{\Phi}=\IL\lplus\Phi$ (Theorem~\ref{thm:first-layer}). Its
+\kl{order} is reduced to $4$ in Section~\ref{sec:order}.
+
+By Proposition~\ref{prop:criterion}, we must make every \kl{splitting} and
+every \kl{abstraction} of the output fail classically, while keeping a
+substitution that recovers $\Phi$. A falsifying valuation for a modified
+formula is easy to find when the modification is \emph{local}, that is,
+when it affects a small \kl{read-once} piece of the formula on which the
+rest of the formula imposes no condition. We achieve this by composing two
+known translations with two general constructions:
+\[
+\Mz{\Phi}=\Tc{\Mon{\Cons_\Phi}{\nv{\rt}}} .
+\]
+Here $\Cons_\Phi$ is the list of \kl{local constraints} of $\Phi$, obtained
+by \kl{renaming apart} the \kl{occurrences} of variables and applying the
+polarized extension-variable translation (Section~\ref{sec:constraints}).
+The \kl{monitor} $\Mon{\Cons}{r}$ turns any list of \kl{read-once} formulas
+into a formula no \kl{separation} of which is classically valid
+(Section~\ref{sec:localization}), and the \kl{tree closure} $\Tc{F}$ turns
+any such formula into a \kl{minimal} one (Section~\ref{sec:minimality}).
+The two general constructions do not depend on $\Phi$. We use Peirce's law
+\[
+\axP=((a\to b)\to a)\to a
+\]
+as a running example, and we explain after each step which
+\kl{elementary generalizations} survive it.
+
+\subsection{Two known translations}\label{sec:constraints}
+
+\AP The first translation is \intro{renaming apart} the \kl{occurrences} of
+variables. Let $\alpha$ be a formula. For every \kl{leaf} $o$ of $\alpha$
+we take a new variable $\intro*\port{o}$, called a \intro{port}, distinct
+\kl{leaves} receiving distinct \kl{ports}, and let $\intro*\ported{\alpha}$
+be the result of replacing each \kl{leaf} $o$ by $\port{o}$; thus
+$\ported{\alpha}$ is \kl{read-once}. If $a$ is the variable at $o$, the
+\intro{guard} of $o$ is
+\[
+\intro*\guard{o}=
+\begin{cases}
+a\to\port{o}, & \text{if $o$ is \kl{positive} in $\alpha$},\\
+\port{o}\to a, & \text{if $o$ is \kl{negative} in $\alpha$}.
+\end{cases}
+\]
+\AP We write $\intro*\Guards_\alpha$ for the list of the \kl{guards} of
+$\alpha$, call $a$ the \intro{center} of the \kl{ports} of its
+\kl{occurrences}, and let $\intro*\collsub_\alpha$ be the substitution that
+maps every \kl{port} to its \kl{center} and fixes all other variables. The
+following is the usual monotonicity argument; the \kl{guards} are the
+clauses for \kl{leaves} in the structure-preserving translation of Plaisted
+and Greenbaum~\cite{PG86}.
+
+\begin{lemma}\label{lem:port}
+$\Guards_\alpha\vdash_{\IL}\alpha\to\ported{\alpha}$, and $\collsub_\alpha$
+maps every \kl{guard} to a formula $a\to a$ and $\ported{\alpha}$ to
+$\alpha$.
+\end{lemma}
+\begin{proof}
+By induction on subformulas, $\Guards_\alpha$ derives
+$\subf{\alpha}{u}\to\subf{\ported{\alpha}}{u}$ for \kl{positive} $u$ and
+$\subf{\ported{\alpha}}{u}\to\subf{\alpha}{u}$ for \kl{negative} $u$, since
+the antecedent of an implication has the opposite \kl{polarity}.
+\end{proof}
+
+\AP The second translation is the polarized form of Statman's
+extension-variable translation~\cite{Sta79,PG86,Min90}. Let $\alpha$ be an
+implicational formula. For each \kl{non-leaf occurrence} $u$ of $\alpha$ we
+choose a new variable $\intro*\ev{u}$, called an \intro{extension variable},
+distinct \kl{occurrences} receiving distinct variables. For every
+\kl{occurrence} $u$ let $\intro*\rv{u}=\subf{\alpha}{u}$ if $u$ is a
+\kl{leaf} and $\rv{u}=\ev{u}$ otherwise. \AP For a \kl{non-leaf
+occurrence} $u$ put $\intro*\body{u}=\rv{u0}\to\rv{u1}$ and
+\[
+\intro*\dprem{u}=
+\begin{cases}
+\body{u}\to\ev{u}, & \text{if $u$ is \kl{positive}},\\
+\ev{u}\to\body{u}, & \text{if $u$ is \kl{negative}}.
+\end{cases}
+\]
+
+\begin{definition}\label{def:S}
+\AP Let $u_1,\dots,u_m$ be the \kl{non-leaf occurrences} of $\alpha$ in
+post-order; that is, $u_i$ precedes $u_j$ if and only if $u_i$ is
+\kl{strictly below} $u_j$, or $u_i=w0u'$ and $u_j=w1u''$ for some words
+$w,u',u''$. The \intro{translation} of $\alpha$ is
+\[
+\intro*\St(\alpha)=\dprem{u_1}\to\dots\to\dprem{u_m}\to\rv{\rt} .
+\]
+If $\alpha$ is a variable, then $\St(\alpha)=\alpha$.
+\end{definition}
+
+Every $\body{u}$ has \kl{order} $2$, so every $\dprem{u}$ has \kl{order} at
+most $3$, and
+\begin{equation}\label{eq:S-order}
+\Ord(\St(\alpha))\le4,\qquad \sizeof{\St(\alpha)}=3\sizeof{\alpha}-2 .
+\end{equation}
+\AP Let $\intro*\decsub{\alpha}$ be the substitution that maps each
+$\ev{u}$ to $\subf{\alpha}{u}$ and fixes all other variables. Then
+$\decsub{\alpha}(\rv{u})=\subf{\alpha}{u}$, and $\decsub{\alpha}$ maps
+every $\dprem{u}$ to $\subf{\alpha}{u}\to\subf{\alpha}{u}$.
+
+\begin{lemma}\label{lem:S-sound}
+For every implicational formula $\alpha$, the formulas $\dprem{u}$ derive
+$\alpha\to\rv{\rt}$ in $\IL$; hence $\IL\vdash\alpha\to\St(\alpha)$.
+Moreover $\IL\vdash\decsub{\alpha}(\St(\alpha))\to\alpha$, and therefore
+$\IL\lplus\St(\alpha)=\IL\lplus\alpha$.
+\end{lemma}
+\begin{proof}
+By induction on subformulas, the formulas $\dprem{u}$ derive
+$\subf{\alpha}{u}\to\rv{u}$ for \kl{positive} $u$ and
+$\rv{u}\to\subf{\alpha}{u}$ for \kl{negative} $u$. For instance, if $u$ is
+\kl{positive}, then from $\rv{u0}\to\subf{\alpha}{u0}$ and
+$\subf{\alpha}{u1}\to\rv{u1}$ we obtain
+$\subf{\alpha}{u}\to\body{u}$, and $\dprem{u}=\body{u}\to\ev{u}$ gives
+$\subf{\alpha}{u}\to\ev{u}$. The second claim holds since
+$\decsub{\alpha}(\St(\alpha))=(\gamma_1\to\gamma_1)\to\dots\to
+(\gamma_m\to\gamma_m)\to\alpha$.
+\end{proof}
+
+Every formula $\dprem{u}$ is used exactly once in this derivation, which
+in fact takes place in $\BCI$.
+
+\AP We combine the two translations. Let $\Phi$ be an implicational formula
+that is not a variable. For every \kl{occurrence} $v$ of $\Phi$ we write
+$\intro*\nv{v}$ for the \kl{port} of $v$ if $v$ is a \kl{leaf}, and for the
+\kl{extension variable} of $v$ in $\ported{\Phi}$ otherwise; these are the
+\intro{node variables}. \AP The list $\intro*\Cons_\Phi$ of \intro{local
+constraints} of $\Phi$ consists of the \kl{guards} of $\Phi$ and the
+formulas $\dprem{u}$ of $\ported{\Phi}$. Explicitly, writing
+$\intro*\cons{v}$ for the constraint of $v$, with $u=v0$ and $w=v1$,
+\[
+\begin{array}{lll}
+\subf{\Phi}{v} & \text{$v$ \kl{positive}} & \text{$v$ \kl{negative}}\\\hline
+\text{a variable }p & p\to\nv{v} & \nv{v}\to p\\
+\subf{\Phi}{u}\to\subf{\Phi}{w} & (\nv{u}\to\nv{w})\to\nv{v} & \nv{v}\to(\nv{u}\to\nv{w})
+\end{array}
+\]
+There are $2\sizeof{\Phi}-1$ \kl{local constraints}; each is \kl{read-once},
+has two or three variables, and has \kl{order} at most $3$. By
+Lemmas~\ref{lem:port} and~\ref{lem:S-sound}:
+
+\begin{lemma}\label{lem:constraints}
+$\Cons_\Phi\vdash_{\IL}\Phi\to\nv{\rt}$. The substitution
+$\collsub_\Phi\circ\decsub{\ported{\Phi}}$, which maps $\nv{v}$ to
+$\subf{\Phi}{v}$ and fixes the variables of $\Phi$, maps every \kl{local
+constraint} to a formula $\gamma\to\gamma$ and $\nv{\rt}$ to $\Phi$.
+\end{lemma}
+
+\begin{example}\label{ex:P-constraints}
+The \kl{occurrences} of $\axP$, their \kl{polarities} and their \kl{local
+constraints} are as follows.
+\[
+\begin{array}{llll}
+v & \subf{\axP}{v} & & \cons{v}\\\hline
+\rt & ((a\to b)\to a)\to a & + & (\nv{0}\to\nv{1})\to\nv{\rt}\\
+0 & (a\to b)\to a & - & \nv{0}\to\nv{00}\to\nv{01}\\
+00 & a\to b & + & (\nv{000}\to\nv{001})\to\nv{00}\\
+000 & a & - & \nv{000}\to a\\
+001 & b & + & b\to\nv{001}\\
+01 & a & - & \nv{01}\to a\\
+1 & a & + & a\to\nv{1}
+\end{array}
+\]
+Each constraint says that a \kl{node variable} is an upper bound (for
+\kl{positive} nodes) or a lower bound (for \kl{negative} nodes) of the
+subformula at its node, in terms of the \kl{node variables} of the children.
+\end{example}
+
+The formula $\Cons_\Phi\to\nv{\rt}$, that is, $\St(\ported{\Phi})$ preceded
+by the \kl{guards} of $\Phi$, generates the same \kl{logic} as $\Phi$ over
+$\IL$ by Lemma~\ref{lem:constraints}, but it need not be \kl{minimal}, even
+if $\Phi$ is. For $\axP$, the remaining constraints yield $\nv{\rt}$
+classically without $b\to\nv{001}$: if $\nv{\rt}=0$, then $\nv{0}=1$ and
+$\nv{1}=0$, hence $a=\nv{01}=\nv{000}=0$, hence $\nv{00}=1$, contradicting
+$\nv{0}\to\nv{00}\to\nv{01}$. Therefore the \kl{separation} that replaces
+$\nv{001}$ in $b\to\nv{001}$ by a new variable is still in $\CL$. The
+problem is that a falsifying valuation must satisfy all the other
+constraints at once, and these together express the validity of $\Phi$.
+
+\subsection{The monitor}\label{sec:localization}
+
+\AP Let $\Cons=(C_1,\dots,C_n)$ be a list of implicational formulas and $r$
+a variable. We take new variables $\intro*\sel{1},\dots,\sel{n}$, called
+\intro{selectors}, a new variable $\intro*\sw$, called the \intro{switch},
+and a new variable $\intro*\goal$, and put
+\[
+\intro*\guarded{i}=\sel{i}\to C_i,\qquad
+\intro*\link{i}=\sw\to\sel{i},\qquad
+\intro*\query=\sw\to r,
+\]
+\[
+\intro*\Prem=(\guarded{1},\link{1},\dots,\guarded{n},\link{n}),\qquad
+\intro*\Mon{\Cons}{r}=\Prem\to(\query\to\Prem\to\goal)\to\goal .
+\]
+We call $\Mon{\Cons}{r}$ the \intro{monitor} of $\Cons$ and $r$. \AP Thus
+$\Prem$ occurs twice; we call the members of the first occurrence
+\intro{left} and those of the second \intro{right}, and write
+$\guarded{i}^L,\guarded{i}^R$ and so on. Every \kl{occurrence} in a
+\kl{left} member has, in $\Mon{\Cons}{r}$, the opposite \kl{polarity} of
+the corresponding \kl{occurrence} in the \kl{right} member. \AP The
+\intro{data variables} are the variables of $\Cons$ and $r$.
+
+The \kl{switch} turns all constraints on at once, as needed to recover
+the original formula; with the \kl{switch} off, any single constraint can be
+turned on by its \kl{selector}, so that a countermodel for one modified
+constraint need not satisfy the others. The \kl{right} copy of $\Prem$ is a
+query that detects a modification of any \kl{left} member, and vice versa.
+
+\begin{lemma}\label{lem:F-equiv}
+Suppose that $\Cons\vdash_{\IL}\Phi\to r$, and that a substitution $\theta$
+fixing the variables of $\Phi$ maps every $C_i$ to a theorem of $\IL$ and
+$r$ to $\Phi$, where the \kl{selectors}, $\sw$ and $\goal$ do not occur in
+$\Phi$. Then $\IL\vdash\Phi\to\Mon{\Cons}{r}$, and
+$\IL\vdash\theta'(\Mon{\Cons}{r})\to\Phi$ for the extension $\theta'$ of
+$\theta$ that maps $\sw$ and the \kl{selectors} to $\intro*\ttop=e\to e$ for a
+new variable $e$ and $\goal$ to $\Phi$. Hence
+$\IL\lplus\Mon{\Cons}{r}=\IL\lplus\Phi$.
+\end{lemma}
+\begin{proof}
+Assume $\Phi$, the members of $\Prem$, and $\query\to\Prem\to\goal$.
+Under the assumption $\sw$, the formulas $\link{i}$ and $\guarded{i}$ give
+every $C_i$, hence $r$; thus $\query$ holds. Applying
+$\query\to\Prem\to\goal$ to $\query$ and to the members of $\Prem$ again
+gives $\goal$. Conversely, $\theta'$ maps every member of $\Prem$ to a
+theorem of $\IL$ and $\query\to\Prem\to\goal$ to
+$(\ttop\to\Phi)\to\theta'(\Prem)\to\Phi$, which is also a theorem.
+\end{proof}
+
+\begin{lemma}\label{lem:F-polar}
+Every variable of $\Mon{\Cons}{r}$ other than $r$ has a \kl{positive} and a
+\kl{negative} \kl{occurrence}; so does $r$ if it occurs in some $C_i$.
+\end{lemma}
+\begin{proof}
+Every variable other than $\goal$ and $r$ occurs in $\Prem$, and
+corresponding \kl{occurrences} in the \kl{left} and \kl{right} copies have
+opposite \kl{polarities}. The variable $\goal$ occurs \kl{negatively} inside
+$\query\to\Prem\to\goal$ and \kl{positively} at the end.
+\end{proof}
+
+\AP A formula is \intro{read-once} if no variable occurs in it twice.
+
+\begin{lemma}\label{lem:readonce}
+Let $\gamma$ be a \kl{read-once} formula without $\bot$, built by
+$\wedge$, $\vee$ and $\to$, and let $u$ be a \kl{leaf} of $\gamma$. Then
+there is a valuation of the variables other than the one at $u$ under which
+the value of $\gamma$ is the value at $u$ or its complement; in particular
+$\gamma$ takes both values.
+\end{lemma}
+\begin{proof}
+By induction on $\gamma$, every such formula takes both values. Going from
+$u$ to the root, give the sibling subformula the value $1$ at a conjunction
+or at the antecedent of an implication whose consequent contains $u$, and
+the value $0$ at a disjunction or at the consequent of an implication whose
+antecedent contains $u$. Siblings have disjoint variables, so these
+requirements are compatible.
+\end{proof}
+
+\begin{lemma}\label{lem:F-sep}
+If every $C_i$ is \kl{read-once}, then no \kl{separation} of
+$\Mon{\Cons}{r}$ belongs to $\CL$.
+\end{lemma}
+\begin{proof}
+Let $\beta$ be obtained from $\Mon{\Cons}{r}$ by replacing one
+\kl{occurrence} of a variable $q$ by a new variable $z$. Unless $q=\goal$,
+we give $\goal$ the value $0$; then $\beta$ is false as soon as all
+\kl{left} members are true and $\query$ or some \kl{right} member is false.
+We give such a valuation in each case. By Lemma~\ref{lem:readonce}, for
+every \kl{occurrence} in $C_i$ there are values of the \kl{data variables}
+and of $z$ such that $C_i$ is false and the formula obtained from $C_i$ by
+replacing that \kl{occurrence} by $z$ is true, and also values with the
+opposite outcome.
+
+\proofcase{(a) $q$ is a \kl{data variable} in $\guarded{i}^L$.}
+Let $\sw=0$, $\sel{i}=1$ and $\sel{j}=0$ for $j\ne i$, and choose the
+\kl{data variables} and $z$ so that $C_i$ is false and the modified
+\kl{left} copy of $C_i$ is true. All \kl{left} members are true, and
+$\guarded{i}^R$ is false.
+
+\proofcase{(b) $q$ is a \kl{data variable} in $\guarded{i}^R$.}
+As in (a), but with $C_i$ true and the modified \kl{right} copy false.
+
+\proofcase{(c) $q=\sel{i}$ in $\guarded{i}^L$.}
+Let $\sw=0$, $\sel{i}=1$, $z=0$, $\sel{j}=0$ for $j\ne i$, and make $C_i$
+false. Then the \kl{left} members are true and $\guarded{i}^R$ is false.
+
+\proofcase{(d) $q=\sel{i}$ in $\guarded{i}^R$.}
+Let all \kl{selectors} and $\sw$ be $0$, $z=1$, and make $C_i$ false. Then
+the modified $\guarded{i}^R$ is false.
+
+\proofcase{(e) $q$ is $\sw$ or $\sel{i}$ in $\link{i}^L$.}
+Let all \kl{data variables} be $1$, so that every $C_j$ is true. Let
+$\sw=1$, $\sel{i}=0$ and $\sel{j}=1$ for $j\ne i$, and let $z=0$ if $q=\sw$
+and $z=1$ if $q=\sel{i}$. The \kl{left} members are true, and
+$\link{i}^R=\sw\to\sel{i}$ is false.
+
+\proofcase{(f) $q=\sw$ in $\link{i}^R$, or in $\query$.}
+Let $\sw$, all \kl{selectors} and $r$ be $0$, and $z=1$. The \kl{left}
+members are true, and the modified $\link{i}^R$, resp.\ $\query$, is
+false.
+
+\proofcase{(g) $q=\sel{i}$ in $\link{i}^R$, or $q=r$ in $\query$.}
+Let all variables other than $z$ and $\goal$ be $1$, and $z=0$. The
+\kl{left} members are true, and the modified $\link{i}^R$, resp.\ $\query$,
+is false.
+
+\proofcase{(h) $q=\goal$.}
+Let the \kl{negative} \kl{occurrence} of $\goal$ have value $1$, the
+\kl{positive} one value $0$, and all other variables value $1$. All
+antecedents of $\beta$ are true and its consequent is false.
+
+Every \kl{occurrence} of a variable in $\Mon{\Cons}{r}$ is covered by one of
+these cases.
+\end{proof}
+
+\begin{example}\label{ex:P-selectors}
+For $\axP$ there are seven \kl{local constraints}, so $\Prem$ has fourteen
+members, among them $\sel{001}\to b\to\nv{001}$ and $\sw\to\sel{001}$
+(we index the \kl{selectors} by the \kl{occurrences} of $\axP$). Consider
+again the \kl{separation} replacing $\nv{001}$ by $z$, now in the
+\kl{left} copy of $\sel{001}\to b\to\nv{001}$. The valuation with $\sw=0$,
+$\sel{001}=1$, all other \kl{selectors} $0$, $b=z=1$, $\nv{001}=0$ and
+$\goal=0$ falsifies it: all \kl{left} members are true, since the
+\kl{switch} and the other \kl{selectors} are off, whereas the \kl{right}
+copy $\sel{001}\to b\to\nv{001}$ is false. No other constraint plays a
+role.
+\end{example}
+
+\kl{Splittings} that modify several \kl{occurrences} at once may still
+survive. For $\axP$, replace $\nv{001}$ by $z$ in \emph{both} copies of
+$\sel{001}\to b\to\nv{001}$. The two copies remain identical, so the query
+cannot detect the change; and under the \kl{switch} the modified constraint
+$b\to z$ is not needed to obtain $\nv{\rt}$, as we saw above. Hence this
+\kl{splitting} of $\Mon{\Cons_{\axP}}{\nv{\rt}}$ is in $\CL$, and so is the
+\kl{abstraction} of both copies of $b\to\nv{001}$. The next construction
+prevents modifications of this kind by making all \kl{occurrences}
+distinct.
+
+\subsection{The tree closure}\label{sec:minimality}
+
+\AP We say that a formula $F$ is \intro{separation-rigid} if every variable
+of $F$ has a \kl{positive} and a \kl{negative} \kl{occurrence} and no
+\kl{separation} of $F$ belongs to $\CL$. We now show that a single further
+construction turns a \kl{separation-rigid} formula of $\CL$ into a
+\kl{minimal} one: we rename all \kl{occurrences} apart and tie the
+\kl{ports} of each variable together by a spanning tree. A \kl{splitting}
+of a \kl{center} then cuts an edge of the tree, and a \kl{splitting} of a
+\kl{port} is either refuted by an edge or reduces to a \kl{separation} of
+$F$.
+
+Let $F$ be an implicational formula in which every variable has a
+\kl{positive} and a \kl{negative} \kl{occurrence}, and let $\ported{F}$,
+$\Guards_F$ be as in Section~\ref{sec:constraints}. \AP For a \kl{center}
+$a$, let $\intro*\Pos{a}$ and $\intro*\Neg{a}$ be the sets of \kl{ports} of
+\kl{positive} and \kl{negative} \kl{occurrences} of $a$, both nonempty.
+Choose $p_a\in\Pos{a}$ and $n_a\in\Neg{a}$. The \intro{edge formulas} of
+$a$ are
+\[
+n\to p_a\quad(n\in\Neg{a})
+\qquad\text{and}\qquad
+n_a\to p\quad(p\in\Pos{a}\setminus\{p_a\}).
+\]
+Viewed as edges, they form a spanning tree on $\Pos{a}\cup\Neg{a}$, and
+every \kl{port} lies on at least one edge. \AP Let $\intro*\Edges_F$ be the
+list of all \kl{edge formulas} and $\intro*\term$ a new variable. The
+\intro{tree closure} of $F$ is
+\[
+\intro*\Tc{F}=\Guards_F\to(\ported{F}\to\Edges_F\to\term)\to\term .
+\]
+Since $\ported{F}\to\Edges_F\to\term$ is an antecedent of an antecedent,
+every \kl{occurrence} in $\ported{F}$ has in $\Tc{F}$ the same
+\kl{polarity} as the corresponding \kl{occurrence} in $F$.
+
+\begin{example}\label{ex:P-ports}
+In $\Mon{\Cons_{\axP}}{\nv{\rt}}$ the variable $\nv{001}$ occurs four times:
+in the \kl{left} and \kl{right} copies of $\sel{00}\to\cons{00}$ and of
+$\sel{001}\to\cons{001}$. Let $p_1,p_2,p_3,p_4$ be the \kl{ports} of these
+\kl{occurrences}, in this order. The first and the last are \kl{positive}
+and the other two \kl{negative}, so the \kl{guards} are
+\[
+\nv{001}\to p_1,\qquad p_2\to\nv{001},\qquad p_3\to\nv{001},\qquad
+\nv{001}\to p_4,
+\]
+and, with $p_{\nv{001}}=p_1$ and $n_{\nv{001}}=p_2$, the \kl{edge formulas}
+are $p_2\to p_1$, $p_3\to p_1$ and $p_2\to p_4$. The \kl{splitting}
+described at the end of Section~\ref{sec:localization} becomes the
+\kl{splitting} of the \kl{center} $\nv{001}$ that separates the \kl{guards}
+of $p_3,p_4$ from those of $p_1,p_2$. The edge $p_3\to p_1$ joins the two
+classes, and the valuation that gives the value $1$ to the \kl{center}
+\kl{occurrence} and the \kl{port} on the side of $p_3$, and $0$ on the side
+of $p_1$, makes all \kl{guards} true and $p_3\to p_1$ false. The
+\kl{abstraction} of $b\to\nv{001}$ disappears as well, since its two
+copies become $p\to p_3$ and $p'\to p_4$ for distinct \kl{ports} $p,p'$ of
+$b$.
+\end{example}
+
+\begin{lemma}\label{lem:M-equiv}
+$\IL\vdash F\to\Tc{F}$, and $\IL\vdash\collsub(\Tc{F})\to F$ for the
+extension $\collsub$ of $\collsub_F$ that maps $\term$ to $F$. Hence
+$\IL\lplus\Tc{F}=\IL\lplus F$.
+\end{lemma}
+\begin{proof}
+By Lemma~\ref{lem:port}, $\Guards_F\vdash_{\IL}F\to\ported{F}$, and every
+\kl{edge formula} $n\to p$ of $a$ follows from the \kl{guards} $n\to a$ and
+$a\to p$. Hence from $F$, the \kl{guards} and $\ported{F}\to\Edges_F\to\term$
+we obtain $\term$. Conversely, $\collsub$ maps every \kl{guard} and every
+\kl{edge formula} to a formula $a\to a$, and maps
+$\ported{F}\to\Edges_F\to\term$ to $F\to\collsub(\Edges_F)\to F$.
+\end{proof}
+
+\begin{lemma}\label{lem:M-split}
+If $F$ is \kl{separation-rigid}, then no \kl{splitting} of $\Tc{F}$ belongs
+to $\CL$.
+\end{lemma}
+\begin{proof}
+Let $\beta$ be a \kl{splitting} of $\Tc{F}$ that replaces the
+\kl{occurrences} in a set $Q$ of a variable $q$ by $z$. Unless $q=\term$,
+we give $\term$ the value $0$; then $\beta$ is false as soon as all
+\kl{guards} are true and $\ported{F}$ or some \kl{edge formula} is false.
+
+\proofcase{(a) $q$ is a \kl{center} $a$.}
+The variable $a$ occurs exactly once in each \kl{guard} of an
+\kl{occurrence} of $a$ and nowhere else, so $Q$ divides the \kl{ports} of
+$a$ into two nonempty classes. Since the \kl{edge formulas} of $a$ form a
+spanning tree, some \kl{edge formula} $n\to p$ of $a$ joins the classes. Give
+the \kl{occurrence} of $a$ or $z$ in the \kl{guard} of $n$ the value $1$
+and the one in the \kl{guard} of $p$ the value $0$, give each \kl{port} of
+$a$ the value of the \kl{center} occurrence in its \kl{guard}, and give all
+other variables the value $0$. All \kl{guards} are true and $n\to p$ is
+false.
+
+\proofcase{(b) $q$ is a \kl{port} $\port{o}$ and some \kl{occurrence} of
+$\port{o}$ in an \kl{edge formula} lies on the other side from the one in
+its \kl{guard}.}
+We may assume that the \kl{occurrence} in the \kl{guard} is not in $Q$
+(otherwise interchange $q$ and $z$, which yields a \kl{renaming} of
+$\beta$). If $\port{o}$ is \kl{positive}, let $z=0$ and all other variables
+$1$; then all \kl{guards} are true, and an \kl{edge formula} with $z$ as
+its consequent is false. If $\port{o}$ is \kl{negative}, let $z=1$ and all
+other variables $0$; then an \kl{edge formula} with $z$ as its antecedent is
+false.
+
+\proofcase{(c) $q$ is a \kl{port} $\port{o}$ and all its \kl{occurrences} in
+\kl{edge formulas} lie on the side of its \kl{guard}.}
+Since $\port{o}$ occurs exactly once in $\ported{F}$ and $Q$ is a proper
+nonempty subset, we may assume that $Q$ is the \kl{occurrence} in
+$\ported{F}$. Since $F$ is \kl{separation-rigid}, the \kl{separation} of
+$F$ at $o$ has a falsifying valuation $v$. Give every \kl{center} its value
+under $v$, every \kl{port} except $z$ the value of its \kl{center}, and $z$
+the value of the new variable of the \kl{separation}. All \kl{guards} and
+\kl{edge formulas} are true, and the modified $\ported{F}$ has the value of
+the \kl{separation} of $F$ under $v$, that is, $0$.
+
+\proofcase{(d) $q=\term$.}
+Give the inner \kl{occurrence} of $\term$ the value $1$, the outer one $0$,
+and all other variables $1$.
+\end{proof}
+
+\begin{lemma}\label{lem:abs-necessary}
+Let $\alpha\in\CL$ be a formula no \kl{splitting} of which belongs to
+$\CL$, and suppose that an \kl{abstraction} $\gen{\alpha}{Q}{z}$, where $Q$
+is a set of \kl{occurrences} of a compound formula $\gamma$, belongs to
+$\CL$. Then there are distinct variables $a,b$ such that every
+\kl{occurrence} of $a$ and of $b$ in $\alpha$ lies in an \kl{occurrence} of
+$a\to b$.
+\end{lemma}
+\begin{proof}
+Let $\ell$ be a \kl{leaf} of $\gamma$, with variable $a$, and let $\gamma'$
+be $\gamma$ with $a$ replaced by a new variable $a'$ at $\ell$. Substituting
+$\gamma'$ for $z$ in $\gamma[Q:=z]$ gives a formula of $\CL$, namely the
+formula obtained from $\alpha$ by replacing $a$ by $a'$ at the set
+$S_\ell=\{u\ell\mid u\in Q\}$. Since this is not a \kl{splitting},
+$S_\ell=\Occ_\alpha(a)$. If $a$ also occurred at another \kl{leaf} $k$ of
+$\gamma$, then $S_k=\Occ_\alpha(a)$ as well, although $S_k\cap
+S_\ell=\emptyset$. Hence $\gamma$ is \kl{read-once} and every
+\kl{occurrence} of each of its variables lies at the corresponding position
+of an element of $Q$. Taking an \kl{occurrence} in $\gamma$ of a
+subformula $a\to b$ with $a,b$ variables, we obtain the claim.
+\end{proof}
+
+\begin{lemma}\label{lem:M-noabs}
+In $\Tc{F}$ there are no distinct variables $a,b$ such that every
+\kl{occurrence} of $a$ and of $b$ lies in an \kl{occurrence} of $a\to b$.
+\end{lemma}
+\begin{proof}
+A subformula of $\Tc{F}$ of the form $a\to b$ with $a,b$ variables is a
+\kl{guard}, or occurs in $\ported{F}$, or is an \kl{edge formula}; the
+antecedents of the outer implications of $\Tc{F}$ and of
+$\ported{F}\to\Edges_F\to\term$ are compound, and $\term$ is not the
+consequent of an implication with a variable antecedent. A \kl{guard}
+contains a \kl{port}, which also occurs in $\ported{F}$. The other two
+kinds consist of \kl{ports}, each of which also occurs in its \kl{guard},
+which contains a \kl{center}.
+\end{proof}
+
+\begin{theorem}\label{thm:closure}
+Let $F\in\CL$ be \kl{separation-rigid}. Then $\Tc{F}$ is \kl{minimal in}
+$\CL$, $\IL\lplus\Tc{F}=\IL\lplus F$, $\Ord(\Tc{F})\le\Ord(F)+2$, and
+$\sizeof{\Tc{F}}=5\sizeof{F}-2|\Var(F)|+2$.
+\end{theorem}
+\begin{proof}
+We have $\Tc{F}\in\CL$ by Lemma~\ref{lem:M-equiv}. No \kl{splitting} of
+$\Tc{F}$ is in $\CL$ by Lemma~\ref{lem:M-split}, and hence no
+\kl{abstraction} by Lemmas~\ref{lem:abs-necessary} and~\ref{lem:M-noabs}.
+By Proposition~\ref{prop:criterion}, $\Tc{F}$ is \kl{minimal in} $\CL$.
+\kl{Guards} and \kl{edge formulas} have \kl{order} $2$, which gives the
+bound on the \kl{order}. There are $\sizeof{F}$ \kl{guards} and
+$\sizeof{F}-|\Var(F)|$ \kl{edge formulas}, which gives the \kl{size}.
+\end{proof}
+
+\subsection{Minimal axioms}\label{sec:first-layer}
+
+Let $\Phi$ be an implicational formula that is not a variable, and put
+\[
+\intro*\Fst{\Phi}=\Mon{\Cons_\Phi}{\nv{\rt}},\qquad
+\intro*\Mz{\Phi}=\Tc{\Fst{\Phi}} .
+\]
+
+\begin{theorem}\label{thm:first-layer}
+Let $\Phi\in\CL$ be an implicational formula that is not a variable. Then
+$\Mz{\Phi}$ is \kl{minimal in} $\CL$, and for the substitution
+$\intro*\recsub{\Phi}=\theta'\circ\collsub$, which fixes the variables of
+$\Phi$, where $\theta'$ is as in Lemma~\ref{lem:F-equiv} for the
+substitution of Lemma~\ref{lem:constraints} and $\collsub$ is as in
+Lemma~\ref{lem:M-equiv},
+\[
+\IL\vdash\Phi\to\Mz{\Phi},\qquad
+\IL\vdash\recsub{\Phi}(\Mz{\Phi})\to\Phi,\qquad
+\IL\lplus\Mz{\Phi}=\IL\lplus\Phi .
+\]
+Moreover
+$\sizeof{\Mz{\Phi}}=102\sizeof{\Phi}-2|\Var(\Phi)|-38$ and
+$\Ord(\Mz{\Phi})\le7$.
+\end{theorem}
+\begin{proof}
+By Lemmas~\ref{lem:constraints} and~\ref{lem:F-equiv},
+$\IL\vdash\Phi\to\Fst{\Phi}$ and $\IL\vdash\theta'(\Fst{\Phi})\to\Phi$; in
+particular $\Fst{\Phi}\in\CL$. The \kl{local constraints} are
+\kl{read-once} and $\nv{\rt}$ occurs in $\cons{\rt}$, so $\Fst{\Phi}$ is
+\kl{separation-rigid} by Lemmas~\ref{lem:F-polar} and~\ref{lem:F-sep}.
+Theorem~\ref{thm:closure} and Lemma~\ref{lem:M-equiv} give the
+\kl{minimality} and the equivalences.
+
+For the size, let $L=\sizeof{\Phi}$ and $V=|\Var(\Phi)|$. The $2L-1$
+\kl{local constraints} have total size $2L+3(L-1)=5L-3$, so the members of
+$\Prem$ have total size $5L-3+3(2L-1)=11L-6$, and
+$\sizeof{\Fst{\Phi}}=2(11L-6)+4=22L-8$. The variables of $\Fst{\Phi}$ are
+those of $\Phi$, the $2L-1$ \kl{node variables}, the $2L-1$
+\kl{selectors}, $\sw$ and $\goal$, that is, $4L+V$ in number.
+Theorem~\ref{thm:closure} gives the formula. Finally, the \kl{local
+constraints} have \kl{order} at most $3$, so $\Ord(\Fst{\Phi})\le5$ and
+$\Ord(\Mz{\Phi})\le7$.
+\end{proof}

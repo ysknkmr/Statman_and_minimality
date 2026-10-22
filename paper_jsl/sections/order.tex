@@ -1,0 +1,197 @@
+%======================================================================
+\section{Reduction to order four}\label{sec:order}
+
+We now show that the translation $\St$ of Definition~\ref{def:S} preserves
+\kl{minimality}. Since $\St(\alpha)$ has \kl{order} at most $4$, applying
+$\St$ to the formula $\Mz{\Phi}$ of Theorem~\ref{thm:first-layer} proves
+Theorem~\ref{thm:intro-main}.
+
+\subsection{Preservation of minimality}
+
+\begin{theorem}\label{thm:S-min}
+Let $L$ be a \kl{logic} containing $\axI$. If $\alpha$ is \kl{minimal in}
+$L$ and $\St(\alpha)\in L$, then $\St(\alpha)$ is \kl{minimal in} $L$.
+\end{theorem}
+
+We use three closure properties of such a \kl{logic} $L$: (C1) it is closed
+under substitution; (C2) if $\gamma_1\to\dots\to\gamma_k\to\beta\in L$ and
+$\gamma_1,\dots,\gamma_k\in L$, then $\beta\in L$; (C3) $\gamma\to\gamma\in
+L$ for every $\gamma$. In the rest of this subsection $\alpha$ is not a
+variable, $u_1,\dots,u_m$ are its \kl{non-leaf occurrences} in post-order,
+and $z$ is a variable not occurring in $\St(\alpha)$. By
+Proposition~\ref{prop:criterion}, it suffices to show that if
+$\Gen{\St(\alpha)}\cap L\ne\emptyset$, then $\Gen{\alpha}\cap L\ne\emptyset$.
+
+\AP We name some \kl{occurrences} in $\St(\alpha)$. For $1\le i\le m+1$ let
+$\intro*\tl{i}=\dprem{u_i}\to\dots\to\dprem{u_m}\to\ev{\rt}$; it occurs at
+$1^{i-1}$. For $u=u_i$, the formula $\dprem{u}$ occurs at
+$\intro*\pprem(u)=1^{i-1}0$; let $\intro*\pbody(u)$ and $\intro*\pdef(u)$
+be the \kl{occurrences} of $\body{u}$ and $\ev{u}$ in $\dprem{u}$, so that
+$\pbody(u)=\pprem(u)0$ and $\pdef(u)=\pprem(u)1$ if $u$ is \kl{positive}, and
+$\pbody(u)=\pprem(u)1$ and $\pdef(u)=\pprem(u)0$ otherwise. For an
+\kl{occurrence} $v$ of $\alpha$ define the \kl{occurrence} $\intro*\prep(v)$
+of $\rv{v}$ in $\St(\alpha)$ by $\prep(w0)=\pbody(w)0$,
+$\prep(w1)=\pbody(w)1$ and $\prep(\rt)=1^m$. \AP Let $\intro*\hgt$ denote
+the height of a formula: $\hgt(p)=0$ and
+$\hgt(\gamma\to\delta)=1+\max\{\hgt(\gamma),\hgt(\delta)\}$.
+
+\begin{lemma}\label{lem:shape}
+\leavevmode
+\begin{enumerate}
+\item[(a)] Every \kl{occurrence} in $\St(\alpha)$ is exactly one of
+  $1^{i-1}$ $(1\le i\le m)$, $\pprem(u)$, $\pbody(u)$, $\pdef(u)$ and
+  $\prep(v)$, carrying $\tl{i}$, $\dprem{u}$, $\body{u}$, $\ev{u}$ and
+  $\rv{v}$, respectively.
+\item[(b)] The variable $\ev{u}$ occurs in $\St(\alpha)$ exactly at
+  $\pdef(u)$ and $\prep(u)$. A variable $c$ of $\alpha$ occurs exactly at
+  the $\prep(v)$ with $v$ a \kl{leaf} and $\subf{\alpha}{v}=c$.
+\item[(c)] $\hgt(\body{u})=1$, $\hgt(\dprem{u})=2$ and $\hgt(\tl{i})\ge3$
+  for $i\le m$. Hence formulas of height $1$, $2$ and at least $3$ occur only
+  at \kl{occurrences} $\pbody(u)$, $\pprem(u)$ and $1^{i-1}$, respectively.
+\item[(d)] If $\body{u}=\body{v}$, then $\subf{\alpha}{u}=\subf{\alpha}{v}$.
+  If $\dprem{u}=\dprem{v}$, then $u=v$. If $\tl{i}=\tl{j}$, then $i=j$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+(a)--(c) follow from Definition~\ref{def:S}, since the \kl{extension
+variables} are distinct and new. (d) If $\body{u}=\body{v}$, then
+$\subf{\alpha}{u}=\decsub{\alpha}(\body{u})=\decsub{\alpha}(\body{v})=\subf{\alpha}{v}$.
+The formula $\dprem{u}$ has a variable as its consequent if and only if $u$
+is \kl{positive}; so $\dprem{u}=\dprem{v}$ implies that $u,v$ have the same
+\kl{polarity}, whence $\ev{u}=\ev{v}$ and $u=v$. If $i<j$, then $\tl{j}$
+is a proper subformula of $\tl{i}$.
+\end{proof}
+
+\AP Let $\intro*\Genb{\alpha}$ be the set of
+$\gen{\St(\alpha)}{P}{z}\in\Gen{\St(\alpha)}$ such that every element of $P$
+is of the form $\pbody(u)$ or $\prep(v)$.
+
+\begin{lemma}\label{lem:key}
+Let $\alpha'=\gen{\St(\alpha)}{P}{z}\in\Genb{\alpha}$ and
+$Q=\{v\mid\prep(v)\in P\}\cup\{u\mid\pbody(u)\in P\}$. Then
+$\beta=\gen{\alpha}{Q}{z}\in\Gen{\alpha}$, and there are a substitution
+$\theta$ and formulas $\gamma_1,\dots,\gamma_m$ with
+$\theta\alpha'=(\gamma_1\to\gamma_1)\to\dots\to(\gamma_m\to\gamma_m)\to\beta$.
+\end{lemma}
+\begin{proof}
+Let $P$ consist of \kl{occurrences} of $\delta$. First, $\beta\in\Gen{\alpha}$:
+clearly $Q\ne\emptyset$ and $z$ does not occur in $\alpha$. If $\delta$ is
+a variable of $\alpha$, then by Lemma~\ref{lem:shape}(b), $Q$ is a set of
+\kl{leaves} carrying $\delta$, not all of them. If $\delta=\ev{w}$, then
+$P=\{\prep(w)\}$, since $\alpha'\in\Genb{\alpha}$, so $Q=\{w\}$ with
+$\subf{\alpha}{w}$ compound. If $\delta$ is compound, then
+$Q=\{u\mid\pbody(u)\in P\}$ and $\subf{\alpha}{u}=\decsub{\alpha}(\delta)$
+for all $u\in Q$.
+
+No \kl{occurrence} $1^{i-1}$, $\pprem(u)$ or $\pdef(u)$ is in $P$. Hence
+for every \kl{non-leaf occurrence} $v$ of $\alpha$,
+\begin{equation}\label{eq:body}
+\alpha'_{\pbody(v)}=
+\begin{cases}
+z, & \text{if $\pbody(v)\in P$},\\
+\alpha'_{\prep(v0)}\to\alpha'_{\prep(v1)}, & \text{otherwise},
+\end{cases}
+\end{equation}
+where $\alpha'_{\prep(vj)}$ is $z$ or $\rv{vj}$. Let $\theta$ fix every
+variable that is not an \kl{extension variable}, and let
+$\theta(\ev{v})=\theta(\alpha'_{\pbody(v)})$; by~\eqref{eq:body} this
+defines $\theta$ by induction on $\hgt(\subf{\alpha}{v})$.
+
+We claim that $\theta(\alpha'_{\prep(v)})=\subf{\beta}{v}$ for every
+\kl{occurrence} $v$ of $\alpha$ not \kl{strictly below} an element of $Q$
+(then $\prep(v)$ is an \kl{occurrence} of $\alpha'$, since its proper
+prefixes are not in $P$). If $\prep(v)\in P$, both sides are $z$.
+Otherwise $\alpha'_{\prep(v)}=\rv{v}$. If $v$ is a \kl{leaf}, both sides are
+$\subf{\alpha}{v}$. If $\pbody(v)\in P$, both sides are $z$. Otherwise
+$v\notin Q$, and by~\eqref{eq:body} and induction,
+$\theta(\ev{v})=\subf{\beta}{v0}\to\subf{\beta}{v1}=\subf{\beta}{v}$.
+
+Finally $\alpha'=\alpha'_{\pprem(u_1)}\to\dots\to\alpha'_{\pprem(u_m)}\to
+\alpha'_{\prep(\rt)}$, where $\alpha'_{\pprem(u_i)}$ is
+$\alpha'_{\pbody(u_i)}\to\ev{u_i}$ or $\ev{u_i}\to\alpha'_{\pbody(u_i)}$;
+$\theta$ maps it to $\gamma_i\to\gamma_i$ with $\gamma_i=\theta(\ev{u_i})$,
+and maps $\alpha'_{\prep(\rt)}$ to $\beta$ by the claim.
+\end{proof}
+
+\begin{lemma}\label{lem:normal}
+If $\Gen{\St(\alpha)}\cap L\ne\emptyset$, then $\Genb{\alpha}\cap L\ne\emptyset$.
+\end{lemma}
+\begin{proof}
+Let $\alpha'=\gen{\St(\alpha)}{P}{z}\in L$ with $P$ a set of
+\kl{occurrences} of $\delta$. By (C1) it suffices to find $\sigma$ with
+$\sigma\alpha'\in\Genb{\alpha}$. If $\delta$ is a variable of $\alpha$ or
+$\hgt(\delta)=1$, then $\alpha'\in\Genb{\alpha}$ by
+Lemma~\ref{lem:shape}(b),(c). If $\delta=\ev{u}$, then $P=\{\prep(u)\}$ or
+$P=\{\pdef(u)\}$; in the second case, interchanging $\ev{u}$ and $z$ gives
+$\gen{\St(\alpha)}{\{\prep(u)\}}{z}$. If $\hgt(\delta)=2$, then
+$P=\{\pprem(u)\}$ for some $u$ by Lemma~\ref{lem:shape}(c),(d); with
+$\pdef(u)=\pprem(u)d$, substituting $\gen{\dprem{u}}{\{d\}}{z}$ for $z$
+gives $\gen{\St(\alpha)}{\{\pdef(u)\}}{z}$, treated above. If
+$\hgt(\delta)\ge3$, then $P=\{1^{i-1}\}$ for some $i\le m$, and substituting
+$\gen{\tl{i}}{\{1^{m-i+1}\}}{z}$ for $z$ gives
+$\gen{\St(\alpha)}{\{\prep(\rt)\}}{z}\in\Genb{\alpha}$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:S-min}]
+If $\alpha$ is a variable, there is nothing to prove. Otherwise suppose
+$\Gen{\St(\alpha)}\cap L\ne\emptyset$. By Lemma~\ref{lem:normal} there is
+$\alpha'\in\Genb{\alpha}\cap L$; take $\beta$, $\theta$ and $\gamma_i$ as
+in Lemma~\ref{lem:key}. By (C1)--(C3), $\beta\in L$, contradicting the
+\kl{minimality} of $\alpha$, since $\beta\in\Gen{\alpha}$. Hence
+$\Gen{\St(\alpha)}\cap L=\emptyset$, and $\St(\alpha)$ is \kl{minimal in}
+$L$ by Proposition~\ref{prop:criterion}.
+\end{proof}
+
+\subsection{Proof of the main results}
+
+\begin{proposition}\label{prop:order3}
+Every formula of $\CL$ of \kl{order} at most $3$ belongs to $\IL$.
+\end{proposition}
+\begin{proof}
+Such a formula has the form $H_1\to\dots\to H_n\to r$, where each $H_i$
+is $p_1\to\dots\to p_k\to q$ with variables $p_j,q$, read as the rule
+``from $p_1,\dots,p_k$ infer $q$''. Let $X$ be the closure of $\emptyset$
+under these rules. The valuation that makes exactly the variables in $X$
+true satisfies every $H_i$, so $r\in X$. Following the construction of $X$,
+we derive $r$ from $H_1,\dots,H_n$ by modus ponens.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:intro-main}]
+If $\Phi$ is a variable, then $\Phi\notin\CL$. Otherwise let
+$\intro*\Mh{\Phi}=\St(\Mz{\Phi})$. By Theorem~\ref{thm:first-layer},
+$\Mz{\Phi}$ is \kl{minimal in} $\CL$. By Lemma~\ref{lem:S-sound},
+$\St(\Mz{\Phi})\in\CL$ and $\IL\lplus\Mh{\Phi}=\IL\lplus\Mz{\Phi}=\IL\lplus\Phi$,
+and by Theorem~\ref{thm:S-min} with $L=\CL$, $\Mh{\Phi}$ is \kl{minimal in}
+$\CL$. By~\eqref{eq:S-order}, $\Ord(\Mh{\Phi})\le4$ and
+$\sizeof{\Mh{\Phi}}=3\sizeof{\Mz{\Phi}}-2=306\sizeof{\Phi}-6|\Var(\Phi)|-116$.
+The substitution $\sigma=\recsub{\Phi}\circ\decsub{\Mz{\Phi}}$ fixes the
+variables of $\Phi$, and $\IL\vdash\Phi\to\Mh{\Phi}$ and
+$\IL\vdash\sigma(\Mh{\Phi})\to\Phi$ by Lemmas~\ref{lem:M-equiv}
+and~\ref{lem:S-sound}; then also $\IL\vdash\Phi\to\sigma(\Mh{\Phi})$, as
+$\sigma(\Phi)=\Phi$. All constructions are syntax-directed, so
+$\Mh{\Phi}$ is computed in linear time.
+\end{proof}
+
+\begin{proof}[Proof of Corollary~\ref{cor:intro-all}]
+Let $L$ be an implicational \kl{intermediate logic}. Then $L=\IL\lplus L$,
+and replacing each $\Phi\in L$ that is not in $\IL$ by $\Mh{\Phi}$ gives the
+required $\Gamma$ (if $L=\IL$, take $\Gamma=\{\axI\}$). If $L\ne\IL$, any such
+$\Gamma$ contains a formula outside $\IL$, which has \kl{order} at least $4$
+by Proposition~\ref{prop:order3}.
+\end{proof}
+
+\begin{remark}\label{rem:base}
+The axioms of the base \kl{logic} are themselves \kl{minimal in} $\CL$:
+$\axK$ and $\axS$ are \kl{minimal in} $\CL$~\cite[Example~2.3]{NM21}, and so
+are $\axB$, $\axC$ and $\axI$~\cite[Sect.~5.3]{NM21}; moreover
+$\IL=\BCK\lplus\axS$. Hence every implicational \kl{intermediate logic} is
+$\lclos{(\{\axK,\axS\}\cup\Gamma)}=\BCK\lplus(\{\axS\}\cup\Gamma)$ for a set
+$\Gamma$ of formulas of \kl{order} at most $4$ \kl{minimal in} $\CL$.
+\end{remark}
+
+\begin{example}\label{ex:peirce-size}
+For Peirce's law, $\sizeof{\Mz{\axP}}=366$ and $\sizeof{\Mh{\axP}}=1096$.
+The construction is uniform and far from optimal in size: for the axiom
+$G'$ of $\LC$ of Nakamura and Matsuda, $\St(G')$ is already \kl{minimal in}
+$\CL$ by Theorem~\ref{thm:S-min}, has \kl{order} $4$, and has size $67$.
+\end{example}

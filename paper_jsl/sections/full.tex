@@ -1,0 +1,239 @@
+%======================================================================
+\section{The full language}\label{sec:full}
+
+In this section formulas are built from variables and $\bot$ by $\wedge$,
+$\vee$ and $\to$. For a nonempty list $\Delta=(\delta_1,\dots,\delta_k)$ we
+write $\bigwedge\Delta$ for $\delta_1\wedge(\delta_2\wedge\dots\wedge\delta_k)$.
+\kl{Elementary generalizations} now include \kl{abstractions} of sets of
+\kl{occurrences} of $\bot$, and Proposition~\ref{prop:criterion} applies as
+stated.
+
+A formula of $\CPC$ with a \kl{positive} \kl{occurrence} of $\bot$ is never
+\kl{minimal in} $\CPC$: replacing that \kl{occurrence} by a new variable $z$
+gives a formula implied by the original one in $\IPC$, by ex falso and
+monotonicity, and this formula is an \kl{abstraction}. Our construction
+therefore keeps $\bot$ only in \kl{negative} positions.
+
+\subsection{Local constraints and the monitor}
+
+Let $\Phi\in\CPC$; then $\Phi$ is neither a variable nor $\bot$. The
+\kl{local constraints} are defined as in Section~\ref{sec:constraints}:
+variables are \kl{renamed apart} with their \kl{guards}, every
+\kl{non-leaf occurrence} receives an \kl{extension variable}, and so does
+every \kl{occurrence} of $\bot$. Writing $\nv{v}$ for the \kl{node variable}
+of $v$, with $u=v0$ and $w=v1$, the constraint $\cons{v}$ is
+\[
+\begin{array}{lll}
+\subf{\Phi}{v} & \text{$v$ \kl{positive}} & \text{$v$ \kl{negative}}\\\hline
+\text{a variable }p & p\to\nv{v} & \nv{v}\to p\\
+\subf{\Phi}{u}\circ\subf{\Phi}{w},\ \circ\in\{\wedge,\vee,\to\}
+ & (\nv{u}\circ\nv{w})\to\nv{v} & \nv{v}\to(\nv{u}\circ\nv{w})\\
+\bot & \text{(none)} & \nv{v}\to\bot
+\end{array}
+\]
+No constraint is needed for a \kl{positive} $\bot$, since $\bot\to\nv{v}$ is
+provable. Let $W$ be the set of \kl{occurrences} that have a constraint, and
+$W_\bot\subseteq W$ the set of \kl{negative} \kl{occurrences} of $\bot$.
+Every \kl{local constraint} has \kl{order} at most $3$, and every one not of
+the form $\nv{v}\to\bot$ is \kl{read-once} without $\bot$. \AP For a
+valuation $\eta$ of the variables of $\Phi$, the \intro{standard valuation}
+$\intro*\stdval{\eta}$ extends $\eta$ by
+$\stdval{\eta}(\nv{v})=\eta(\subf{\Phi}{v})$.
+
+\begin{lemma}\label{lem:full-constraints}
+The \kl{local constraints} derive $\Phi\to\nv{\rt}$ in $\IPC$. The
+substitution $\nv{v}\mapsto\subf{\Phi}{v}$, fixing the variables of $\Phi$,
+maps every \kl{local constraint} to a formula $\gamma\to\gamma$;
+consequently every \kl{local constraint} is true under every
+\kl{standard valuation}.
+\end{lemma}
+\begin{proof}
+As in Lemmas~\ref{lem:port} and~\ref{lem:S-sound}, using the monotonicity of
+$\wedge$ and $\vee$; a \kl{positive} $\bot$ is handled by $\bot\to\nv{v}$.
+\end{proof}
+
+The \kl{monitor} is modified so as not to copy $\bot$ into a \kl{positive}
+position. We take \kl{selectors} $\sel{v}$ $(v\in W)$, a \kl{switch} $\sw$,
+and new variables $\intro*\fresh{v}$ $(v\in W_\bot)$, and put
+$\guarded{v}=\sel{v}\to\cons{v}$, $\link{v}=\sw\to\sel{v}$,
+$\query=\sw\to\nv{\rt}$ as before, and
+\[
+\widehat{\cons{v}}=\nv{v}\to\fresh{v}\ (v\in W_\bot),\qquad
+\widehat{\cons{v}}=\cons{v}\ (v\notin W_\bot),\qquad
+\widehat{\guarded{v}}=\sel{v}\to\widehat{\cons{v}} .
+\]
+With $\Prem$ the list of the $\guarded{v},\link{v}$ and $\widehat{\Prem}$
+the list of the $\widehat{\guarded{v}},\link{v}$ $(v\in W)$, let
+\[
+\Fst{\Phi}=\bigwedge\Prem\to\Bigl(\query\wedge\bigwedge\widehat{\Prem}\Bigr).
+\]
+The conjunction replaces the continuation $(\query\to\Prem\to\goal)\to\goal$
+of Section~\ref{sec:localization}, which lowers the \kl{order} by one. The
+\kl{left} and \kl{right} members are those in $\Prem$ and in
+$\widehat{\Prem}$. Each $\fresh{v}$ occurs exactly once, and $\bot$ occurs
+only in \kl{left} members, \kl{negatively}.
+
+\begin{lemma}\label{lem:full-F}
+\leavevmode
+\begin{enumerate}
+\item[(a)] $\IPC\vdash\Phi\to\Fst{\Phi}$, and
+  $\IPC\vdash\elimsub{\Phi}(\Fst{\Phi})\to\Phi$ for the substitution
+  $\intro*\elimsub{\Phi}$ that fixes the variables of $\Phi$ and maps
+  $\nv{v}\mapsto\subf{\Phi}{v}$, $\sw,\sel{v}\mapsto\ttop$ and
+  $\fresh{v}\mapsto\bot$.
+\item[(b)] Every variable of $\Fst{\Phi}$ other than the $\fresh{v}$ has a
+  \kl{positive} and a \kl{negative} \kl{occurrence}.
+\item[(c)] No \kl{separation} of $\Fst{\Phi}$ belongs to $\CPC$.
+\item[(d)] No \kl{abstraction} of a nonempty set of \kl{occurrences} of
+  $\bot$ in $\Fst{\Phi}$ belongs to $\CPC$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+(a) As in Lemma~\ref{lem:F-equiv}, using Lemma~\ref{lem:full-constraints};
+the \kl{right} member $\sel{v}\to\nv{v}\to\fresh{v}$ follows from
+$\sel{v}\to\nv{v}\to\bot$ by ex falso. Under $\elimsub{\Phi}$ the members of
+$\Prem$ become theorems, and the first conjunct of the consequent becomes
+$\ttop\to\Phi$.
+
+(b) As in Lemma~\ref{lem:F-polar}; a \kl{node variable} of a \kl{positive}
+$\bot$ occurs in the constraint of its parent.
+
+(c) We follow the proof of Lemma~\ref{lem:F-sep}, with every $\fresh{v}=0$,
+so that $\widehat{\cons{v}}$ and $\cons{v}$ have the same value. Now
+$\beta$ is false as soon as all \kl{left} members are true and $\query$ or
+some \kl{right} member is false, and case~(h) disappears. In cases
+(a)--(d) we use Lemma~\ref{lem:readonce}, and for $\cons{v}=\nv{v}\to\bot$
+the fact that its value is the complement of that of $\nv{v}$. In cases
+(e) and~(g), instead of giving all \kl{data variables} the value $1$, we give
+them the values of a \kl{standard valuation}, under which every \kl{local
+constraint} is true by Lemma~\ref{lem:full-constraints}.
+
+(d) Let the chosen set contain the $\bot$ of $\guarded{v}^L=\sel{v}\to\nv{v}\to\bot$
+and let it be replaced by $z$. Let $z=1$, $\sw=0$, $\sel{v}=\nv{v}=1$,
+$\sel{w}=0$ for $w\ne v$, and $\fresh{v}=0$. All \kl{left} members are true,
+whereas $\widehat{\guarded{v}}=\sel{v}\to\nv{v}\to\fresh{v}$ is false.
+\end{proof}
+
+\subsection{The tree closure}
+
+Let $F$ be a formula in which every variable that occurs at least twice has
+a \kl{positive} and a \kl{negative} \kl{occurrence}. We \kl{rename apart}
+the \kl{occurrences} of these variables only, leaving $\bot$ and the
+variables that occur once unchanged in $\ported{F}$, and define
+\kl{guards} and \kl{edge formulas} as in Section~\ref{sec:minimality}. In
+this section the \kl{tree closure} of $F$ is
+\[
+\Tc{F}=\bigwedge\Guards_F\to\Bigl(\ported{F}\wedge\bigwedge\Edges_F\Bigr).
+\]
+
+\begin{theorem}\label{thm:full-closure}
+Let $F\in\CPC$ be as above, and suppose that no \kl{separation} of $F$ and
+no \kl{abstraction} of a nonempty set of \kl{occurrences} of $\bot$ in $F$
+belongs to $\CPC$, and that every subformula $a\circ b$ of $F$ with $a,b$
+variables and $\circ\in\{\wedge,\vee,\to\}$ contains a variable that occurs
+at least twice in $F$. Then $\Tc{F}$ is \kl{minimal in} $\CPC$,
+$\IPC\lplus\Tc{F}=\IPC\lplus F$, and $\Ord(\Tc{F})\le\max\{3,\Ord(F)\}$.
+\end{theorem}
+\begin{proof}
+The equivalence is proved as in Lemma~\ref{lem:M-equiv}, using the
+monotonicity of $\wedge$ and $\vee$.
+
+\kl{Splittings}. A \kl{splitting} replaces \kl{occurrences} of a
+\kl{center} or of a \kl{port}. With ``$\ported{F}$ or some \kl{edge formula}
+is false'' as the condition for falsity, cases (a)--(c) of the proof of
+Lemma~\ref{lem:M-split} apply verbatim; the values of the variables that
+occur once are taken from the \kl{separation} in case~(c) and are arbitrary
+otherwise.
+
+\kl{Abstractions} of $\bot$. The \kl{occurrences} of $\bot$ in $\Tc{F}$
+are those in $\ported{F}$. Given an \kl{abstraction}, take a falsifying
+valuation of the corresponding \kl{abstraction} of $F$, give every
+\kl{port} the value of its \kl{center}, and keep the values of the other
+variables. All \kl{guards} and \kl{edge formulas} are true, and the
+modified $\ported{F}$ is false.
+
+\kl{Abstractions} of compound formulas. The proof of
+Lemma~\ref{lem:abs-necessary} applies, with one addition: if the
+abstracted formula $\gamma$ contained $\bot$ at a \kl{leaf} $\ell$, then
+substituting for $z$ the formula $\gamma$ with that $\bot$ replaced by a
+new variable would give an \kl{abstraction} of $\bot$ in $\CPC$. Hence there
+are distinct variables $a,b$ and $\circ\in\{\wedge,\vee,\to\}$ such that
+all \kl{occurrences} of $a$ and $b$ lie in \kl{occurrences} of $a\circ b$.
+As in Lemma~\ref{lem:M-noabs}, this is impossible: such a subformula is a
+\kl{guard}, or an \kl{edge formula}, or lies in $\ported{F}$ and then
+contains a \kl{port} by the last hypothesis; and every
+\kl{port} also occurs in its \kl{guard}. The conjunctions joining the
+members, and the main implication, connect compound formulas.
+
+By Proposition~\ref{prop:criterion}, $\Tc{F}$ is \kl{minimal in} $\CPC$.
+\kl{Guards} and \kl{edge formulas} have \kl{order} $2$, so
+$\Ord(\Tc{F})\le\max\{3,\Ord(F)\}$.
+\end{proof}
+
+Let $\Mz{\Phi}=\Tc{\Fst{\Phi}}$.
+
+\begin{theorem}\label{thm:full}
+For every $\Phi\in\CPC$, the formula $\Mz{\Phi}$ is \kl{minimal in} $\CPC$,
+$\Ord(\Mz{\Phi})\le4$, $\IPC\vdash\Phi\to\Mz{\Phi}$ and
+$\IPC\vdash\recsub{\Phi}(\Mz{\Phi})\to\Phi$ for a substitution
+$\recsub{\Phi}$ fixing the variables of $\Phi$; hence
+$\IPC\lplus\Mz{\Phi}=\IPC\lplus\Phi$. Moreover, if $\Phi$ has $B_+$
+\kl{positive} and $B_-$ \kl{negative} \kl{occurrences} of $\bot$, then
+$\sizeof{\Mz{\Phi}}=102\sizeof{\Phi}-48B_+-8B_--2|\Var(\Phi)|-48$.
+\end{theorem}
+\begin{proof}
+By Lemma~\ref{lem:full-F} and Theorem~\ref{thm:full-closure}, with
+$\recsub{\Phi}=\elimsub{\Phi}\circ\collsub$; the last hypothesis of
+Theorem~\ref{thm:full-closure} holds, since the only variables occurring once
+in $\Fst{\Phi}$ are the $\fresh{v}$, which occur in
+$\nv{v}\to\fresh{v}$. Every \kl{local constraint} has
+\kl{order} at most $3$, so $\bigwedge\Prem$ has \kl{order} at most $3$ and
+$\Ord(\Fst{\Phi})\le4$. For the size, let $L=\sizeof{\Phi}$ and
+$V=|\Var(\Phi)|$. There are $n=2L-1-B_+$ \kl{local constraints}, of total
+size $5L-2B_+-3$, so $f:=\sizeof{\Fst{\Phi}}=2(11L-5B_+-6)+2$. The number of
+\kl{ports} is $m=f-2B_-$ and the number of \kl{centers} is
+$w=V+(2L-1)+n+1$. Hence $\sizeof{\Mz{\Phi}}=2m+f+2(m-w)$, which gives the
+formula.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:intro-full}]
+Take $M=\Mz{\Phi}$ of Theorem~\ref{thm:full}. Every intermediate logic $L$
+equals $\IPC\lplus L$, and replacing each axiom $\Phi\in L$ by $\Mz{\Phi}$
+gives an axiomatization by formulas \kl{minimal in} $\CPC$.
+\end{proof}
+
+\plot{Hilbert-style axiomatization of $\IPC$ by formulas minimal in $\CPC$
+(check each axiom), for the analogue of Remark~\ref{rem:base}.}
+
+\subsection{Lower orders}
+
+In the full language the bound $4$ is not optimal for every logic.
+
+\begin{example}\label{ex:order2}
+The formula $p\vee(p\to q)$ has \kl{order} $2$, is \kl{minimal in} $\CPC$,
+and axiomatizes $\CPC$ over $\IPC$: substituting $\bot$ for $q$ gives
+$p\vee\neg p$, and conversely $p\vee\neg p$ implies $p\vee(p\to q)$ by ex
+falso. Its \kl{elementary generalizations} are refuted as follows: the two
+\kl{splittings} of $p$ by giving the first \kl{occurrence} of $p$ the value
+$0$, the second the value $1$, and $q=0$; the \kl{abstraction}
+$p\vee z$ by $p=z=0$; and $z$ by $z=0$.
+\end{example}
+
+\begin{example}\label{ex:order3}
+The formula $(p\to q)\vee(\neg p\to r)$ has \kl{order} $3$, is \kl{minimal
+in} $\CPC$, and axiomatizes Jankov's logic $\intro*\KC=\IPC\lplus(\neg p\vee\neg\neg p)$~\cite{Jan68b}:
+substituting $\bot$ for $q$ and $r$ gives $\neg p\vee\neg\neg p$, and
+conversely each disjunct of $\neg p\vee\neg\neg p$ implies a disjunct of
+the formula by ex falso. The \kl{elementary generalizations} are refuted as
+follows: the two \kl{splittings} of $p$ by giving the first \kl{occurrence}
+of $p$ the value $1$, the second the value $0$, and $q=r=0$; abstracting $\bot$ by $p=z=1,q=r=0$; abstracting
+$p\to q$ by $z=p=r=0$; abstracting $\neg p$ by $p=z=1,q=r=0$; abstracting
+$\neg p\to r$ by $p=1,q=z=0$; and abstracting the whole formula.
+\end{example}
+
+\begin{remark}\label{rem:bot}
+$\bot$ cannot be eliminated: $\KC$ and $\IPC$ have the same $\bot$-free
+theorems~\cite{Jan68b}, so no $\bot$-free formula $\Psi$ satisfies
+$\IPC\lplus\Psi=\KC$. In particular, Theorem~\ref{thm:intro-main} does not
+yield Theorem~\ref{thm:intro-full}.
+\end{remark}

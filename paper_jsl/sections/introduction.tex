@@ -1,0 +1,233 @@
+%======================================================================
+\section{Introduction}\label{sec:intro}
+
+A formula $\beta$ is \kl{more general} than a formula $\alpha$, written
+$\beta\sub\alpha$, if $\alpha$ is a substitution instance of $\beta$, and
+\kl{strictly more general}, written $\beta\ssub\alpha$, if moreover $\beta$
+is not a substitution instance of $\alpha$. A formula $\alpha$ is
+\kl{minimal in} a \kl{logic} $L$ if $\alpha\in L$ and no formula
+\kl{strictly more general} than $\alpha$ belongs to $L$. For instance, the
+axioms $\axK=a\to b\to a$, $\axS=(a\to b\to c)\to(a\to b)\to a\to c$ and
+Peirce's law $\axP=((a\to b)\to a)\to a$ are \kl{minimal in} classical logic
+$\CL$, whereas $(a\to b)\to a\to b$ is not, since it is an instance of
+$a\to a$.
+
+The \kl{substitution preorder} was introduced by Komori~\cite{Kom87} in the
+study of $\BCK$-algebras and the $\lambda$-calculus, and \kl{minimal}
+formulas have a natural reading under the Curry--Howard correspondence.
+Hirokawa showed that the formulas \kl{minimal in} $\BCK$ are exactly the
+\kl{principal type}-schemes of $\BCK$-$\lambda$-terms in $\beta\eta$-normal
+form~\cite{Hir92,Hir93}, and a formula \kl{minimal in} $\BCK$ has a unique
+$\beta\eta$-normal proof~\cite{Tat06}; see also~\cite{Hir91,KH93}. Beyond
+$\BCK$ uniqueness fails: Tatsuta~\cite{Tat93} gave \kl{minimal} formulas
+of depth $3$ with several $\beta\eta$-normal proofs in $\mathrm{NJ}$ and in
+$\mathrm{NK}$.
+\plot{Check the exact statements and attributions in \cite{Hir92},
+\cite{Hir93}, \cite{Tat93}, \cite{Tat06}; Wroński's proof is mentioned only
+in secondary sources and is not cited until a written source is found.}
+
+Since \kl{minimal} formulas are the most general members of a \kl{logic}, it
+is natural to ask which \kl{logics} can be axiomatized by them. Komori and
+Kashima~\cite{Kom05,Kas05} asked whether intuitionistic logic $\IL$ and
+$\CL$ are the only implicational \kl{intermediate logics} axiomatizable by
+formulas \kl{minimal in} $\CL$; Komori's original conjecture is stronger and
+states that over $\BCK$ the only such \kl{logics} are $\BCK$, $\IL$ and
+$\CL$~\cite{Kom05,Kom07}. The expected answer was positive. Kashima gave a
+partial positive solution by means of a sequent calculus~\cite{Kas05}, and
+a computer search by Nakamura and Matsuda found no small
+counterexample~\cite[Remark~3.4]{NM21}.
+\plot{State precisely which class Kashima's partial positive solution covers
+and check that it is consistent with Theorem~\ref{thm:intro-main}; also check
+\cite{Kas05b}.}
+
+Nakamura and Matsuda~\cite{NM21} nevertheless found a formula $G'$
+\kl{minimal in} $\CL$ with $\IL\lplus G'=\LC$, Gödel--Dummett logic. Their
+formula was obtained by an ad hoc modification of Dummett's axiom
+$((a\to b)\to c)\to((b\to a)\to c)\to c$, which is not itself \kl{minimal in}
+$\CL$, and its \kl{minimality} was checked case by case. They asked how
+many \kl{intermediate logics} are axiomatizable by formulas \kl{minimal in}
+$\CL$ and whether this class can be characterized~\cite[Open
+Problem~1]{NM21}, and whether such an axiom can be found among formulas of
+\kl{order} at most $4$~\cite[Open Problem~2]{NM21}. In the language with
+$\bot$, \kl{minimal} axioms were known only for Jankov's logic
+$\KC$~\cite[Remark~1.1]{NM21}.
+
+We show that \kl{minimality} in $\CL$ imposes no restriction at all on
+axiomatizability.
+
+\begin{theorem}\label{thm:intro-main}
+For every implicational formula $\Phi\in\CL$ there is an implicational
+formula $\Mh{\Phi}$ \kl{minimal in} $\CL$ such that
+\[
+\IL\lplus\Mh{\Phi}=\IL\lplus\Phi
+\qquad\text{and}\qquad
+\Ord(\Mh{\Phi})\le4 .
+\]
+Moreover, $\Mh{\Phi}$ is computable from $\Phi$ in linear time, and there is
+a substitution $\sigma$ fixing the variables of $\Phi$ such that
+$\IL\vdash\Phi\to\Mh{\Phi}$, $\IL\vdash\sigma(\Mh{\Phi})\to\Phi$ and
+$\IL\vdash\Phi\to\sigma(\Mh{\Phi})$.
+\end{theorem}
+
+Applying Theorem~\ref{thm:intro-main} to each axiom of an arbitrary
+axiomatization gives the following.
+
+\begin{corollary}\label{cor:intro-all}
+Every implicational \kl{intermediate logic} $L$ is of the form
+$L=\IL\lplus\Gamma$ for a set $\Gamma$ of formulas of \kl{order} at most $4$
+\kl{minimal in} $\CL$. If $L\neq\IL$, the bound $4$ cannot be lowered.
+\end{corollary}
+
+The optimality follows from the fact that every formula of $\CL$ of
+\kl{order} at most $3$ belongs to $\IL$ (Proposition~\ref{prop:order3}).
+Thus the Komori--Kashima problem has a negative answer in the strongest
+possible sense, Open Problem~1 of~\cite{NM21} is answered by ``all of
+them'', and Open Problem~2 has an affirmative answer.
+
+The base \kl{logic} can be brought under the same criterion. Since
+$\IL=\lclos{\{\axK,\axS\}}$ and $\axK$, $\axS$ are \kl{minimal in} $\CL$,
+every implicational \kl{intermediate logic} is the closure under modus
+ponens and substitution of a set of formulas \kl{minimal in} $\CL$, all of
+\kl{order} at most $4$; no base \kl{logic} needs to be presupposed. The same
+applies to Komori's base $\BCK$: its axioms are \kl{minimal in} $\CL$ and
+$\IL=\BCK\lplus\axS$, so every implicational \kl{intermediate logic} is
+$\BCK\lplus\Gamma$ for a set $\Gamma$ of formulas \kl{minimal in} $\CL$
+(Remark~\ref{rem:base}). Komori's conjecture that $\BCK$, $\IL$ and $\CL$
+are the only such extensions of $\BCK$ thus fails for every \kl{logic}
+between $\IL$ and $\CL$; what remains open is the interval between $\BCK$
+and $\IL$.
+
+The same holds in the full language.
+
+\begin{theorem}\label{thm:intro-full}
+For every formula $\Phi$ of $\CPC$ in the language
+$\{\bot,\wedge,\vee,\to\}$ there is a formula $M$ in the same language,
+\kl{minimal in} $\CPC$, such that $\IPC\lplus M=\IPC\lplus\Phi$ and
+$\Ord(M)\le4$. Consequently, every \kl{intermediate logic} is axiomatizable
+by formulas \kl{minimal in} classical logic.
+\end{theorem}
+
+In the full language the bound $4$ is not optimal in general:
+$p\vee(p\to q)$ is an axiom of $\CPC$ of \kl{order} $2$ \kl{minimal in}
+$\CPC$, and $(p\to q)\vee(\neg p\to r)$ is an axiom of $\KC$ of \kl{order}
+$3$ \kl{minimal in} $\CPC$ (Examples~\ref{ex:order2} and~\ref{ex:order3}).
+
+Theorems~\ref{thm:intro-main} and~\ref{thm:intro-full} say that, for an
+\kl{intermediate logic}, ``being axiomatizable by formulas \kl{minimal in}
+$\CL$'' is not a property of the \kl{logic}. It is a property of the way an
+axiom is written down: every axiom can be rewritten, without changing the
+\kl{logic} it generates, into one that cannot be generalized while
+remaining classically valid. Dummett's axiom is not \kl{minimal}, but $\LC$
+has \kl{minimal} axioms; this is not a feature of $\LC$ but of every
+\kl{intermediate logic}. In the implicational language the only invariant
+that survives is the \kl{order}: an \kl{intermediate logic} other than $\IL$
+has a \kl{minimal} axiom of \kl{order} $4$ but none of \kl{order} $3$.
+
+The rewriting cannot be done by local simplification. Generalizing a
+classical tautology along the \kl{substitution preorder} may leave the
+\kl{logic} it generates, as Dummett's axiom shows: its generalization
+$((a\to b)\to c)\to((b\to d)\to c)\to c$ is still in
+$\CL$~\cite[Example~2.4]{NM21}. Our construction goes the other way. It adds
+structure to $\Phi$ until no generalization of the result is classically
+valid, while keeping a substitution that recovers $\Phi$.
+
+The choice of $\CL$ as the reference \kl{logic} is essential. If
+\kl{minimality} is taken in the \kl{logic} being axiomatized, the question
+is trivial: every $\alpha\in L$ has, up to \kl{renaming}, only finitely
+many generalizations, so some generalization of $\alpha$ is \kl{minimal in}
+$L$, and therefore $L=\IL\lplus(L\cap\Min(L))$ for every \kl{logic}
+$L\supseteq\IL$ (Remark~\ref{rem:self}). Our axioms satisfy a strong form
+of this: since $\Min(\CL)\cap L'\subseteq\Min(L')$ for every
+$L'\subseteq\CL$, the axiom $\Mh{\Phi}$ is \kl{minimal} simultaneously in
+every \kl{logic} $L'$ with $\IL\lplus\Phi\subseteq L'\subseteq\CL$.
+
+Under the Curry--Howard correspondence the result has a reading in terms of
+\kl{principal types}. Present an implicational \kl{intermediate logic} $L$
+by the simply typed $\lambda$-calculus with constants whose types are the
+axiom schemes of $L$; for $\CL$ one may take a constant of type $\axP$, the
+type of $\mathtt{call/cc}$. Then a formula $\alpha\in L$ is \kl{minimal in}
+$L$ if and only if $\alpha$ is the \kl{principal type} of every closed
+\kl{term} of type $\alpha$ (Proposition~\ref{prop:principal}). By
+Remark~\ref{rem:self}, every \kl{logic} is trivially axiomatized by types
+that are principal for all their inhabitants in that \kl{logic}.
+Theorem~\ref{thm:intro-main} gives the classical form: every
+\kl{intermediate logic} is axiomatized by types that are principal for all
+their \emph{classical} inhabitants (Corollary~\ref{cor:principal}).
+
+This should be compared with two facts. Hindley's theorem~\cite{Hin69}
+states that every inhabited simple type is the \kl{principal type} of
+\emph{some} closed \kl{term}, so principality for one inhabitant is no
+restriction on a type. Principality for \emph{all} inhabitants is a strong
+restriction: in $\BCK$ it comes with a unique normal
+inhabitant~\cite{Hir92,Tat06}. In the intermediate setting uniqueness is
+lost~\cite{Tat93}, but our result shows that principality for all classical
+inhabitants costs nothing at the level of \kl{logics}.
+
+Let us outline the proof. The first layer (Section~\ref{sec:implicational})
+turns $\Phi$ into a formula $\Mz{\Phi}$ \kl{minimal in} $\CL$ with
+$\IL\lplus\Mz{\Phi}=\IL\lplus\Phi$. By a well-known criterion
+(Proposition~\ref{prop:criterion}), a classical tautology is \kl{minimal} if
+and only if no \kl{splitting} of the \kl{occurrences} of a variable and no
+\kl{abstraction} of \kl{occurrences} of a compound subformula yields a
+classical tautology. We obtain $\Mz{\Phi}$ as
+\[
+\Mz{\Phi}=\Tc{\Mon{\Cons_\Phi}{\nv{\rt}}},
+\]
+where only the middle and outer constructions are new. The list
+$\Cons_\Phi$ of \kl{local constraints}, one for each node of the syntax
+tree, is obtained from two known translations: \kl{renaming apart} the
+\kl{occurrences} of variables with polarity-dependent \kl{guards}, and the
+polarized extension-variable translation of Statman, Plaisted--Greenbaum
+and Mints. The \kl{monitor} $\Mon{\Cons}{r}$ works for an arbitrary list
+of \kl{read-once} formulas: each formula is guarded by its own
+\kl{selector}, and the guarded list is required once as a premise and once
+as a query, so that a modification of a single \kl{occurrence} is refuted by
+a valuation that only has to falsify one formula of the list. The
+\kl{tree closure} $\Tc{F}$ works for an arbitrary formula $F$ no
+\kl{separation} of which is classically valid: it \kl{renames apart} all
+\kl{occurrences} again and ties the new variables of each variable together
+by a spanning tree, whose connectivity rules out every \kl{splitting}; the
+\kl{guards} then rule out every \kl{abstraction}
+(Theorem~\ref{thm:closure}). The resulting formula has linear \kl{size} but
+\kl{order} up to $7$.
+
+The second layer (Section~\ref{sec:order}) lowers the \kl{order}: we show
+that the polarized Statman translation $\St$ preserves \kl{minimality} in
+every \kl{logic} that contains $\axI$ and the translated formula
+(Theorem~\ref{thm:S-min}). Hence $\Mh{\Phi}=\St(\Mz{\Phi})$ satisfies
+Theorem~\ref{thm:intro-main}. In the full language, conjunction lets us
+merge premise and query directly, and the first layer already has
+\kl{order} at most $4$ (Section~\ref{sec:full}).
+
+Extension variables go back to Tseitin~\cite{Tse68} and were used by
+Statman~\cite{Sta79} to reduce intuitionistic propositional logic to its
+implicational fragment (see also \cite{Sve03}); polarized versions are due to
+Plaisted and Greenbaum~\cite{PG86} and Mints~\cite{Min90}.
+Jeřábek~\cite{Jer16} used a translation of the same kind to show that the
+substructural hierarchy of~\cite{CGT08} collapses over the full Lambek calculus with exchange $\intro*\FLe$, but did not
+consider \kl{minimality}. To our knowledge, Theorem~\ref{thm:S-min} has not
+been observed before. Nakamura and Matsuda~\cite[Proposition~3.3]{NM21}
+showed that every implicational \kl{intermediate logic} is axiomatizable by
+\emph{simple} formulas, that is, formulas in which no implication between
+two fresh variables can be abstracted. \kl{Minimality} requires, in
+addition, that no variable can be split and that no repeated compound
+subformula can be abstracted; these are the cases handled by the
+\kl{ports} and \kl{guards} of our first layer.
+\plot{Check work on projective formulas and unification (Ghilardi) for any
+statement equivalent to Theorem~\ref{thm:intro-main}; check the exact forms
+in \cite{Sta79}, \cite{Sve03}, \cite{Min90}.}
+
+The paper is organized as follows. Section~\ref{sec:prelim} fixes
+notation and proves the \kl{minimality} criterion.
+Section~\ref{sec:implicational} carries out the first layer: the known
+translations (Section~\ref{sec:constraints}), the \kl{monitor}
+(Section~\ref{sec:localization}), the \kl{tree closure}
+(Section~\ref{sec:minimality}), and their combination
+(Section~\ref{sec:first-layer}).
+Section~\ref{sec:order} reduces the \kl{order} by $\St$ and proves
+Theorem~\ref{thm:intro-main} and Corollary~\ref{cor:intro-all}.
+Section~\ref{sec:full} treats the full language, and
+Section~\ref{sec:principal} gives the \kl{principal type} reading.
+Section~\ref{sec:conclusion} lists open problems, among them Komori's
+original $\BCK$ version of the problem, to which our construction does not
+apply because it uses contraction.

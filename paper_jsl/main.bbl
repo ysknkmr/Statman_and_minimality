@@ -1,0 +1,157 @@
+\begin{thebibliography}{}
+
+\bibfitem{CGT08}
+{\guy{A.}{Agata}{}{Ciabattoni}{}, \guy{N.}{Nikolaos}{}{Galatos}{}, and \guy{K.}{Kazushige}{}{Terui}{}}
+{2008}{}{0}
+{}{}
+\guysmagic{{\scshape Agata Ciabattoni, Nikolaos Galatos, \biband{} Kazushige Terui}}  {\em From axioms to analytic rules in nonclassical logics}, {\bfseries\itshape Proceedings of the 23rd annual {IEEE} symposium on logic in computer science ({LICS} 2008)}, IEEE\yearmagic{,}{2008}, pp.\weaktie 229--240.
+\TheSortKeyIs{ciabattoni  agata   galatos  nikolaos   terui  kazushige    2008    from axioms to analytic rules in nonclassical logics}
+
+\bibfitem{Dum59}
+{\guy{M.}{Michael}{}{Dummett}{}}
+{1959}{}{0}
+{}{}
+\guysmagic{{\scshape Michael Dummett}}  {\em A propositional calculus with denumerable matrix}, {\normalfont \jslname}, vol.\weaktie 24\yearmagic{}{(1959)}, no.\weaktie 2, pp.\weaktie 97--106.
+\TheSortKeyIs{dummett  michael    1959    propositional calculus with denumerable matrix}
+
+\bibfitem{Hin69}
+{\guy{J.~R.}{J.~Roger}{}{Hindley}{}}
+{1969}{}{0}
+{}{}
+\guysmagic{{\scshape J.~Roger Hindley}}  {\em The principal type-scheme of an object in combinatory logic}, {\bfseries\itshape Transactions of the American Mathematical Society}, vol.\weaktie 146\yearmagic{}{(1969)}, pp.\weaktie 29--60, (check).
+\TheSortKeyIs{hindley  j roger    1969    principal type scheme of an object in combinatory logic}
+
+\bibfitem{Hir91}
+{\guy{S.}{Sachio}{}{Hirokawa}{}}
+{1991}{}{0}
+{}{}
+\guysmagic{{\scshape Sachio Hirokawa}}  {\em {BCK}-formulas having unique proofs}, {\bfseries\itshape Category theory and computer science ({CTCS} '91)}, Lecture Notes in Computer Science, vol. 530, Springer\yearmagic{,}{1991}, pp.\weaktie 106--120.
+\TheSortKeyIs{hirokawa  sachio    1991    bck formulas having unique proofs}
+
+\bibritem{Hir92}
+{\guy{S.}{Sachio}{}{Hirokawa}{}}
+{1992}{}{0}
+{}{}
+\guysmagic{\bysame}  {\em Balanced formulas, {BCK}-minimal formulas and their proofs}, {\bfseries\itshape {Logical Foundations of Computer Science (LFCS '92)}}, Lecture Notes in Computer Science, vol. 620, Springer\yearmagic{,}{1992}, (pages: check).
+\TheSortKeyIs{hirokawa  sachio    1992    balanced formulas bck minimal formulas and their proofs}
+
+\bibritem{Hir93}
+{\guy{S.}{Sachio}{}{Hirokawa}{}}
+{1993}{}{0}
+{}{}
+\guysmagic{\bysame}  {\em Principal types of {BCK}-lambda-terms}, {\bfseries\itshape Theoretical Computer Science}, vol.\weaktie 107\yearmagic{}{(1993)}, no.\weaktie 2, pp.\weaktie 253--276.
+\TheSortKeyIs{hirokawa  sachio    1993    principal types of bck lambda terms}
+
+\bibfitem{Jan68b}
+{\guy{V.~A.}{V.~A.}{}{Jankov}{}}
+{1968}{}{0}
+{}{}
+\guysmagic{{\scshape V.~A. Jankov}}  {\em The calculus of the weak ``law of excluded middle''}, {\bfseries\itshape Mathematics of the USSR-Izvestiya}, vol.\weaktie 2\yearmagic{}{(1968)}, no.\weaktie 5, pp.\weaktie 997--1004.
+\TheSortKeyIs{jankov  v a    1968    calculus of the weak law of excluded middle}
+
+\bibfitem{Jer16}
+{\guy{E.}{Emil}{}{Je{\v r}{\'a}bek}{}}
+{2016}{}{0}
+{}{}
+\guysmagic{{\scshape Emil Je{\v r}{\'a}bek}}  {\em A note on the substructural hierarchy}, {\bfseries\itshape Mathematical Logic Quarterly}, vol.\weaktie 62\yearmagic{}{(2016)}, no.\weaktie 1--2, pp.\weaktie 102--110.
+\TheSortKeyIs{jerabek  emil    2016    note on the substructural hierarchy}
+
+\bibfitem{Kas05b}
+{\guy{R.}{Ryo}{}{Kashima}{}}
+{2005}{a}{0}
+{}{}
+\guysmagic{{\scshape Ryo Kashima}}  {\em On non-generality of axioms of intermediate propositional logics}, Manuscript (in Japanese)\yearmagic{,}{2005}.
+\TheSortKeyIs{kashima  ryo    2005    on non generality of axioms of intermediate propositional logics}
+
+\bibritem{Kas05}
+{\guy{R.}{Ryo}{}{Kashima}{}}
+{2005}{b}{0}
+{}{}
+\guysmagic{\bysame}  {\em Problems on axiomatization of intermediate propositional logics}, {\bfseries\itshape The 39th {MLG} meeting}\yearmagic{,}{2005}, pp.\weaktie 59--62.
+\TheSortKeyIs{kashima  ryo    2005    problems on axiomatization of intermediate propositional logics}
+
+\bibfitem{Kom87}
+{\guy{Y.}{Yuichi}{}{Komori}{}}
+{1987}{}{0}
+{}{}
+\guysmagic{{\scshape Yuichi Komori}}  {\em {BCK} algebras and lambda calculus}, {\bfseries\itshape Proceedings of the 10th symposium on semigroups, {Sakado} 1986}\yearmagic{,}{1987}, pp.\weaktie 5--11.
+\TheSortKeyIs{komori  yuichi    1987    bck algebras and lambda calculus}
+
+\bibritem{Kom05}
+{\guy{Y.}{Yuichi}{}{Komori}{}}
+{2005}{}{0}
+{}{}
+\guysmagic{\bysame}  {\em A problem on logics axiomatized with formulas minimal in classical logic, and more}, Mathematical Society of Japan Autumn Meeting (in Japanese)\yearmagic{,}{2005}.
+\TheSortKeyIs{komori  yuichi    2005    problem on logics axiomatized with formulas minimal in classical logic and more}
+
+\bibritem{Kom07}
+{\guy{Y.}{Yuichi}{}{Komori}{}}
+{2007}{}{0}
+{}{}
+\guysmagic{\bysame}  {\em Propositional logics revisited: deployments from misunderstanding and mistakes}, {\bfseries\itshape {Mathematical Society of Japan} autumn meeting (in {Japanese})}\yearmagic{,}{2007}, pp.\weaktie 82--94.
+\TheSortKeyIs{komori  yuichi    2007    propositional logics revisited deployments from misunderstanding and mistakes}
+
+\bibfitem{KH93}
+{\guy{Y.}{Yuichi}{}{Komori}{} and \guy{S.}{Sachio}{}{Hirokawa}{}}
+{1993}{}{0}
+{}{}
+\guysmagic{{\scshape Yuichi Komori \biband{} Sachio Hirokawa}}  {\em The number of proofs for a {BCK}-formula}, {\normalfont \jslname}, vol.\weaktie 58\yearmagic{}{(1993)}, no.\weaktie 2, pp.\weaktie 626--628.
+\TheSortKeyIs{komori  yuichi   hirokawa  sachio    1993    number of proofs for a bck formula}
+
+\bibfitem{Min90}
+{\guy{G.}{Grigori}{}{Mints}{}}
+{1990}{}{0}
+{}{}
+\guysmagic{{\scshape Grigori Mints}}  {\em Gentzen-type systems and resolution rules. {P}art {I}: propositional logic}, {\bfseries\itshape {COLOG-88}}, Lecture Notes in Computer Science, vol. 417, Springer\yearmagic{,}{1990}, (check), pp.\weaktie 198--231.
+\TheSortKeyIs{mints  grigori    1990    gentzen type systems and resolution rules part i propositional logic}
+
+\bibfitem{NM21}
+{\guy{Y.}{Yoshiki}{}{Nakamura}{} and \guy{N.}{Naosuke}{}{Matsuda}{}}
+{2021}{}{0}
+{}{}
+\guysmagic{{\scshape Yoshiki Nakamura \biband{} Naosuke Matsuda}}  {\em On implicational intermediate logics axiomatizable by formulas minimal in classical logic: a counter-example to the {K}omori--{K}ashima problem}, {\bfseries\itshape Studia Logica}, vol.\weaktie 109\yearmagic{}{(2021)}, pp.\weaktie 1413--1422.
+\TheSortKeyIs{nakamura  yoshiki   matsuda  naosuke    2021    on implicational intermediate logics axiomatizable by formulas minimal in classical logic a counter example to the komori  kashima problem}
+
+\bibfitem{PG86}
+{\guy{D.~A.}{David~A.}{}{Plaisted}{} and \guy{S.}{Steven}{}{Greenbaum}{}}
+{1986}{}{0}
+{}{}
+\guysmagic{{\scshape David~A. Plaisted \biband{} Steven Greenbaum}}  {\em A structure-preserving clause form translation}, {\bfseries\itshape Journal of Symbolic Computation}, vol.\weaktie 2\yearmagic{}{(1986)}, no.\weaktie 3, pp.\weaktie 293--304.
+\TheSortKeyIs{plaisted  david a   greenbaum  steven    1986    structure preserving clause form translation}
+
+\bibfitem{Sta79}
+{\guy{R.}{Richard}{}{Statman}{}}
+{1979}{}{0}
+{}{}
+\guysmagic{{\scshape Richard Statman}}  {\em Intuitionistic propositional logic is polynomial-space complete}, {\bfseries\itshape Theoretical Computer Science}, vol.\weaktie 9\yearmagic{}{(1979)}, pp.\weaktie 67--72.
+\TheSortKeyIs{statman  richard    1979    intuitionistic propositional logic is polynomial space complete}
+
+\bibfitem{Sve03}
+{\guy{V.}{V{\'\i}t{\v e}zslav}{}{{\v S}vejdar}{}}
+{2003}{}{0}
+{}{}
+\guysmagic{{\scshape V{\'\i}t{\v e}zslav {\v S}vejdar}}  {\em On the polynomial-space completeness of intuitionistic propositional logic}, {\bfseries\itshape Archive for Mathematical Logic}, vol.\weaktie 42\yearmagic{}{(2003)}, no.\weaktie 7, pp.\weaktie 711--716.
+\TheSortKeyIs{svejdar  vitezslav    2003    on the polynomial space completeness of intuitionistic propositional logic}
+
+\bibfitem{Tat93}
+{\guy{M.}{Makoto}{}{Tatsuta}{}}
+{1993}{}{0}
+{}{}
+\guysmagic{{\scshape Makoto Tatsuta}}  {\em Uniqueness of normal proofs of minimal formulas}, {\normalfont \jslname}, vol.\weaktie 58\yearmagic{}{(1993)}, no.\weaktie 3, pp.\weaktie 789--799.
+\TheSortKeyIs{tatsuta  makoto    1993    uniqueness of normal proofs of minimal formulas}
+
+\bibritem{Tat06}
+{\guy{M.}{Makoto}{}{Tatsuta}{}}
+{2006}{}{0}
+{}{}
+\guysmagic{\bysame}  {\em Uniqueness of {D}-normal proofs}, {\bfseries\itshape Technical Report NII-2006-011E}, National Institute of Informatics\yearmagic{,}{2006}.
+\TheSortKeyIs{tatsuta  makoto    2006    uniqueness of d normal proofs}
+
+\bibfitem{Tse68}
+{\guy{G.~S.}{G.~S.}{}{Tseitin}{}}
+{1968}{}{0}
+{}{}
+\guysmagic{{\scshape G.~S. Tseitin}}  {\em On the complexity of derivation in propositional calculus}, {\bfseries\itshape Studies in constructive mathematics and mathematical logic, part {II}}\yearmagic{,}{1968}, pp.\weaktie 115--125.
+\TheSortKeyIs{tseitin  g s    1968    on the complexity of derivation in propositional calculus}
+
+\end{thebibliography}

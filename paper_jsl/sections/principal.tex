@@ -1,0 +1,68 @@
+%======================================================================
+\section{Principal types}\label{sec:principal}
+
+Let $\Gamma$ be a set of implicational formulas and $L=\IL\lplus\Gamma$.
+\AP Consider the $\lambda$-\intro{terms} built from variables and constants
+$\intro*\cst{\gamma}$ $(\gamma\in\Gamma)$ by abstraction and application,
+typed by the rules of the simply typed $\lambda$-calculus together with
+$\cst{\gamma}:\sigma\gamma$ for every substitution $\sigma$; that is, each
+constant has the type scheme $\gamma$, and different \kl{occurrences} of a
+constant may receive different instances. We write
+$\intro*\types{t}{\alpha}$ if the closed \kl{term} $t$ has type $\alpha$. By
+the Curry--Howard correspondence, $\alpha\in L$ if and only if
+$\types{t}{\alpha}$ for some closed \kl{term} $t$: the simply typed
+$\lambda$-calculus inhabits exactly the formulas of $\IL$, constants give the
+instances of $\Gamma$, application is modus ponens, and typings are closed
+under substitution. For $\CL$ one may take $\Gamma=\{\axP\}$, so that
+$\cst{\axP}$ is a $\mathtt{call/cc}$ operator.
+
+\AP As for the simply typed $\lambda$-calculus~\cite{Hin69}, every typable
+\kl{term} $t$ has a \intro{principal type} $\intro*\pt{t}$: the types of $t$
+are exactly the substitution instances of $\pt{t}$. The usual unification
+argument applies, a constant contributing a fresh copy of its type scheme at
+each \kl{occurrence}.
+\plot{Give a reference for principal types with constants of schematic
+type.}
+
+\begin{proposition}\label{prop:principal}
+Let $\alpha\in L$. Then $\alpha$ is \kl{minimal in} $L$ if and only if
+$\alpha$ is, up to \kl{renaming}, the \kl{principal type} of every closed
+\kl{term} $t$ with $\types{t}{\alpha}$.
+\end{proposition}
+\begin{proof}
+Suppose $\alpha$ is \kl{minimal in} $L$ and $\types{t}{\alpha}$. Then
+$\pt{t}\sub\alpha$ and $\pt{t}\in L$, so $\alpha\sub\pt{t}$. Conversely,
+suppose $\beta\in L$ and $\beta\ssub\alpha$, and let $\types{s}{\beta}$.
+Then $\types{s}{\alpha}$, and $\pt{s}\sub\beta\ssub\alpha$, so $\alpha$ is
+not the \kl{principal type} of $s$.
+\end{proof}
+
+Since $\Min(\CL)\cap L\subseteq\Min(L)$, Theorem~\ref{thm:intro-main}
+gives the following.
+
+\begin{corollary}\label{cor:principal}
+Every implicational \kl{intermediate logic} $L$ is $\IL\lplus\Gamma$ for a set
+$\Gamma$ of formulas of \kl{order} at most $4$ such that each
+$\gamma\in\Gamma$ is the \kl{principal type} of every closed \kl{term} of
+type $\gamma$, in the calculus for $L$ as well as in the calculus for $\CL$.
+\end{corollary}
+
+By Remark~\ref{rem:self}, the version of Corollary~\ref{cor:principal} that
+refers only to the calculus for $L$ is trivial; the point is the calculus
+for $\CL$.
+
+Two facts put the corollary in perspective. On the one hand, Hindley's
+theorem~\cite{Hin69} says that every inhabited simple type is the
+\kl{principal type} of some closed \kl{term}, so being principal for
+\emph{some} inhabitant is no restriction. On the other hand, being principal
+for \emph{all} inhabitants is a strong restriction in substructural
+settings: the formulas \kl{minimal in} $\BCK$ are exactly the
+\kl{principal types} of $\beta\eta$-normal $\BCK$-$\lambda$-terms, and each
+of them has a unique $\beta\eta$-normal inhabitant
+\cite{Hir92,Hir93,Tat06}; see also~\cite{Hir91,KH93}. In $\IL$ and $\CL$,
+uniqueness fails already for minimal formulas of depth $3$~\cite{Tat93}.
+Corollary~\ref{cor:principal} shows that, in the intermediate setting, the
+remaining requirement of principality for all classical inhabitants is no
+restriction on the \kl{logics} that can be axiomatized.
+\plot{Check the exact statements in \cite{Hin69} (normal forms; combinatory
+logic vs.\ $\lambda$-calculus) and Tatsuta's notion of depth.}
